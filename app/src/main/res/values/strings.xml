@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">EnerChu</string>
+    <string name="title_face">EnerChu</string>
+    <string name="title_plug">Plug</string>
+    <string name="title_mission">Mission</string>
+    <string name="title_setting">Setting</string>
+</resources>

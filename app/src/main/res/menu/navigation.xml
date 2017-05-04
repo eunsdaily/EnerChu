@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/navigation_face"
+        android:icon="@drawable/iconmonstr_home_6_240_white"
+        android:title="@string/title_face" />
+
+    <item
+        android:id="@+id/navigation_pulg"
+        android:icon="@drawable/iconmonstr_power_on_off_12_240_white"
+        android:title="@string/title_plug" />
+
+    <item
+        android:id="@+id/navigation_bill"
+        android:icon="@drawable/iconmonstr_chart_19_240"
+        android:title="Bill" />
+
+    <item
+        android:id="@+id/navigation_mission"
+        android:icon="@drawable/iconmonstr_task_1_240_white"
+        android:title="@string/title_mission" />
+
+    <item
+        android:id="@+id/navigation_setting"
+        android:icon="@drawable/iconmonstr_gear_2_240_white"
+        android:title="@string/title_setting" />
+
+
+</menu>
