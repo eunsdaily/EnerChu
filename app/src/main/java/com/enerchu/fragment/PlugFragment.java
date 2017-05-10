@@ -2,16 +2,14 @@ package com.enerchu.fragment;
 
 import android.support.annotation.Nullable;
 import android.app.Fragment;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.LinearLayout;
 import android.widget.ListView;
 
-import com.enerchu.DAO.MultiTapDAO;
-import com.enerchu.DAO.PlugDAO;
+import com.enerchu.SQLite.DAO.MultiTapDAO;
+import com.enerchu.SQLite.DAO.PlugDAO;
 import com.enerchu.PlugCustomAdapter;
 import com.enerchu.R;
 

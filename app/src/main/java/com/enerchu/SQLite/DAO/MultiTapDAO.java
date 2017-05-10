@@ -1,4 +1,4 @@
-package com.enerchu.DAO;
+package com.enerchu.SQLite.DAO;
 
 import java.util.Random;
 

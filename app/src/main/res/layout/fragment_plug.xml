@@ -6,13 +6,27 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:weightSum="10"
-    android:background="#FFFFFF"
+    android:background="@color/colorBackground"
     tools:context="com.enerchu.fragment.PlugFragment">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="0.8"
+        android:text="플러그 관리"
+        android:background="#FFFFFF"
+        android:gravity="center"/>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dip"
+        android:background="#90909090" />
 
     <ListView
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="9"
+        android:layout_weight="8.2"
+        android:background="#FFFFFF"
         android:id="@+id/listView"
         android:orientation="vertical"/>
     <View

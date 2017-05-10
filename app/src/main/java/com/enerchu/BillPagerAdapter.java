@@ -8,14 +8,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.enerchu.DAO.BillDAO;
-import com.enerchu.fragment.BillPlugFragment;
-import com.enerchu.fragment.BillTotalFragment;
+import com.enerchu.SQLite.DAO.BillDAO;
 import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.components.XAxis;
 import com.github.mikephil.charting.components.YAxis;
 import com.github.mikephil.charting.data.Entry;
-import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
 import com.github.mikephil.charting.interfaces.datasets.ILineDataSet;
 
@@ -44,13 +41,13 @@ public class BillPagerAdapter extends PagerAdapter {
 
         switch (position){
             case 0:
-                view = inflater.inflate(R.layout.fragment_bill_total, null);
+                //view = inflater.inflate(R.layout.fragment_bill_total, null);
                 setChart(view, 1);
                 ViewGroup chartView = (ViewGroup) view.findViewById(R.id.chart);
                 ((ViewPager)container).addView(view, 0);
                 break;
             case 1:
-                view = inflater.inflate(R.layout.fragment_bill_plug, null);
+                //view = inflater.inflate(R.layout.fragment_bill_plug, null);
                 ((ViewPager)container).addView(view, 0);
                 break;
         }
@@ -78,7 +75,7 @@ public class BillPagerAdapter extends PagerAdapter {
         setComp.setAxisDependency(YAxis.AxisDependency.LEFT);
 
         ArrayList<ILineDataSet> dataSets = new ArrayList<ILineDataSet>();
-        dataSets.add(setComp);
+        dataSets.addAll(dataSets);
 
         // Set Name of X values
         ArrayList<String> xValues = new ArrayList<String>();
@@ -91,22 +88,22 @@ public class BillPagerAdapter extends PagerAdapter {
         xValues.add(" ");
 
         //LineData data = new LineData(xValues, dataSets);
-        LineData data = new LineData(xValues, dataSets);
+        //LineData data = new LineData(dataSets);
 
         // Set data and refresh
-        chart.setData(data);
+//        chart.setData(data);
         chart.invalidate();
     }
 
     private ArrayList<Entry> getValsComp(){
         ArrayList<Entry> valsComp = new ArrayList<Entry>();
-        valsComp.add(new Entry(getBeteenValue(billDAO.getBeforeBill(null, null, 2),billDAO.getBeforeBill(null,null,1)), 0, 0));
-        valsComp.add(new Entry(billDAO.getBeforeBill(null, null, 1), 1, 0));
-        valsComp.add(new Entry(getBeteenValue(billDAO.getBeforeBill(null, null, 1), billDAO.getTodayBill(null, null)), 2,0));
-        valsComp.add(new Entry(billDAO.getTodayBill(null, null), 3, 0));
-        valsComp.add(new Entry(getBeteenValue(billDAO.getTodayBill(null, null), billDAO.getTomorrowBill(null, null)), 4,0));
-        valsComp.add(new Entry(billDAO.getTomorrowBill(null, null), 5, 0));
-        valsComp.add(new Entry(billDAO.getTomorrowBill(null, null)/2, 6, 0));
+//        valsComp.add(new Entry(getBeteenValue(billDAO.getBeforeBill(null, null, 2),billDAO.getBeforeBill(null,null,1)), 0, 0));
+//        valsComp.add(new Entry(billDAO.getBeforeBill(null, null, 1), 1, 0));
+//        valsComp.add(new Entry(getBeteenValue(billDAO.getBeforeBill(null, null, 1), billDAO.getTodayBill(null, null)), 2,0));
+//        valsComp.add(new Entry(billDAO.getTodayBill(null, null), 3, 0));
+//        valsComp.add(new Entry(getBeteenValue(billDAO.getTodayBill(null, null), billDAO.getTomorrowBill(null, null)), 4,0));
+//        valsComp.add(new Entry(billDAO.getTomorrowBill(null, null), 5, 0));
+//        valsComp.add(new Entry(billDAO.getTomorrowBill(null, null)/2, 6, 0));
 
         return valsComp;
     }
@@ -195,7 +192,7 @@ public class BillPagerAdapter extends PagerAdapter {
             set1.setDrawFilled(true);
             set1.setDrawCircles(false);
             set1.setLineWidth(1.8f);
-            set1.setCircleRadius(4f);
+            //set1.setCircleRadius(4f);
             set1.setCircleColor(Color.WHITE);
             set1.setHighLightColor(Color.rgb(244, 117, 117));
             set1.setColor(Color.WHITE);
@@ -216,13 +213,13 @@ public class BillPagerAdapter extends PagerAdapter {
             }
 
             // create a data object with the datasets
-            LineData data = new LineData(xValues,set1);
+            //LineData data = new LineData(set1);
             //data.setValueTypeface(mTfLight);
-            data.setValueTextSize(9f);
-            data.setDrawValues(false);
+//            data.setValueTextSize(9f);
+//            data.setDrawValues(false);
 
             // set data
-            mChart.setData(data);
+//            mChart.setData(data);
         }
         return mChart;
     }
