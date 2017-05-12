@@ -10,7 +10,7 @@ import android.widget.ListView;
 
 import com.enerchu.SQLite.DAO.MultiTapDAO;
 import com.enerchu.SQLite.DAO.PlugDAO;
-import com.enerchu.PlugCustomAdapter;
+import com.enerchu.Adapter.PlugCustomAdapter;
 import com.enerchu.R;
 
 public class PlugFragment extends Fragment {

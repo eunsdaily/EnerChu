@@ -4,4 +4,9 @@
     <color name="colorPrimaryDark">#0b0f0d</color>
     <color name="colorAccent">#FFD34E</color>
     <color name="colorBackground">#FFFFFF</color>
-</resources>
+    <color name="colorGray">#FAFAFA</color>
+    <color name="colorFirstBar">#ff7f66</color>
+    <color name="colorSecondBar">#FFCE75</color>
+    <color name="colorThirdBar">#7DCEFD</color>
+    <color name="colorFourthBar">#2184C7</color>
+    </resources>

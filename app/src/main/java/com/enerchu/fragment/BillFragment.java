@@ -12,21 +12,14 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.ViewFlipper;
 
-import com.enerchu.BillCustomAdapter;
+import com.enerchu.Adapter.BillCustomAdapter;
+import com.enerchu.ChartMaker;
 import com.enerchu.SQLite.DAO.BillDAO;
 import com.enerchu.SQLite.DAO.ClientDAO;
 import com.enerchu.SQLite.DAO.MultiTapDAO;
 import com.enerchu.SQLite.DAO.PlugDAO;
 import com.enerchu.R;
 import com.github.mikephil.charting.charts.LineChart;
-import com.github.mikephil.charting.components.XAxis;
-import com.github.mikephil.charting.components.YAxis;
-import com.github.mikephil.charting.data.Entry;
-import com.github.mikephil.charting.data.LineData;
-import com.github.mikephil.charting.data.LineDataSet;
-import com.github.mikephil.charting.utils.ColorTemplate;
-
-import java.util.ArrayList;
 
 /**
  * Created by admin on 2017-04-30.
@@ -62,7 +55,9 @@ public class BillFragment extends Fragment {
         viewFlipper = (ViewFlipper) root.findViewById(R.id.viewFlipper);
         viewFlipper.setOnTouchListener(flipperTouchListener);
 
-        setChart();
+        //setChart();
+        ChartMaker chartMaker = new ChartMaker();
+        chartMaker.setMultitapChart(root);
 
         // set text
         lastMonthBillTextView = (TextView) root.findViewById(R.id.lastMonthBill);
@@ -138,57 +133,6 @@ public class BillFragment extends Fragment {
             }
         }
     };
-
-    private void setChart(){
-        LineChart lineChart = (LineChart) root.findViewById(R.id.chart);
-        lineChart.setDescription("");
-
-        ArrayList<Entry> entries = new ArrayList<>();
-        float day1 = billDAO.getBeforeBill(null, null, 2);
-        float day2 = billDAO.getBeforeBill(null, null, 1);
-        float day3 = billDAO.getTodayBill(null, null);
-        float day4 = billDAO.getTomorrowBill(null, null);
-        float maxYWidth = Math.max(Math.max(day1, day2), Math.max(day3, day4)) + 10;
-        entries.add(new Entry(day1, 0));
-        entries.add(new Entry(day2, 1));
-        entries.add(new Entry(day3, 2));
-        entries.add(new Entry(day4, 3));
-        entries.add(new Entry(day4, 4));
-
-        LineDataSet dataset = new LineDataSet(entries, "");
-
-        ArrayList<String> labels = new ArrayList<String>();
-        labels.add("");
-        labels.add("어제");
-        labels.add("오늘");
-        labels.add("내일");
-        labels.add("");
-
-        LineData data = new LineData(labels, dataset);
-        dataset.setColors(ColorTemplate.PASTEL_COLORS);
-        dataset.setDrawCubic(true);
-        dataset.setDrawFilled(true);
-
-        lineChart.setData(data);
-        lineChart.animateY(5000);
-
-        XAxis xAxis = lineChart.getXAxis();
-        xAxis.setPosition(XAxis.XAxisPosition.BOTTOM_INSIDE);
-        xAxis.setDrawGridLines(false);
-
-        YAxis leftAxis = lineChart.getAxisLeft();
-        leftAxis.setAxisMaxValue(maxYWidth);
-        leftAxis.setAxisMinValue(0);
-        leftAxis.setDrawGridLines(false);
-        leftAxis.setDrawAxisLine(false);
-        leftAxis.setDrawLabels(false);
-        leftAxis.setPosition(YAxis.YAxisLabelPosition.INSIDE_CHART);
-
-        YAxis rightAxis = lineChart.getAxisRight();
-        rightAxis.setEnabled(false);
-
-        lineChart.invalidate();
-    }
 
     @Override
     public void onResume() {

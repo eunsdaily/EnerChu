@@ -1,0 +1,359 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#000000"
+        android:alpha="0.5" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="10dp"
+        android:background="@color/colorGray"
+        android:orientation="vertical"
+        android:layout_margin="30dp"
+        android:layout_centerVertical="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="10dp"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center_vertical"
+                android:paddingLeft="10dp">
+
+                <ImageView
+                    android:layout_width="15dp"
+                    android:layout_height="15dp"
+                    android:src="@drawable/icon_plug"/>
+                <TextView
+                    android:id="@+id/plugNameTextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:text="멀티탭"
+                    android:textSize="15sp"/>
+
+            </LinearLayout>
+
+
+            <com.github.mikephil.charting.charts.HorizontalBarChart
+                android:id="@+id/barChart"
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:layout_margin="20dp"/>
+
+            <TableLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:paddingLeft="20dp"
+                android:paddingRight="20dp">
+
+                <TableRow
+                    android:layout_marginBottom="5dp">
+
+                    <ImageView
+                        android:layout_width="10dp"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center_vertical"
+                        android:tint="@color/colorFirstBar"
+                        app:srcCompat="@android:drawable/star_off" />
+
+                    <TextView
+                        android:id="@+id/firstNickName"
+                        android:text="1구" />
+                </TableRow>
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="5dp">
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dip"
+                        android:layout_weight="1"
+                        android:background="#90909090" />
+
+                </TableRow>
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:weightSum="5"
+                    android:layout_marginBottom="5dp">
+
+                    <TextView
+                        android:text="전월 사용량"
+                        android:layout_weight="1"
+                        android:gravity="center"/>
+
+                    <TextView
+                        android:id="@+id/firstLastMonthBill"
+                        android:text="wh"
+                        android:layout_weight="4"
+                        android:gravity="center"/>
+
+                </TableRow>
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:weightSum="5"
+                    android:layout_marginBottom="20dp">
+
+                    <TextView
+                        android:text="이달 사용량"
+                        android:layout_weight="1"
+                        android:gravity="center"/>
+
+                    <TextView
+                        android:id="@+id/firstThisMonthBill"
+                        android:text="wh"
+                        android:layout_weight="4"
+                        android:gravity="center"/>
+
+                </TableRow>
+
+
+                <TableRow
+                    android:layout_marginBottom="5dp">
+
+                    <ImageView
+                        android:layout_width="10dp"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center_vertical"
+                        android:tint="@color/colorSecondBar"
+                        app:srcCompat="@android:drawable/star_off" />
+
+                    <TextView
+                        android:id="@+id/secondNickName"
+                        android:text="2구" />
+                </TableRow>
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="5dp">
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dip"
+                        android:layout_weight="1"
+                        android:background="#90909090" />
+
+                </TableRow>
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:weightSum="5"
+                    android:layout_marginBottom="5dp">
+
+                    <TextView
+                        android:text="전월 사용량"
+                        android:layout_weight="1"
+                        android:gravity="center"/>
+
+                    <TextView
+                        android:id="@+id/secondLastMonthBill"
+                        android:text="wh"
+                        android:layout_weight="4"
+                        android:gravity="center"/>
+
+                </TableRow>
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:weightSum="5"
+                    android:layout_marginBottom="20dp">
+
+                    <TextView
+                        android:text="이달 사용량"
+                        android:layout_weight="1"
+                        android:gravity="center"/>
+
+                    <TextView
+                        android:id="@+id/secondThisMonthBill"
+                        android:text="wh"
+                        android:layout_weight="4"
+                        android:gravity="center"/>
+
+                </TableRow>
+
+
+
+                <TableRow
+                    android:layout_marginBottom="5dp">
+
+                    <ImageView
+                        android:layout_width="10dp"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center_vertical"
+                        android:tint="@color/colorThirdBar"
+                        app:srcCompat="@android:drawable/star_off" />
+
+                    <TextView
+                        android:id="@+id/thirdNickName"
+                        android:text="3구" />
+                </TableRow>
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="5dp">
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dip"
+                        android:layout_weight="1"
+                        android:background="#90909090" />
+
+                </TableRow>
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:weightSum="5"
+                    android:layout_marginBottom="5dp">
+
+                    <TextView
+                        android:text="전월 사용량"
+                        android:layout_weight="1"
+                        android:gravity="center"/>
+
+                    <TextView
+                        android:id="@+id/thirdLastMonthBill"
+                        android:text="wh"
+                        android:layout_weight="4"
+                        android:gravity="center"/>
+
+                </TableRow>
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:weightSum="5"
+                    android:layout_marginBottom="20dp">
+
+                    <TextView
+                        android:text="이달 사용량"
+                        android:layout_weight="1"
+                        android:gravity="center"/>
+
+                    <TextView
+                        android:id="@+id/thirdThisMonthBill"
+                        android:text="wh"
+                        android:layout_weight="4"
+                        android:gravity="center"/>
+
+                </TableRow>
+
+
+
+                <TableRow
+                    android:layout_marginBottom="5dp">
+
+                    <ImageView
+                        android:layout_width="10dp"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center_vertical"
+                        android:tint="@color/colorFourthBar"
+                        app:srcCompat="@android:drawable/star_off" />
+
+                    <TextView
+                        android:id="@+id/fourthNickName"
+                        android:text="4구" />
+                </TableRow>
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="5dp">
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dip"
+                        android:layout_weight="1"
+                        android:background="#90909090" />
+
+                </TableRow>
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:weightSum="5"
+                    android:layout_marginBottom="5dp">
+
+                    <TextView
+                        android:text="전월 사용량"
+                        android:layout_weight="1"
+                        android:gravity="center"/>
+
+                    <TextView
+                        android:id="@+id/fourthLastMonthBill"
+                        android:text="wh"
+                        android:layout_weight="4"
+                        android:gravity="center"/>
+
+                </TableRow>
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:weightSum="5"
+                    android:layout_marginBottom="20dp">
+
+                    <TextView
+                        android:text="이달 사용량"
+                        android:layout_weight="1"
+                        android:gravity="center"/>
+
+                    <TextView
+                        android:id="@+id/fourthThisMonthBill"
+                        android:text="wh"
+                        android:layout_weight="4"
+                        android:gravity="center"/>
+
+                </TableRow>
+
+            </TableLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dip"
+                android:layout_weight="1"
+                android:paddingLeft="20dp"
+                android:paddingRight="20dp"
+                android:background="#90909090" />
+
+            <Button
+                android:id="@+id/comfirmBtn"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="13sp"
+                android:paddingLeft="20dp"
+                android:paddingRight="20dp"
+                android:background="@color/colorGray"
+                android:text="확 인" />
+
+        </LinearLayout>
+
+
+
+    </ScrollView>
+
+</RelativeLayout>

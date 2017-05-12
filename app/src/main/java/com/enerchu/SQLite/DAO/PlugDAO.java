@@ -14,4 +14,14 @@ public class PlugDAO {
         Random random = new Random();
         return random.nextBoolean();
     }
+
+    public int getLastMonthBill(String multiTapKey, int i) {
+        Random random = new Random();
+        return random.nextInt(20);
+    }
+
+    public int getThisMonthBill(String multiTapKey, int i) {
+        Random random = new Random();
+        return random.nextInt(20);
+    }
 }
