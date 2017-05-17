@@ -1,0 +1,463 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TableLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/tableLayout"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center"
+    android:weightSum="13"
+    android:textSize="12sp">
+
+    <TableRow>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:layout_weight="1"
+            android:background="#202020" />
+    </TableRow>
+
+    <TableRow
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/colorSecondBar"
+        android:weightSum="10"
+        android:layout_weight="1"
+        android:padding="3dp"
+        android:gravity="center">
+
+        <TextView
+            android:text="날짜"
+            android:gravity="center"
+            android:layout_weight="2"/>
+
+        <TextView
+            android:text="미션"
+            android:gravity="center"
+            android:layout_weight="6"/>
+
+        <TextView
+            android:text="성공여부"
+            android:gravity="center"
+            android:layout_weight="2"/>
+    </TableRow>
+
+    <TableRow>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:layout_weight="1"
+            android:background="#202020" />
+    </TableRow>
+
+
+    <TableRow
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:weightSum="10"
+        android:gravity="center_horizontal"
+        android:padding="3dp"
+        android:layout_weight="1">
+
+        <TextView
+            android:id="@+id/row_1_date"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:layout_weight="2" />
+
+        <TextView
+            android:id="@+id/row_1_mission"
+            android:layout_gravity="center_vertical"
+            android:layout_weight="6"/>
+
+        <TextView
+            android:id="@+id/row_1_success"
+            android:gravity="center"
+            android:layout_gravity="center"
+            android:layout_weight="2"/>
+    </TableRow>
+
+    <TableRow>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:layout_weight="1"
+            android:background="#202020" />
+    </TableRow>
+
+
+    <TableRow
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:weightSum="10"
+        android:padding="3dp"
+        android:layout_weight="1">
+
+        <TextView
+            android:id="@+id/row_2_date"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:layout_weight="2"/>
+
+        <TextView
+            android:id="@+id/row_2_mission"
+            android:layout_gravity="center_vertical"
+            android:layout_weight="6"/>
+
+        <TextView
+            android:id="@+id/row_2_success"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:layout_weight="2"/>
+    </TableRow>
+
+    <TableRow>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:layout_weight="1"
+            android:background="#202020" />
+    </TableRow>
+
+
+    <TableRow
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:weightSum="10"
+        android:padding="3dp"
+        android:layout_weight="1">
+
+        <TextView
+            android:id="@+id/row_3_date"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:layout_weight="2"/>
+
+        <TextView
+            android:id="@+id/row_3_mission"
+            android:layout_gravity="center_vertical"
+            android:layout_weight="6"/>
+
+        <TextView
+            android:id="@+id/row_3_success"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:layout_weight="2"/>
+    </TableRow>
+
+    <TableRow>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:layout_weight="1"
+            android:background="#202020" />
+    </TableRow>
+
+
+    <TableRow
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:weightSum="10"
+        android:padding="3dp"
+        android:layout_weight="1">
+
+        <TextView
+            android:id="@+id/row_4_date"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:layout_weight="2"/>
+
+        <TextView
+            android:id="@+id/row_4_mission"
+            android:layout_gravity="center_vertical"
+            android:layout_weight="6"/>
+
+        <TextView
+            android:id="@+id/row_4_success"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:layout_weight="2"/>
+    </TableRow>
+
+    <TableRow>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:layout_weight="1"
+            android:background="#202020" />
+    </TableRow>
+
+
+    <TableRow
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:weightSum="10"
+        android:padding="3dp"
+        android:layout_weight="1">
+
+        <TextView
+            android:id="@+id/row_5_date"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:layout_weight="2"/>
+
+        <TextView
+            android:id="@+id/row_5_mission"
+            android:layout_gravity="center_vertical"
+            android:layout_weight="6"/>
+
+        <TextView
+            android:id="@+id/row_5_success"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:layout_weight="2"/>
+    </TableRow>
+
+    <TableRow>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:layout_weight="1"
+            android:background="#202020" />
+    </TableRow>
+
+
+    <TableRow
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:weightSum="10"
+        android:padding="3dp"
+        android:layout_weight="1">
+
+        <TextView
+            android:id="@+id/row_6_date"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:layout_weight="2"/>
+
+        <TextView
+            android:id="@+id/row_6_mission"
+            android:layout_gravity="center_vertical"
+            android:layout_weight="6"/>
+
+        <TextView
+            android:id="@+id/row_6_success"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:layout_weight="2"/>
+    </TableRow>
+
+    <TableRow>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:layout_weight="1"
+            android:background="#202020" />
+    </TableRow>
+
+
+    <TableRow
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:weightSum="10"
+        android:padding="3dp"
+        android:layout_weight="1">
+
+        <TextView
+            android:id="@+id/row_7_date"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:layout_weight="2"/>
+
+        <TextView
+            android:id="@+id/row_7_mission"
+            android:layout_gravity="center_vertical"
+            android:layout_weight="6"/>
+
+        <TextView
+            android:id="@+id/row_7_success"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:layout_weight="2"/>
+    </TableRow>
+
+    <TableRow>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:layout_weight="1"
+            android:background="#202020" />
+    </TableRow>
+
+
+    <TableRow
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:weightSum="10"
+        android:padding="3dp"
+        android:layout_weight="1">
+
+        <TextView
+            android:id="@+id/row_8_date"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:layout_weight="2"/>
+
+        <TextView
+            android:id="@+id/row_8_mission"
+            android:layout_gravity="center_vertical"
+            android:layout_weight="6"/>
+
+        <TextView
+            android:id="@+id/row_8_success"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:layout_weight="2"/>
+    </TableRow>
+
+    <TableRow>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:layout_weight="1"
+            android:background="#202020" />
+    </TableRow>
+
+
+    <TableRow
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:weightSum="10"
+        android:padding="3dp"
+        android:layout_weight="1">
+
+        <TextView
+            android:id="@+id/row_9_date"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:layout_weight="2"/>
+
+        <TextView
+            android:id="@+id/row_9_mission"
+            android:layout_gravity="center_vertical"
+            android:layout_weight="6"/>
+
+        <TextView
+            android:id="@+id/row_9_success"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:layout_weight="2"/>
+    </TableRow>
+
+    <TableRow>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:layout_weight="1"
+            android:background="#202020" />
+    </TableRow>
+
+
+    <TableRow
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:weightSum="10"
+        android:padding="3dp"
+        android:layout_weight="1">
+
+        <TextView
+            android:id="@+id/row_10_date"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:layout_weight="2"/>
+
+        <TextView
+            android:id="@+id/row_10_mission"
+            android:layout_gravity="center_vertical"
+            android:layout_weight="6"/>
+
+        <TextView
+            android:id="@+id/row_10_success"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:layout_weight="2"/>
+    </TableRow>
+
+    <TableRow>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:layout_weight="1"
+            android:background="#202020" />
+    </TableRow>
+
+
+    <TableRow
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:weightSum="10"
+        android:padding="3dp"
+        android:layout_weight="1">
+
+        <TextView
+            android:id="@+id/row_11_date"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:layout_weight="2"/>
+
+        <TextView
+            android:id="@+id/row_11_mission"
+            android:layout_gravity="center_vertical"
+            android:layout_weight="6"/>
+
+        <TextView
+            android:id="@+id/row_11_success"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:layout_weight="2"/>
+    </TableRow>
+
+    <TableRow>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:layout_weight="1"
+            android:background="#202020" />
+    </TableRow>
+
+
+    <TableRow
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:weightSum="10"
+        android:padding="3dp"
+        android:layout_weight="1">
+
+        <TextView
+            android:id="@+id/row_12_date"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:layout_weight="2"
+            />
+
+        <TextView
+            android:id="@+id/row_12_mission"
+            android:layout_gravity="center_vertical"
+            android:layout_weight="6"/>
+
+        <TextView
+            android:id="@+id/row_12_success"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:layout_weight="2"/>
+    </TableRow>
+
+    <TableRow>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:layout_weight="1"
+            android:background="#202020" />
+    </TableRow>
+
+</TableLayout>

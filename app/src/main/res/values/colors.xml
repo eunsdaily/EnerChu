@@ -4,7 +4,7 @@
     <color name="colorPrimaryDark">#0b0f0d</color>
     <color name="colorAccent">#FFD34E</color>
     <color name="colorBackground">#FFFFFF</color>
-    <color name="colorGray">#FAFAFA</color>
+    <color name="colorGray">#D5D5D5D5</color>
     <color name="colorFirstBar">#ff7f66</color>
     <color name="colorSecondBar">#FFCE75</color>
     <color name="colorThirdBar">#7DCEFD</color>

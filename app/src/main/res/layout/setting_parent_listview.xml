@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TableRow
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/row"
+        android:padding="10dp"
+        android:gravity="center_vertical">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:padding="5dp"
+            android:text="멀티탭 연결 관리"
+            android:textSize="13sp"
+            android:layout_weight="9"/>
+
+        <ImageView
+            android:layout_width="0dp"
+            android:src="@drawable/arrow_nomal"
+            android:layout_weight="1"/>
+    </TableRow>
+
+
+</LinearLayout>
