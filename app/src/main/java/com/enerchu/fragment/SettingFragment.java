@@ -14,7 +14,6 @@ import com.enerchu.R;
 public class SettingFragment extends Fragment {
 
     private LinearLayout linearLayout;
-    private TableRow connectionManage;
     private TableRow nickNmaeManage;
     private TableRow goalBillManage;
 
@@ -24,7 +23,6 @@ public class SettingFragment extends Fragment {
         View root = inflater.inflate(R.layout.fragment_setting, container, false);
 
         linearLayout = (LinearLayout) root.findViewById(R.id.linearLayout);
-        connectionManage = (TableRow) root.findViewById(R.id.connectionManage);
         nickNmaeManage = (TableRow) root.findViewById(R.id.nickNmaeManage);
         goalBillManage = (TableRow) root.findViewById(R.id.goalBillManage);
 
