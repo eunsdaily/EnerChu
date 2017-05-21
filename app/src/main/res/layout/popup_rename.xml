@@ -1,6 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="match_parent"
+    android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
 
     <View
@@ -10,32 +10,21 @@
         android:alpha="0.5" />
 
     <LinearLayout
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:padding="10dp"
+        android:layout_margin="30dp"
         android:background="@color/colorBackground"
         android:orientation="vertical"
-        android:layout_margin="60dp"
         android:layout_centerVertical="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true">
 
-        <ImageView
-            android:id="@+id/imageView"
-            android:layout_margin="20dp"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:layout_gravity="center"
-            app:srcCompat="@drawable/icon_no_shadow" />
 
-        <TextView
-            android:id="@+id/textVeiw"
+        <ListView
+            android:id="@+id/listView"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="새로운 멀티탭을 등록하고 있습니다."
-            android:gravity="center"
-            android:layout_marginBottom="20dp"
-            android:textSize="13sp"/>
+            android:layout_height="350dp" />
 
         <View
             android:layout_width="match_parent"
@@ -48,21 +37,12 @@
             android:id="@+id/comfirmBtn"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textSize="13sp"
+            android:textSize="12sp"
             android:paddingLeft="20dp"
             android:paddingRight="20dp"
             android:background="@color/colorBackground"
-            android:text="취  소" />
+            android:text="확  인" />
 
-        <Button
-            android:id="@+id/testBtn"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textSize="13sp"
-            android:paddingLeft="20dp"
-            android:paddingRight="20dp"
-            android:background="@color/colorBackground"
-            android:text="testing" />
     </LinearLayout>
 
 </RelativeLayout>

@@ -14,4 +14,8 @@ public class MultiTapDAO {
         Random random = new Random();
         return random.nextInt(5)+1;
     }
+
+    public void updateNickName(String s, String newNickname) {
+
+    }
 }

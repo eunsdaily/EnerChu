@@ -13,4 +13,8 @@ public class ClientDAO {
     public float getGoalBillWon(){
             return 65760;
         }
+
+    public void setGoal(float goal) {
+
+    }
 }

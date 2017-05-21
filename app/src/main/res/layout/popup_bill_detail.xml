@@ -347,7 +347,6 @@
                 android:textSize="13sp"
                 android:paddingLeft="20dp"
                 android:paddingRight="20dp"
-                android:background="@color/colorGray"
                 android:text="확 인" />
 
         </LinearLayout>

@@ -8,7 +8,7 @@ import java.util.Random;
 
 public class PlugDAO {
     public String getNickName(String multiTapKey, int numOfPlug){
-        return null;
+        return "nick name"+String.valueOf(numOfPlug);
     }
     public boolean getState(String multiTapKey, int numOfPlug){
         Random random = new Random();
@@ -23,5 +23,8 @@ public class PlugDAO {
     public int getThisMonthBill(String multiTapKey, int i) {
         Random random = new Random();
         return random.nextInt(20);
+    }
+
+    public void updateNickName(String s, int i, String newNickname) {
     }
 }

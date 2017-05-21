@@ -31,11 +31,9 @@ public class DelMultitapCustomAdapter extends BaseAdapter {
 
     private class Tag{
         private int position;
-        private CheckBox checkBox;
 
-        private Tag(int position, CheckBox checkBox){
+        private Tag(int position){
             this.position = position;
-            this.checkBox = checkBox;
         }
     }
 
@@ -81,7 +79,7 @@ public class DelMultitapCustomAdapter extends BaseAdapter {
 
             holder.checkBox = (CheckBox) convertView.findViewById(R.id.checkBox);
             holder.multitapName = (TextView) convertView.findViewById(R.id.textView);
-            holder.checkBox.setTag(new Tag(position, holder.checkBox));
+            holder.checkBox.setTag(new Tag(position));
 
             //set textview
             if(multiTapDAO.getNickName(multiTapKeyList.get(position)) != null){

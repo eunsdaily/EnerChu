@@ -14,6 +14,7 @@ import android.view.WindowManager;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ExpandableListView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -23,9 +24,13 @@ import android.widget.TableRow;
 import android.widget.TextView;
 
 import com.enerchu.Adapter.DelMultitapCustomAdapter;
+import com.enerchu.Adapter.renameCustomAdapter;
 import com.enerchu.R;
+import com.enerchu.SQLite.DAO.ClientDAO;
 import com.enerchu.SQLite.DAO.MultiTapDAO;
 import com.enerchu.SQLite.DAO.PlugDAO;
+
+import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -62,7 +67,7 @@ public class SettingFragment extends Fragment {
 
         connectionManage_addNewMultitap.setOnClickListener(addNewMultitapOnClickListener);
         connectionManage_delExistMultitap.setOnClickListener(delExistMultitapOnClickListener);
-        nickNmaeManage.setOnClickListener(nickNmaeManageOnClickListener);
+        nickNmaeManage.setOnClickListener(nickNameManageOnClickListener);
         goalBillManage.setOnClickListener(goalBillManageOnClickListener);
 
         return root;
@@ -84,18 +89,48 @@ public class SettingFragment extends Fragment {
     };
 
     // window popup
-    View.OnClickListener nickNmaeManageOnClickListener = new View.OnClickListener() {
+    View.OnClickListener nickNameManageOnClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            Log.i("nickNmaeManage", "called");
+            settingRenamePopup();
         }
     };
+
 
     // window popup
     View.OnClickListener goalBillManageOnClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            Log.i("goalBillManage", "called");
+            View goalPopupView = root.inflate(root.getContext(), R.layout.popup_goal, null);
+
+            DisplayMetrics metrics = new DisplayMetrics();
+            WindowManager windowManager = (WindowManager) root.getContext().getSystemService(Context.WINDOW_SERVICE);
+            windowManager.getDefaultDisplay().getMetrics(metrics);
+            int height = root.getContext().getResources().getDisplayMetrics().heightPixels;
+            int width = root.getContext().getResources().getDisplayMetrics().widthPixels;
+            final PopupWindow goalPopupWindow = new PopupWindow(goalPopupView, width, height);
+
+            goalPopupWindow.setTouchable(true);
+            goalPopupWindow.setFocusable(true);
+            goalPopupWindow.setOutsideTouchable(false);
+
+            final ClientDAO clientDAO = new ClientDAO();
+            TextView goalBefore = (TextView) goalPopupView.findViewById(R.id.goalBefore);
+            String goalText = clientDAO.getGoalBillKWh()+" kWh";
+            goalBefore.setText(goalText);
+
+            Button comfirmBtn = (Button) goalPopupView.findViewById(R.id.comfirmBtn);
+            final EditText goalNow = (EditText) goalPopupView.findViewById(R.id.goalNow);
+            comfirmBtn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    float newGoal = Float.valueOf(goalNow.getText().toString());
+                    clientDAO.setGoal(newGoal);
+                    goalPopupWindow.dismiss();
+                }
+            });
+
+            goalPopupWindow.showAtLocation(goalPopupView, Gravity.CENTER, 0, 0);
         }
     };
 
@@ -173,13 +208,49 @@ public class SettingFragment extends Fragment {
             }
         });
     }
+    private void settingRenamePopup() {
+        View renamePopupView = root.inflate(root.getContext(), R.layout.popup_rename, null);
+
+        DisplayMetrics metrics = new DisplayMetrics();
+        WindowManager windowManager = (WindowManager) root.getContext().getSystemService(Context.WINDOW_SERVICE);
+        windowManager.getDefaultDisplay().getMetrics(metrics);
+        int height = root.getContext().getResources().getDisplayMetrics().heightPixels;
+        int width = root.getContext().getResources().getDisplayMetrics().widthPixels;
+        final PopupWindow renamePopupWindow = new PopupWindow(renamePopupView, width, height);
+
+        renamePopupWindow.setTouchable(true);
+        renamePopupWindow.setFocusable(true);
+        renamePopupWindow.setOutsideTouchable(false);
+
+        ListView listView = (ListView) renamePopupView.findViewById(R.id.listView);
+        listView.setItemsCanFocus(true);
+        final renameCustomAdapter adapter = new renameCustomAdapter();
+        listView.setAdapter(adapter);
+
+        renamePopupWindow.showAtLocation(renamePopupView, Gravity.CENTER, 0, 0);
+
+        MultiTapDAO multiTapDAO = new MultiTapDAO();
+        int totalOfMultiTap = multiTapDAO.getTotalOfMultiTap();
+        for(int i = 0 ; i < totalOfMultiTap; i++){
+            String key = "multiTapKey" + String.valueOf(i);
+            adapter.add(key);
+        }
+
+        Button comfirmBtn = (Button) renamePopupView.findViewById(R.id.comfirmBtn);
+        comfirmBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                renamePopupWindow.dismiss();
+            }
+        });
+    }
 
 
     // 멀티탭 등록 결과를 반환
     private boolean tmpfun() {
         Log.i("tmpfun", "start");
         int tmp = 0;
-        for (int i = 0; i < 1000000000; i++) { // delay
+        for (int i = 0; i < 10000; i++) { // delay
             tmp++;
         }
         Log.i("tmpfun", "end");
@@ -187,7 +258,6 @@ public class SettingFragment extends Fragment {
         Random random = new Random();
         return random.nextBoolean();
     }
-
     private void refeshAddMultitapPopupView() {
         boolean result = tmpfun();
 
@@ -215,7 +285,7 @@ public class SettingFragment extends Fragment {
         Log.i("del Multitap", "called");
     }
 
-    //
+    // 닉네임 수정
 
 
 
