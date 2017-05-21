@@ -24,29 +24,61 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="8.2">
+
         <TableLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_margin="10dp">
 
-            <ExpandableListView
-                android:id="@+id/expandableList"
-                android:layout_height="0dp"
-                android:layout_width="match_parent"
-                android:layout_weight="1"
+            <TableRow
                 android:padding="10dp"
-                android:groupIndicator="@null">
-            </ExpandableListView>
+                android:id="@+id/connectionManage"
+                android:gravity="center_vertical">
+                <TextView
+                    android:padding="5dp"
+                    android:text="멀티탭 연결 관리"
+                    android:textSize="13sp"
+                    android:layout_weight="9"/>
+            </TableRow>
 
-            <!--<TableRow-->
-                <!--android:padding="10dp"-->
-                <!--android:id="@+id/connectionManage"-->
-                <!--android:gravity="center_vertical">-->
-                <!--<TextView-->
-                    <!--android:padding="5dp"-->
-                    <!--android:text="멀티탭 연결 관리"-->
-                    <!--android:textSize="13sp"/>-->
-            <!--</TableRow>-->
+            <TableRow>
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dip"
+                    android:layout_weight="1"
+                    android:background="#90909090" />
+            </TableRow>
+
+            <TableRow
+                android:padding="10dp"
+                android:id="@+id/connectionManage_addNewMultitap"
+                android:gravity="center_vertical">
+                <TextView
+                    android:padding="5dp"
+                    android:layout_marginLeft="25dp"
+                    android:text="새로운 멀티탭 추가"
+                    android:textSize="12sp"/>
+            </TableRow>
+
+            <TableRow>
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dip"
+                    android:layout_weight="1"
+                    android:layout_marginLeft="25dp"
+                    android:background="#90909090" />
+            </TableRow>
+
+            <TableRow
+                android:padding="10dp"
+                android:id="@+id/connectionManage_delExistMultitap"
+                android:gravity="center_vertical">
+                <TextView
+                    android:padding="5dp"
+                    android:layout_marginLeft="25dp"
+                    android:text="연결된 멀티탭 삭제"
+                    android:textSize="12sp"/>
+            </TableRow>
 
             <TableRow>
                 <View

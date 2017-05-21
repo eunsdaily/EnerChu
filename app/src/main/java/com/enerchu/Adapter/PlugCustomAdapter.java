@@ -11,6 +11,7 @@ import android.widget.TextView;
 import com.enerchu.R;
 import com.enerchu.SQLite.DAO.MultiTapDAO;
 import com.enerchu.SQLite.DAO.PlugDAO;
+import com.enerchu.condition;
 
 /**
  * Created by admin on 2017-05-01.
@@ -54,7 +55,7 @@ public class PlugCustomAdapter extends BaseAdapter {
         totalOfMultiTap = 0;
         multiTapDAO = new MultiTapDAO();
         plugDAO = new PlugDAO();
-        state = new boolean[30];
+        state = new boolean[condition.getMaxNumberOfMultitap()*4];
     }
 
     @Override
