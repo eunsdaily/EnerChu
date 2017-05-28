@@ -4,6 +4,8 @@ import android.graphics.Color;
 import android.view.View;
 
 import com.enerchu.SQLite.DAO.BillDAO;
+import com.enerchu.SQLite.DAO.BillStateDAO;
+import com.enerchu.SQLite.DAO.PlugDAO;
 import com.github.mikephil.charting.charts.HorizontalBarChart;
 import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.components.XAxis;
@@ -28,15 +30,20 @@ public class ChartMaker {
 
     public void setMultitapChart(View root){
         LineChart lineChart = (LineChart) root.findViewById(R.id.chart);
-        BillDAO billDAO = new BillDAO();
+        BillDAO billDAO = new BillDAO(root.getContext());
+        BillStateDAO billStateDAO = new BillStateDAO(root.getContext());
 
         lineChart.setDescription("");
 
         ArrayList<Entry> entries = new ArrayList<>();
-        float day1 = billDAO.getBeforeBill(null, null, 2);
-        float day2 = billDAO.getBeforeBill(null, null, 1);
-        float day3 = billDAO.getTodayBill(null, null);
-        float day4 = billDAO.getTomorrowBill(null, null);
+        //float day1 = billDAO.getSeveralDaysBeforeAmountUsedSum(null, null, 2);
+        float day1 = billStateDAO.getAmountUsedSum_severalDaysBefore(2);
+        //float day2 = billDAO.getSeveralDaysBeforeAmountUsedSum(null, null, 1);
+        float day2 = billStateDAO.getAmountUsedSum_severalDaysBefore(1);
+        //float day3 = billDAO.getTodayAmountUsed(null, null);
+        float day3 = billStateDAO.getAmountUsedSum_today();
+        //float day4 = billDAO.getTomorrowBill(null, null);
+        float day4 = billStateDAO.getAmountUsedSum_tomorrow();
         float maxYWidth = Math.max(Math.max(day1, day2), Math.max(day3, day4)) + 10;
         entries.add(new Entry(day1, 0));
         entries.add(new Entry(day2, 1));
@@ -79,9 +86,10 @@ public class ChartMaker {
         lineChart.invalidate();
     }
 
-    public void setPlugChart(View root){
+    public void setPlugChart(View root, String mulittapCode){
         HorizontalBarChart barChart = (HorizontalBarChart) root.findViewById(R.id.barChart);
-        BillDAO billDAO = new BillDAO();
+        BillDAO billDAO = new BillDAO(root.getContext());
+        PlugDAO plugDAO = new PlugDAO(root.getContext());
 
         barChart.setDescription("");
         barChart.setDrawGridBackground(false);
@@ -89,11 +97,21 @@ public class ChartMaker {
         barChart.setDrawValueAboveBar(false);
 
         ArrayList<BarEntry> entries = new ArrayList<BarEntry>();
-        entries.add(new BarEntry(new float[]{12, 3, 5, 7}, 0, "어제"));
-        entries.add(new BarEntry(new float[]{12, 3, 5, 24}, 1, "오늘"));
+        entries.add(new BarEntry(new float[]{billDAO.getAmountUsed_yesterday_kWh(mulittapCode, 1),
+                billDAO.getAmountUsed_yesterday_kWh(mulittapCode, 2),
+                billDAO.getAmountUsed_yesterday_kWh(mulittapCode, 3),
+                billDAO.getAmountUsed_yesterday_kWh(mulittapCode, 14)}, 0, "어제"));
+        entries.add(new BarEntry(new float[]{billDAO.getAmountUsed_today_kWh(mulittapCode, 1),
+                billDAO.getAmountUsed_today_kWh(mulittapCode, 2),
+                billDAO.getAmountUsed_today_kWh(mulittapCode, 3),
+                billDAO.getAmountUsed_today_kWh(mulittapCode, 4)}, 1, "오늘"));
 
         BarDataSet dataset = new BarDataSet(entries, "");
-        dataset.setStackLabels(new String[]{"1구", "2구", "3구", "4구"});
+        dataset.setStackLabels(new String[]{plugDAO.getNickName(mulittapCode, 1),
+                plugDAO.getNickName(mulittapCode, 2),
+                plugDAO.getNickName(mulittapCode, 3),
+                plugDAO.getNickName(mulittapCode, 4)});
+
         dataset.setColors(new int[]{Color.rgb(255, 127, 102),
                                     Color.rgb(255, 206, 117),
                                     Color.rgb(125, 206, 253),

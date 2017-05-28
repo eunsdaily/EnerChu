@@ -3,16 +3,20 @@ package com.enerchu;
 import android.app.Fragment;
 import android.app.FragmentTransaction;
 import android.content.Context;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AppCompatActivity;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.enerchu.SQLite.DBHelper;
 import com.enerchu.fragment.BillFragment;
 import com.enerchu.fragment.FaceFragment;
 import com.enerchu.fragment.MissionFragment;
@@ -27,6 +31,15 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        DBHelper dbHelper = new DBHelper(MainActivity.this, "EnerChu.db", null, 1);
+        SQLiteDatabase db = dbHelper.getWritableDatabase();
+        dbHelper.initialization(db);
+        db = dbHelper.getReadableDatabase();
+        Cursor c = db.query("bill", null, null, null, null, null, null);
+        while(c.moveToNext()){
+            Log.i(c.getString(c.getColumnIndex("multitapCode"))+"-"+String.valueOf(c.getInt(c.getColumnIndex("plugNumber")))+"-"+String.valueOf(c.getString(c.getColumnIndex("date"))), String.valueOf(c.getFloat(c.getColumnIndex("lastUpdatedUsed"))));
+        }
 
         bottomNavigationView = (BottomNavigationView) findViewById(R.id.navigation);
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -59,7 +72,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        //replace SongsFragment
+            //replace SongsFragment
         replaceFragment(new FaceFragment());
     }
 

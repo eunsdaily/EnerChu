@@ -1,6 +1,7 @@
 package com.enerchu.Adapter;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,6 +13,9 @@ import com.enerchu.R;
 import com.enerchu.SQLite.DAO.MultiTapDAO;
 import com.enerchu.SQLite.DAO.PlugDAO;
 import com.enerchu.condition;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by admin on 2017-05-01.
@@ -45,17 +49,19 @@ public class PlugCustomAdapter extends BaseAdapter {
 
     private Context context = null;
     PlugCustomHolder holder = new PlugCustomHolder();
-    private MultiTapDAO multiTapDAO;
-    private PlugDAO plugDAO;
+
     private int totalOfMultiTap = 0;
     private String multiTapKey = null;
+    private List<String> multiTapKeyList;
     private boolean[] state;
+
+    private MultiTapDAO multiTapDAO;
+    private PlugDAO plugDAO;
 
     public PlugCustomAdapter(){
         totalOfMultiTap = 0;
-        multiTapDAO = new MultiTapDAO();
-        plugDAO = new PlugDAO();
         state = new boolean[condition.getMaxNumberOfMultitap()*4];
+        multiTapKeyList = new ArrayList<String>();
     }
 
     @Override
@@ -79,6 +85,9 @@ public class PlugCustomAdapter extends BaseAdapter {
         holder = new PlugCustomHolder();
         context = parent.getContext();
 
+        multiTapDAO = new MultiTapDAO(context);
+        plugDAO = new PlugDAO(context);
+
         if ( convertView == null ) {
             LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             convertView = inflater.inflate(R.layout.one_multitap, parent, false);
@@ -100,32 +109,32 @@ public class PlugCustomAdapter extends BaseAdapter {
 
             // set text view
             if( multiTapDAO.getNickName(multiTapKey) != null ){
-                holder.multitapName.setText(multiTapDAO.getNickName(multiTapKey));
+                holder.multitapName.setText(multiTapDAO.getNickName(multiTapKeyList.get(position)));
             }
-            if( plugDAO.getNickName(multiTapKey, 0) != null ) {
-                holder.plugName1.setText(plugDAO.getNickName(multiTapKey, 0));
+            if( plugDAO.getNickName((multiTapKeyList.get(position)), 1) != null ) {
+                holder.plugName1.setText(plugDAO.getNickName((multiTapKeyList.get(position)), 1));
             }
-            if( plugDAO.getNickName(multiTapKey, 1) != null ) {
-                holder.plugName2.setText(plugDAO.getNickName(multiTapKey, 1));
+            if( plugDAO.getNickName((multiTapKeyList.get(position)), 2) != null ) {
+                holder.plugName2.setText(plugDAO.getNickName((multiTapKeyList.get(position)), 2));
             }
-            if( plugDAO.getNickName(multiTapKey, 2) != null ) {
-                holder.plugName3.setText(plugDAO.getNickName(multiTapKey, 2));
+            if( plugDAO.getNickName((multiTapKeyList.get(position)), 3) != null ) {
+                holder.plugName3.setText(plugDAO.getNickName((multiTapKeyList.get(position)), 3));
             }
-            if( plugDAO.getNickName(multiTapKey, 3) != null ) {
-                holder.plugName4.setText(plugDAO.getNickName(multiTapKey, 3));
+            if( plugDAO.getNickName((multiTapKeyList.get(position)), 4) != null ) {
+                holder.plugName4.setText(plugDAO.getNickName((multiTapKeyList.get(position)), 4));
             }
 
             // set state
-            if( plugDAO.getState(multiTapKey, 0) ){
+            if( plugDAO.getState((multiTapKeyList.get(position)), 1) ){
                 holder.onoff1.setImageResource(R.drawable.on);
-                state[0+position*4] = true;
+                state[position*4] = true;
             }
             else{
                 holder.onoff1.setImageResource(R.drawable.off);
-                state[0+position*4] = false;
+                state[position*4] = false;
             }
 
-            if( plugDAO.getState(multiTapKey, 1) ){
+            if( plugDAO.getState((multiTapKeyList.get(position)), 2) ){
                 holder.onoff2.setImageResource(R.drawable.on);
                 state[1+position*4] = true;
             }
@@ -134,7 +143,7 @@ public class PlugCustomAdapter extends BaseAdapter {
                 state[1+position*4] = false;
             }
 
-            if( plugDAO.getState(multiTapKey, 2) ){
+            if( plugDAO.getState((multiTapKeyList.get(position)), 3) ){
                 holder.onoff3.setImageResource(R.drawable.on);
                 state[2+position*4] = true;
             }
@@ -143,7 +152,7 @@ public class PlugCustomAdapter extends BaseAdapter {
                 state[2+position*4] = false;
             }
 
-            if( plugDAO.getState(multiTapKey, 3) ){
+            if( plugDAO.getState((multiTapKeyList.get(position)), 4) ){
                 holder.onoff4.setImageResource(R.drawable.on);
                 state[3+position*4] = true;
             }
@@ -152,73 +161,11 @@ public class PlugCustomAdapter extends BaseAdapter {
                 state[3+position*4] = false;
             }
 
-            // set onclick
-            holder.onoff1.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    ImageViewTag tmpTag = (ImageViewTag) v.getTag();
-                    //Log.i("onoff1", "now state "+ state[0+tmpTag.postion*4]+" position "+tmpTag.postion);
-                    if(state[tmpTag.postion*4]){
-                        tmpTag.view.setImageResource(R.drawable.off);
-                        state[tmpTag.postion*4] = false;
-                        //Log.i("onoff1", "clicked! true to false");
-                    }
-                    else {
-                        tmpTag.view.setImageResource(R.drawable.on);
-                        state[tmpTag.postion*4] = true;
-                        //Log.i("onoff1", "clicked! false to true");
-                    }
-                    tmpTag.view.invalidate();
-                }
-            });
+            holder.onoff1.setOnClickListener(new ononffOnClickListener(0).getListner());
+            holder.onoff2.setOnClickListener(new ononffOnClickListener(1).getListner());
+            holder.onoff3.setOnClickListener(new ononffOnClickListener(2).getListner());
+            holder.onoff4.setOnClickListener(new ononffOnClickListener(3).getListner());
 
-            holder.onoff2.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    ImageViewTag tmpTag = (ImageViewTag) v.getTag();
-                    if(state[1+tmpTag.postion*4]){
-                        tmpTag.view.setImageResource(R.drawable.off);
-                        state[1+tmpTag.postion*4] = false;
-                    }
-                    else {
-                        tmpTag.view.setImageResource(R.drawable.on);
-                        state[1+tmpTag.postion*4] = true;
-                    }
-                    tmpTag.view.invalidate();
-                }
-            });
-
-            holder.onoff3.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    ImageViewTag tmpTag = (ImageViewTag) v.getTag();
-                    if(state[2+tmpTag.postion*4]){
-                        tmpTag.view.setImageResource(R.drawable.off);
-                        state[2+tmpTag.postion*4] = false;
-                    }
-                    else {
-                        tmpTag.view.setImageResource(R.drawable.on);
-                        state[2+tmpTag.postion*4] = true;
-                    }
-                    tmpTag.view.invalidate();
-                }
-            });
-
-            holder.onoff4.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    ImageViewTag tmpTag = (ImageViewTag) v.getTag();
-                    if(state[3+tmpTag.postion*4]){
-                        tmpTag.view.setImageResource(R.drawable.off);
-                        state[3+tmpTag.postion*4] = false;
-                    }
-                    else {
-                        tmpTag.view.setImageResource(R.drawable.on);
-                        state[3+tmpTag.postion*4] = true;
-                    }
-                    tmpTag.view.invalidate();
-                }
-            });
 
             convertView.setTag(holder);
         } else {
@@ -230,7 +177,38 @@ public class PlugCustomAdapter extends BaseAdapter {
 
     public void add(String multiTapKey){
         this.multiTapKey = multiTapKey;
+        Log.i("PlugCustomAdapter", multiTapKey+" adding");
+        multiTapKeyList.add(multiTapKey);
         totalOfMultiTap++;
     }
-}
 
+    class ononffOnClickListener{
+        private int n;
+
+        ononffOnClickListener(int n){ this.n = n; }
+
+        View.OnClickListener getListner(){
+            return new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    ImageViewTag tmpTag = (ImageViewTag) v.getTag();
+                    if(state[n+tmpTag.postion*4]){
+                        tmpTag.view.setImageResource(R.drawable.off);
+                        state[n+tmpTag.postion*4] = false;
+                        plugDAO.updateState(multiTapKeyList.get(tmpTag.postion), n+1, false);
+                        //  ♫꒰･‿･๑꒱ 통신
+                    }
+                    else {
+
+                        tmpTag.view.setImageResource(R.drawable.on);
+                        state[n+tmpTag.postion*4] = true;
+                        plugDAO.updateState(multiTapKeyList.get(tmpTag.postion), n+1, true);
+                        //  ♫꒰･‿･๑꒱ 통신
+                    }
+                    tmpTag.view.invalidate();
+                    Log.i("on click", String.valueOf(n+tmpTag.postion*4));
+                }
+            };
+        }
+    }
+}

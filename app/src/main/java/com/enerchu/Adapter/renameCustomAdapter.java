@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.enerchu.R;
 import com.enerchu.SQLite.DAO.MultiTapDAO;
@@ -40,11 +41,11 @@ public class renameCustomAdapter extends BaseAdapter {
 
     private class Tag{
         private int position;
-        private String newNickname;
+        private EditText editText;
 
-        private Tag(int position, String newNickname){
+        private Tag(int position, EditText editText){
             this.position = position;
-            this.newNickname = newNickname;
+            this.editText = editText;
         }
     }
 
@@ -52,14 +53,13 @@ public class renameCustomAdapter extends BaseAdapter {
     RenameHolder holder =new RenameHolder();
     private String multiTapKey = null;
     private int totalOfMultiTap = 0;
+    private List<String> multiTapKeyList;
+
     private MultiTapDAO multiTapDAO;
     private PlugDAO plugDAO;
-    private List<String> multiTapKeyList;
 
     public renameCustomAdapter(){
         totalOfMultiTap = 0;
-        multiTapDAO = new MultiTapDAO();
-        plugDAO = new PlugDAO();
         multiTapKeyList = new ArrayList<String>();
     }
 
@@ -82,6 +82,8 @@ public class renameCustomAdapter extends BaseAdapter {
     public View getView(int position, View convertView, ViewGroup parent) {
         holder = new RenameHolder();
         context = parent.getContext();
+        multiTapDAO = new MultiTapDAO(context);
+        plugDAO = new PlugDAO(context);
 
         if( convertView == null ){
             LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -98,19 +100,19 @@ public class renameCustomAdapter extends BaseAdapter {
             holder.fourthEdit            = (EditText) convertView.findViewById(R.id.fourthEdit);
             holder.fourthRename          = (TextView) convertView.findViewById(R.id.fourthRename);
 
-            holder.multitapNameRename.setTag(new Tag(position, holder.multitapNameEdit.getText().toString()));
-            holder.firstRename.setTag(new Tag(position, holder.firstEdit.getText().toString()));
-            holder.secondRename.setTag(new Tag(position, holder.secondEdit.getText().toString()));
-            holder.thirdRename.setTag(new Tag(position, holder.thirdEdit.getText().toString()));
-            holder.fourthRename.setTag(new Tag(position, holder.fourthEdit.getText().toString()));
+            holder.multitapNameRename.setTag(new Tag(position, holder.multitapNameEdit));
+            holder.firstRename.setTag(new Tag(position, holder.firstEdit));
+            holder.secondRename.setTag(new Tag(position, holder.secondEdit));
+            holder.thirdRename.setTag(new Tag(position, holder.thirdEdit));
+            holder.fourthRename.setTag(new Tag(position, holder.fourthEdit));
 
             // set edit text
-           convertView.setFocusable(true);
-            holder.multitapNameEdit.setText(multiTapDAO.getNickName(multiTapKeyList.get(position)));
-            holder.firstEdit.setText(plugDAO.getNickName(multiTapKeyList.get(position), 1));
-            holder.secondEdit.setText(plugDAO.getNickName(multiTapKeyList.get(position), 2));
-            holder.thirdEdit.setText(plugDAO.getNickName(multiTapKeyList.get(position), 3));
-            holder.fourthEdit.setText(plugDAO.getNickName(multiTapKeyList.get(position), 4));
+            convertView.setFocusable(true);
+            holder.multitapNameEdit.setHint(multiTapDAO.getNickName(multiTapKeyList.get(position)));
+            holder.firstEdit.setHint(plugDAO.getNickName(multiTapKeyList.get(position), 1));
+            holder.secondEdit.setHint(plugDAO.getNickName(multiTapKeyList.get(position), 2));
+            holder.thirdEdit.setHint(plugDAO.getNickName(multiTapKeyList.get(position), 3));
+            holder.fourthEdit.setHint(plugDAO.getNickName(multiTapKeyList.get(position), 4));
 
             holder.multitapNameEdit.clearFocus();
             holder.firstEdit.clearFocus();
@@ -123,7 +125,8 @@ public class renameCustomAdapter extends BaseAdapter {
                 @Override
                 public void onClick(View v) {
                     Tag tmpTag = (Tag) v.getTag();
-                    multiTapDAO.updateNickName(multiTapKeyList.get(tmpTag.position), tmpTag.newNickname);
+                    multiTapDAO.updateNickName(multiTapKeyList.get(tmpTag.position), tmpTag.editText.getText().toString());
+                    Toast.makeText(context, "별칭이 성공적으로 수정되었습니다 ('~')/",Toast.LENGTH_SHORT).show();
                 }
             });
 
@@ -131,7 +134,8 @@ public class renameCustomAdapter extends BaseAdapter {
                 @Override
                 public void onClick(View v) {
                     Tag tmpTag = (Tag) v.getTag();
-                    plugDAO.updateNickName(multiTapKeyList.get(tmpTag.position), 1, tmpTag.newNickname);
+                    plugDAO.updateNickName(multiTapKeyList.get(tmpTag.position), 1, tmpTag.editText.getText().toString());
+                    Toast.makeText(context, "별칭이 성공적으로 수정되었습니다 ('~')/",Toast.LENGTH_SHORT).show();
                 }
             });
 
@@ -139,7 +143,8 @@ public class renameCustomAdapter extends BaseAdapter {
                 @Override
                 public void onClick(View v) {
                     Tag tmpTag = (Tag) v.getTag();
-                    plugDAO.updateNickName(multiTapKeyList.get(tmpTag.position), 2, tmpTag.newNickname);
+                    plugDAO.updateNickName(multiTapKeyList.get(tmpTag.position), 2, tmpTag.editText.getText().toString());
+                    Toast.makeText(context, "별칭이 성공적으로 수정되었습니다 ('~')/",Toast.LENGTH_SHORT).show();
                 }
             });
 
@@ -147,7 +152,8 @@ public class renameCustomAdapter extends BaseAdapter {
                 @Override
                 public void onClick(View v) {
                     Tag tmpTag = (Tag) v.getTag();
-                    plugDAO.updateNickName(multiTapKeyList.get(tmpTag.position), 3, tmpTag.newNickname);
+                    plugDAO.updateNickName(multiTapKeyList.get(tmpTag.position), 3, tmpTag.editText.getText().toString());
+                    Toast.makeText(context, "별칭이 성공적으로 수정되었습니다 ('~')/",Toast.LENGTH_SHORT).show();
                 }
             });
 
@@ -155,7 +161,8 @@ public class renameCustomAdapter extends BaseAdapter {
                 @Override
                 public void onClick(View v) {
                     Tag tmpTag = (Tag) v.getTag();
-                    plugDAO.updateNickName(multiTapKeyList.get(tmpTag.position), 4, tmpTag.newNickname);
+                    plugDAO.updateNickName(multiTapKeyList.get(tmpTag.position), 4, tmpTag.editText.getText().toString());
+                    Toast.makeText(context, "별칭이 성공적으로 수정되었습니다 ('~')/",Toast.LENGTH_SHORT).show();
                 }
             });
 
@@ -170,8 +177,10 @@ public class renameCustomAdapter extends BaseAdapter {
 
     public void add(String multiTapKey){
         this.multiTapKey = multiTapKey;
-        Log.i(multiTapKey, "adding");
+        Log.i("renameCustomAdapter", multiTapKey+" adding");
         multiTapKeyList.add(multiTapKey);
         totalOfMultiTap++;
     }
+
+
 }

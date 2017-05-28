@@ -22,6 +22,9 @@ import com.enerchu.SQLite.DAO.BillDAO;
 import com.enerchu.SQLite.DAO.MultiTapDAO;
 import com.enerchu.SQLite.DAO.PlugDAO;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Created by admin on 2017-05-05.
  */
@@ -48,14 +51,16 @@ public class BillCustomAdapter extends BaseAdapter {
     private Context context = null;
     BillCustomHolder holder = new BillCustomHolder();
     private String multiTapKey = null;
-    private BillDAO billDAO;
-    private MultiTapDAO multiTapDAO;
     private int totalOfMultiTap = 0;
+    private List<String> multiTapKeyList;
+
+    private BillDAO billDAO;
+    private PlugDAO plugDAO;
+    private MultiTapDAO multiTapDAO;
 
     public BillCustomAdapter(){
         totalOfMultiTap = 0;
-        multiTapDAO = new MultiTapDAO();
-        billDAO = new BillDAO();
+        multiTapKeyList = new ArrayList<String>();
     }
 
     @Override
@@ -74,9 +79,12 @@ public class BillCustomAdapter extends BaseAdapter {
     }
 
     @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
+    public View getView(final int position, View convertView, ViewGroup parent) {
         holder = new BillCustomHolder();
         context = parent.getContext();
+        multiTapDAO = new MultiTapDAO(context);
+        billDAO = new BillDAO(context);
+        plugDAO = new PlugDAO(context);
 
         if ( convertView == null ){
             final LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -90,12 +98,12 @@ public class BillCustomAdapter extends BaseAdapter {
             holder.showDetailBill.setTag(new TextViewTag(position, holder.showDetailBill));
 
             // set text view
-            if(multiTapDAO.getNickName(multiTapKey) != null){
-                holder.multitapName.setText(multiTapDAO.getNickName(multiTapKey));
+            if(multiTapDAO.getNickName(multiTapKeyList.get(position)) != null){
+                holder.multitapName.setText(multiTapDAO.getNickName(multiTapKeyList.get(position)));
             }
 
-            holder.oneMultiTapLastMonthBill.setText("20 kWh");
-            holder.oneMultiTapThisMonthBill.setText("12 kWh");
+            holder.oneMultiTapLastMonthBill.setText(String.valueOf(billDAO.getAmountUsed_lastMonth_kWh(multiTapKeyList.get(position)))+" kWh");
+            holder.oneMultiTapThisMonthBill.setText(String.valueOf(billDAO.getAmountUsed_thisMonth_kWh(multiTapKeyList.get(position)))+" kWh");
 
             final View rootView = convertView;
             // set onclick
@@ -107,7 +115,7 @@ public class BillCustomAdapter extends BaseAdapter {
 
                     View popupView = inflater.inflate(R.layout.popup_bill_detail, null);
                     ChartMaker chartMaker = new ChartMaker();
-                    chartMaker.setPlugChart(popupView);
+                    chartMaker.setPlugChart(popupView, multiTapKey);
 
                     DisplayMetrics metrics = new DisplayMetrics();
                     WindowManager windowManager = (WindowManager) rootView.getContext().getSystemService(Context.WINDOW_SERVICE);
@@ -130,7 +138,7 @@ public class BillCustomAdapter extends BaseAdapter {
                         }
                     });
 
-                    setTextView(popupView, multiTapKey);
+                    setTextView(popupView, multiTapKeyList.get(position));
                 }
             });
 
@@ -143,8 +151,7 @@ public class BillCustomAdapter extends BaseAdapter {
     }
 
     public void setTextView(View popupView, String multiTapKey){
-
-        PlugDAO plugDAO = new PlugDAO();
+        Log.i("BillCustomAdapter", multiTapKey);
 
         TextView plugNameTextView = (TextView) popupView.findViewById(R.id.plugNameTextView);
         plugNameTextView.setText(multiTapDAO.getNickName(multiTapKey));
@@ -154,37 +161,39 @@ public class BillCustomAdapter extends BaseAdapter {
         firstNickName.setText(plugDAO.getNickName(multiTapKey, 1));
         if(firstNickName.getText() == ""){firstNickName.setText("1구");}
         TextView firstLastMonthBill = (TextView) popupView.findViewById(R.id.firstLastMonthBill);
-        firstLastMonthBill.setText(plugDAO.getLastMonthBill(multiTapKey, 1)+" wh");
+        firstLastMonthBill.setText(billDAO.getAmountUsed_lastMonth_kWh(multiTapKey, 1)+" Kwh");
         TextView firstThisMonthBill = (TextView) popupView.findViewById(R.id.firstThisMonthBill);
-        firstThisMonthBill.setText(plugDAO.getThisMonthBill(multiTapKey, 1)+" wh");
+        firstThisMonthBill.setText(billDAO.getAmountUsed_thisMonth_kWh(multiTapKey, 1)+" Kwh");
 
         TextView secondNickName = (TextView) popupView.findViewById(R.id.secondNickName);
         secondNickName.setText(plugDAO.getNickName(multiTapKey,1));
         if(secondNickName.getText() == ""){secondNickName.setText("2구");}
         TextView secondLastMonthBill = (TextView) popupView.findViewById(R.id.secondLastMonthBill);
-        secondLastMonthBill.setText(plugDAO.getLastMonthBill(multiTapKey,2)+" wh");
+        secondLastMonthBill.setText(billDAO.getAmountUsed_lastMonth_kWh(multiTapKey, 2)+" Kwh");
         TextView secondThisMonthBill = (TextView) popupView.findViewById(R.id.secondThisMonthBill);
-        secondThisMonthBill.setText(plugDAO.getThisMonthBill(multiTapKey,2)+" wh");
+        secondThisMonthBill.setText(billDAO.getAmountUsed_thisMonth_kWh(multiTapKey, 2)+" Kwh");
 
         TextView thirdNickName = (TextView) popupView.findViewById(R.id.thirdNickName);
         thirdNickName.setText(plugDAO.getNickName(multiTapKey,3));
         if(thirdNickName.getText() == ""){thirdNickName.setText("3구");}
         TextView thirdLastMonthBill = (TextView) popupView.findViewById(R.id.thirdLastMonthBill);
-        thirdLastMonthBill.setText(plugDAO.getLastMonthBill(multiTapKey,3)+" wh");
+        thirdLastMonthBill.setText(billDAO.getAmountUsed_lastMonth_kWh(multiTapKey, 3)+" Kwh");
         TextView thirdThisMonthBill = (TextView) popupView.findViewById(R.id.thirdThisMonthBill);
-        thirdThisMonthBill.setText(plugDAO.getThisMonthBill(multiTapKey,3)+" wh");
+        thirdThisMonthBill.setText(billDAO.getAmountUsed_thisMonth_kWh(multiTapKey, 3)+" Kwh");
 
         TextView fourthNickName = (TextView) popupView.findViewById(R.id.fourthNickName);
         fourthNickName.setText(plugDAO.getNickName(multiTapKey,4));
         if(fourthNickName.getText() == ""){fourthNickName.setText("4구");}
         TextView fourthLastMonthBill = (TextView) popupView.findViewById(R.id.fourthLastMonthBill);
-        fourthLastMonthBill.setText(plugDAO.getLastMonthBill(multiTapKey,4)+" wh");
+        fourthLastMonthBill.setText(billDAO.getAmountUsed_lastMonth_kWh(multiTapKey, 4)+" Kwh");
         TextView fourthThisMonthBill = (TextView) popupView.findViewById(R.id.fourthThisMonthBill);
-        fourthThisMonthBill.setText(plugDAO.getThisMonthBill(multiTapKey,4)+" wh");
+        fourthThisMonthBill.setText(billDAO.getAmountUsed_thisMonth_kWh(multiTapKey, 4)+" Kwh");
     }
 
     public void add(String multiTapKey){
         this.multiTapKey = multiTapKey;
+        Log.i("BillCustomAdapter", multiTapKey+" adding");
+        multiTapKeyList.add(multiTapKey);
         totalOfMultiTap++;
     }
 }

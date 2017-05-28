@@ -15,11 +15,13 @@ import android.widget.ViewFlipper;
 import com.enerchu.Adapter.BillCustomAdapter;
 import com.enerchu.ChartMaker;
 import com.enerchu.SQLite.DAO.BillDAO;
+import com.enerchu.SQLite.DAO.BillStateDAO;
 import com.enerchu.SQLite.DAO.ClientDAO;
 import com.enerchu.SQLite.DAO.MultiTapDAO;
 import com.enerchu.SQLite.DAO.PlugDAO;
 import com.enerchu.R;
-import com.github.mikephil.charting.charts.LineChart;
+
+import java.util.ArrayList;
 
 /**
  * Created by admin on 2017-04-30.
@@ -30,8 +32,9 @@ public class BillFragment extends Fragment {
     private ViewFlipper viewFlipper;
     private int preTouchPosX = 0;
 
-    private BillDAO billDAO;
+    private MultiTapDAO multiTapDAO;
     private ClientDAO clientDAO;
+    private BillStateDAO billStateDAO;
 
     private TextView thisMonthBillTextView;
     private TextView lastMonthBillTextView;
@@ -43,10 +46,7 @@ public class BillFragment extends Fragment {
     private ListView listView;
     private BillCustomAdapter adapter;
 
-    public BillFragment() {
-        billDAO = new BillDAO();
-        clientDAO = new ClientDAO();
-    }
+    public BillFragment() {}
 
     @Nullable
     @Override
@@ -54,6 +54,10 @@ public class BillFragment extends Fragment {
         root = inflater.inflate(R.layout.fragment_bill, container, false);
         viewFlipper = (ViewFlipper) root.findViewById(R.id.viewFlipper);
         viewFlipper.setOnTouchListener(flipperTouchListener);
+
+        clientDAO = new ClientDAO(root.getContext());
+        billStateDAO = new BillStateDAO(root.getContext());
+        multiTapDAO = new MultiTapDAO(root.getContext());
 
         //setChart();
         ChartMaker chartMaker = new ChartMaker();
@@ -66,8 +70,8 @@ public class BillFragment extends Fragment {
         chageTextView = (TextView) root.findViewById(R.id.chageTextView);
         warringTextView = (TextView) root.findViewById(R.id.warring);
 
-        lastMonthBillTextView.setText(billDAO.getLastMonthBillKWh()+" kWh");
-        thisMonthBillTextView.setText(billDAO.getThisMonthBillKWh()+" kWh");
+        lastMonthBillTextView.setText(billStateDAO.getAmountUsedSum_lastMonth_Kwh()+" kWh");
+        thisMonthBillTextView.setText(billStateDAO.getAmountUsedSum_thisMonth_Kwh()+" kWh");
         warringTextView.setVisibility(View.INVISIBLE);
         if(clientDAO.getGoalBillKWh() != 0){
             goalBillTextView.setText(clientDAO.getGoalBillKWh()+ " kWh");
@@ -112,8 +116,8 @@ public class BillFragment extends Fragment {
         @Override
         public void onClick(View v) {
             if(changeTextViewState){ // kWh -> 원
-                lastMonthBillTextView.setText(billDAO.getLastMonthBillWon() + " 원");
-                thisMonthBillTextView.setText(billDAO.getThisMonthBillWon()+" 원");
+                lastMonthBillTextView.setText(billStateDAO.getAmountUsedSum_lastMonth_won() + " 원");
+                thisMonthBillTextView.setText(billStateDAO.getAmountUsedSum_thisMonth_won()+" 원");
                 if(clientDAO.getGoalBillWon() != 0){
                     goalBillTextView.setText(clientDAO.getGoalBillWon()+ " 원");
                 }
@@ -122,8 +126,8 @@ public class BillFragment extends Fragment {
                 changeTextViewState = false;
             }
             else{
-                lastMonthBillTextView.setText(billDAO.getLastMonthBillKWh()+" kWh");
-                thisMonthBillTextView.setText(billDAO.getThisMonthBillKWh()+" kWh");
+                lastMonthBillTextView.setText(billStateDAO.getAmountUsedSum_lastMonth_Kwh()+" kWh");
+                thisMonthBillTextView.setText(billStateDAO.getAmountUsedSum_thisMonth_Kwh()+" kWh");
                 if(clientDAO.getGoalBillKWh() != 0){
                     goalBillTextView.setText(clientDAO.getGoalBillKWh()+ " kWh");
                 }
@@ -137,17 +141,23 @@ public class BillFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-
-        MultiTapDAO multiTapDAO = new MultiTapDAO();
-        PlugDAO plugDAO = new PlugDAO();
-        int totalOfMultiTap = multiTapDAO.getTotalOfMultiTap();
-        updateMultiTap(totalOfMultiTap);
+        updateMultiTap();
 
     }
 
-    private void updateMultiTap(int totalOfMultiTap){
+    private void updateMultiTap(){
+        ArrayList<String> mulitapCodes = multiTapDAO.getMultitapCodes();
+        int totalOfMultiTap = mulitapCodes.size();
         for(int i = 0 ; i < totalOfMultiTap; i++){
-            adapter.add("multiTapKey");
+            adapter.add(mulitapCodes.get(i));
         }
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        clientDAO.close();
+        billStateDAO.close();
+        multiTapDAO.close();
     }
 }

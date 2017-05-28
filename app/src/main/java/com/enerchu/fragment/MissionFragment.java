@@ -34,7 +34,7 @@ public class MissionFragment extends Fragment {
     ArrayList<ImageButton> buttonArrayList = new ArrayList<>();
     int nowPage = 0;
 
-    private MissionDAO missionDAO = new MissionDAO();
+    private MissionDAO missionDAO;
 
     @Nullable
     @Override
@@ -46,6 +46,7 @@ public class MissionFragment extends Fragment {
         arrageSwitch = (Switch) root.findViewById(R.id.arrageSwitch);
         successSwitch = (Switch) root.findViewById(R.id.successSwitch);
         failSwitch = (Switch) root.findViewById(R.id.failSwitch);
+        missionDAO = new MissionDAO(root.getContext());
 
         return root;
     }
@@ -83,19 +84,23 @@ public class MissionFragment extends Fragment {
 
         int numberOfMission = missionDAO.getTotalMission();
         int numberOfPage = numberOfMission / 12;
-        if (numberOfMission % 12 != 0){ numberOfPage++;}
-        Log.i("numberOfMission", numberOfMission+"");
-        Log.i("numberOfPage", numberOfPage+"");
+        if(numberOfPage != 0) {
+            if (numberOfMission % 12 != 0) {
+                numberOfPage++;
+            }
+            Log.i("numberOfMission", numberOfMission + "");
+            Log.i("numberOfPage", numberOfPage + "");
 
-        for(int i = 0 ; i < numberOfPage; i++){
-            View tmpView = View.inflate(root.getContext(), R.layout.mission_list, null);
+            for (int i = 0; i < numberOfPage; i++) {
+                View tmpView = View.inflate(root.getContext(), R.layout.mission_list, null);
 
-            setMissionListContent(i, tmpView);
-            setPageBtn(i);
+                setMissionListContent(i, tmpView);
+                setPageBtn(i);
+            }
+
+            tableLayout.removeAllViews();
+            tableLayout.addView(tableLayouts.get(0));
         }
-
-        tableLayout.removeAllViews();
-        tableLayout.addView(tableLayouts.get(0));
     }
 
     private void setPageBtn(int i) {
@@ -176,5 +181,11 @@ public class MissionFragment extends Fragment {
         text = (TextView) tmpView.findViewById(R.id.row_12_date);
         missionNum = i*12+11;
         text.setText(String.valueOf(missionNum));
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        missionDAO.close();
     }
 }

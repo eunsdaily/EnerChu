@@ -15,18 +15,19 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.enerchu.GradeManager;
-import com.enerchu.MissionController;
 import com.enerchu.R;
+import com.enerchu.SQLite.DAO.MissionDAO;
 
 public class FaceFragment extends Fragment {
     private View root = null;
-    private MissionController missionController = new MissionController();
     private GradeManager gradeManager = new GradeManager();
+    private MissionDAO missionDAO;
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         root = inflater.inflate(R.layout.fragment_face, container, false);
+        missionDAO = new MissionDAO(root.getContext());
 
         return root;
     }
@@ -42,7 +43,7 @@ public class FaceFragment extends Fragment {
         double textSize = (root.getContext().getResources().getDisplayMetrics().heightPixels*0.02);
 
         TextView missionText = (TextView) root.findViewById(R.id.missionText);
-        missionText.setText(missionController.getTodayMisson());
+        missionText.setText(missionDAO.getTodayMisson());
         missionText.setTextSize((float)textSize);
 
 
@@ -59,5 +60,6 @@ public class FaceFragment extends Fragment {
         else if(nowGrade > 50){face.setImageResource(R.drawable.grade_2_dark);}
         else if(nowGrade > 25){face.setImageResource(R.drawable.grade_3_dark);}
         else{face.setImageResource(R.drawable.grade_4_dark);}
+
     }
 }

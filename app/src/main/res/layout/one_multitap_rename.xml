@@ -28,7 +28,7 @@
             android:focusable="true"
             android:focusableInTouchMode="true"
             android:maxLines="1"
-            android:text="Name" />
+            android:inputType="text"/>
 
         <TextView
             android:id="@+id/multitapNameRename"
@@ -73,7 +73,7 @@
             android:layout_margin="5dp"
             android:textSize="12sp"
             android:maxLines="1"
-            android:text="Name" />
+            android:inputType="text"/>
 
         <TextView
             android:id="@+id/firstRename"
@@ -107,7 +107,7 @@
             android:layout_margin="5dp"
             android:textSize="12sp"
             android:maxLines="1"
-            android:text="Name" />
+            android:inputType="text"/>
 
         <TextView
             android:id="@+id/secondRename"
@@ -141,7 +141,7 @@
             android:layout_margin="5dp"
             android:textSize="12sp"
             android:maxLines="1"
-            android:text="Name" />
+            android:inputType="text"/>
 
         <TextView
             android:id="@+id/thirdRename"
@@ -175,7 +175,7 @@
             android:layout_margin="5dp"
             android:maxLines="1"
             android:textSize="12sp"
-            android:text="Name" />
+            android:inputType="text"/>
 
         <TextView
             android:id="@+id/fourthRename"

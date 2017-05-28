@@ -48,7 +48,6 @@ public class DelMultitapCustomAdapter extends BaseAdapter {
 
     public DelMultitapCustomAdapter(){
         totalOfMultiTap = 0;
-        multiTapDAO = new MultiTapDAO();
         map = new HashMap<String, Boolean>();
         multiTapKeyList = new ArrayList<String>();
     }
@@ -72,6 +71,7 @@ public class DelMultitapCustomAdapter extends BaseAdapter {
     public View  getView(int position, View convertView, ViewGroup parent){
         holder = new DelMultitapHolder();
         context = parent.getContext();
+        multiTapDAO = new MultiTapDAO(context);
 
         if( convertView == null ){
             LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);

@@ -22,25 +22,19 @@ import android.widget.ListView;
 import android.widget.PopupWindow;
 import android.widget.TableRow;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.enerchu.Adapter.DelMultitapCustomAdapter;
 import com.enerchu.Adapter.renameCustomAdapter;
 import com.enerchu.R;
 import com.enerchu.SQLite.DAO.ClientDAO;
 import com.enerchu.SQLite.DAO.MultiTapDAO;
-import com.enerchu.SQLite.DAO.PlugDAO;
-
-import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Random;
 
 public class SettingFragment extends Fragment {
-
-    private ArrayList<String> groupList = null;
-    private ArrayList<ArrayList<String>> childList = null;
-    private ArrayList<String> childListContent = null;
 
     private LinearLayout linearLayout;
     private ExpandableListView listView;
@@ -101,36 +95,7 @@ public class SettingFragment extends Fragment {
     View.OnClickListener goalBillManageOnClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            View goalPopupView = root.inflate(root.getContext(), R.layout.popup_goal, null);
-
-            DisplayMetrics metrics = new DisplayMetrics();
-            WindowManager windowManager = (WindowManager) root.getContext().getSystemService(Context.WINDOW_SERVICE);
-            windowManager.getDefaultDisplay().getMetrics(metrics);
-            int height = root.getContext().getResources().getDisplayMetrics().heightPixels;
-            int width = root.getContext().getResources().getDisplayMetrics().widthPixels;
-            final PopupWindow goalPopupWindow = new PopupWindow(goalPopupView, width, height);
-
-            goalPopupWindow.setTouchable(true);
-            goalPopupWindow.setFocusable(true);
-            goalPopupWindow.setOutsideTouchable(false);
-
-            final ClientDAO clientDAO = new ClientDAO();
-            TextView goalBefore = (TextView) goalPopupView.findViewById(R.id.goalBefore);
-            String goalText = clientDAO.getGoalBillKWh()+" kWh";
-            goalBefore.setText(goalText);
-
-            Button comfirmBtn = (Button) goalPopupView.findViewById(R.id.comfirmBtn);
-            final EditText goalNow = (EditText) goalPopupView.findViewById(R.id.goalNow);
-            comfirmBtn.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    float newGoal = Float.valueOf(goalNow.getText().toString());
-                    clientDAO.setGoal(newGoal);
-                    goalPopupWindow.dismiss();
-                }
-            });
-
-            goalPopupWindow.showAtLocation(goalPopupView, Gravity.CENTER, 0, 0);
+            settingGoalPopup();
         }
     };
 
@@ -192,10 +157,11 @@ public class SettingFragment extends Fragment {
 
         delMultitapPopupWindow.showAtLocation(delMultitapPopupView, Gravity.CENTER, 0, 0);
 
-        MultiTapDAO multiTapDAO = new MultiTapDAO();
-        int totalOfMultiTap = multiTapDAO.getTotalOfMultiTap();
+        MultiTapDAO multiTapDAO = new MultiTapDAO(root.getContext());
+        ArrayList<String> mulitapCodes = multiTapDAO.getMultitapCodes();
+        int totalOfMultiTap = mulitapCodes.size();
         for(int i = 0 ; i < totalOfMultiTap; i++){
-            String key = "multiTapKey" + String.valueOf(i);
+            String key = mulitapCodes.get(i);
             adapter.add(key);
         }
 
@@ -229,10 +195,11 @@ public class SettingFragment extends Fragment {
 
         renamePopupWindow.showAtLocation(renamePopupView, Gravity.CENTER, 0, 0);
 
-        MultiTapDAO multiTapDAO = new MultiTapDAO();
-        int totalOfMultiTap = multiTapDAO.getTotalOfMultiTap();
+        MultiTapDAO multiTapDAO = new MultiTapDAO(root.getContext());
+        ArrayList<String> mulitapCodes = multiTapDAO.getMultitapCodes();
+        int totalOfMultiTap = mulitapCodes.size();
         for(int i = 0 ; i < totalOfMultiTap; i++){
-            String key = "multiTapKey" + String.valueOf(i);
+            String key = mulitapCodes.get(i);
             adapter.add(key);
         }
 
@@ -244,7 +211,45 @@ public class SettingFragment extends Fragment {
             }
         });
     }
+    private void settingGoalPopup() {
+        View goalPopupView = root.inflate(root.getContext(), R.layout.popup_goal, null);
 
+        DisplayMetrics metrics = new DisplayMetrics();
+        WindowManager windowManager = (WindowManager) root.getContext().getSystemService(Context.WINDOW_SERVICE);
+        windowManager.getDefaultDisplay().getMetrics(metrics);
+        int height = root.getContext().getResources().getDisplayMetrics().heightPixels;
+        int width = root.getContext().getResources().getDisplayMetrics().widthPixels;
+        final PopupWindow goalPopupWindow = new PopupWindow(goalPopupView, width, height);
+
+        goalPopupWindow.setTouchable(true);
+        goalPopupWindow.setFocusable(true);
+        goalPopupWindow.setOutsideTouchable(false);
+
+        final ClientDAO clientDAO = new ClientDAO(root.getContext());
+        final TextView goalBefore = (TextView) goalPopupView.findViewById(R.id.goalBefore);
+        String goalText = clientDAO.getGoalBillKWh()+" kWh";
+        goalBefore.setText(goalText);
+
+        Button comfirmBtn = (Button) goalPopupView.findViewById(R.id.comfirmBtn);
+        final EditText goalNow = (EditText) goalPopupView.findViewById(R.id.goalNow);
+        comfirmBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String input = goalNow.getText().toString();
+                if (input.equals("")){
+                    Toast.makeText(root.getContext(), "아무것도 변경되지 않습니다 :-0", Toast.LENGTH_SHORT).show();
+                    goalPopupWindow.dismiss();
+                }else {
+                    float newGoal = Float.valueOf(input);
+                    clientDAO.setGoal(newGoal);
+                    Toast.makeText(root.getContext(), "목표 전력량이 변경되었습니다 :-)", Toast.LENGTH_SHORT).show();
+                    goalPopupWindow.dismiss();
+                }
+            }
+        });
+
+        goalPopupWindow.showAtLocation(goalPopupView, Gravity.CENTER, 0, 0);
+    }
 
     // 멀티탭 등록 결과를 반환
     private boolean tmpfun() {
@@ -284,9 +289,6 @@ public class SettingFragment extends Fragment {
     private void delMultitap(HashMap<String, Boolean> deletMap) {
         Log.i("del Multitap", "called");
     }
-
-    // 닉네임 수정
-
 
 
 }
