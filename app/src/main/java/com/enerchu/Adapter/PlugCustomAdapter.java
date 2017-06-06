@@ -9,6 +9,7 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.enerchu.ConnectWeb.ConnectWeb;
 import com.enerchu.R;
 import com.enerchu.SQLite.DAO.MultiTapDAO;
 import com.enerchu.SQLite.DAO.PlugDAO;
@@ -201,12 +202,26 @@ public class PlugCustomAdapter extends BaseAdapter {
                     else {
 
                         tmpTag.view.setImageResource(R.drawable.on);
-                        state[n+tmpTag.postion*4] = true;
-                        plugDAO.updateState(multiTapKeyList.get(tmpTag.postion), n+1, true);
+                        state[n + tmpTag.postion * 4] = true;
+                        plugDAO.updateState(multiTapKeyList.get(tmpTag.postion), n + 1, true);
                         //  ♫꒰･‿･๑꒱ 통신
                     }
                     tmpTag.view.invalidate();
+
+                    setTabInfoToWeb(tmpTag);
+                    //Connect to web : update mysql to current state
+                    
                     Log.i("on click", String.valueOf(n+tmpTag.postion*4));
+                }
+
+                private void setTabInfoToWeb(ImageViewTag tmpTag){
+                    ConnectWeb task = new ConnectWeb();
+                    String tabinfos = ""+booleanToInt(state[0+tmpTag.postion*4]) + " " + booleanToInt(state[1+tmpTag.postion*4])+" "
+                            +booleanToInt(state[2+tmpTag.postion*4])+" "+booleanToInt(state[3+tmpTag.postion*4]);
+                    task.connectToWeb("tab", "userid", multiTapKeyList.get(tmpTag.postion), tabinfos);
+                }
+                private int booleanToInt(boolean bool){
+                    return (bool? 1 : 0);
                 }
             };
         }
