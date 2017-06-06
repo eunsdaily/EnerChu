@@ -18,6 +18,9 @@ import android.widget.ViewFlipper;
 
 import com.enerchu.R;
 import com.enerchu.SQLite.DAO.MissionDAO;
+import com.enerchu.SQLite.VO.MissionVO;
+
+import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 
@@ -33,6 +36,9 @@ public class MissionFragment extends Fragment {
     ArrayList<TableLayout> tableLayouts = new ArrayList<>();
     ArrayList<ImageButton> buttonArrayList = new ArrayList<>();
     int nowPage = 0;
+
+    private int numberOfMission = 0;
+    private int numberOfPage = 0;
 
     private MissionDAO missionDAO;
 
@@ -82,26 +88,173 @@ public class MissionFragment extends Fragment {
         buttonArrayList = new ArrayList<>();
         nowPage = 0;
 
-        int numberOfMission = missionDAO.getTotalMission();
-        int numberOfPage = numberOfMission / 12;
-        if(numberOfPage != 0) {
-            if (numberOfMission % 12 != 0) {
-                numberOfPage++;
-            }
-            Log.i("numberOfMission", numberOfMission + "");
-            Log.i("numberOfPage", numberOfPage + "");
+        numberOfMission = missionDAO.getTotalMission();
+        numberOfPage = 0;
 
-            for (int i = 0; i < numberOfPage; i++) {
+        if (numberOfMission % 12 == 0){
+            numberOfPage = numberOfMission/12;
+        }else{
+            numberOfPage = numberOfMission/12 + 1;
+        }
+
+        Log.i("numberOfMission", numberOfMission + "");
+        Log.i("numberOfPage", numberOfPage + "");
+
+        ArrayList<MissionVO> missionVOArray = missionVOgetMission(arrage, success, fail);
+
+        if(numberOfPage != 0) {
+            for (int pageNumber = 0; pageNumber < numberOfPage; pageNumber++) {
                 View tmpView = View.inflate(root.getContext(), R.layout.mission_list, null);
 
-                setMissionListContent(i, tmpView);
-                setPageBtn(i);
+                setMissionListContent(pageNumber, tmpView, missionVOArray);
+                setPageBtn(pageNumber);
             }
 
             tableLayout.removeAllViews();
             tableLayout.addView(tableLayouts.get(0));
         }
     }
+    private void setMissionListContent(int pageNumber, View tmpView, ArrayList<MissionVO> missionVOArray) {
+        TableLayout tmpTable = (TableLayout) tmpView.findViewById(R.id.tableLayout);
+        TableLayout.LayoutParams params = new TableLayout.LayoutParams
+                (ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
+        tmpTable.setLayoutParams(params);
+
+        setMissionListTextView(pageNumber, tmpView, missionVOArray);
+        tableLayouts.add(tmpTable);
+    }
+
+    // need to change! here!
+    private void setMissionListTextView(int pageNumber, View tmpView, ArrayList<MissionVO> missionVOArray) {
+        ArrayList<TextView> dateTextViewArray = addDataTextView(tmpView);
+        ArrayList<TextView> missionStrTextViewArray = addMissionStrTextView(tmpView);
+        ArrayList<TextView> successTextViewArray = addSuccessTextView(tmpView);
+
+        int remandeMission = numberOfMission - pageNumber*12;
+        int thisPageMission = 12 - remandeMission % 12;
+        for(int i = 0; i < thisPageMission; i++){
+
+        }
+    }
+
+    private ArrayList<MissionVO> missionVOgetMission(boolean arrage, boolean success, boolean fail) {
+        ArrayList<MissionVO> missionVOArray;
+
+        if(arrage && success && fail){
+            missionVOArray = missionDAO.getPastMissionTTT();
+        }else if(arrage && success && !fail){
+            missionVOArray = missionDAO.getPastMissionTTF();
+        }else if(arrage && !success && fail){
+            missionVOArray = missionDAO.getPastMissionTFT();
+        }else if(arrage && !success && !fail){
+            missionVOArray = missionDAO.getPastMissionATFF();
+        }else if(!arrage && success && fail){
+            missionVOArray = missionDAO.getPastMissionFTT();
+        }else if(!arrage && success && !fail){
+            missionVOArray = missionDAO.getPastMissionFTF();
+        }else if(!arrage && !success && fail){
+            missionVOArray = missionDAO.getPastMissionFFT();
+        }else {
+            missionVOArray = missionDAO.getPastMissionFFF();
+        }
+
+        return missionVOArray;
+    }
+
+    private ArrayList<TextView> addSuccessTextView(View tmpView) {
+        ArrayList<TextView> successTextViewArray = new ArrayList<>();
+
+        TextView text = (TextView) tmpView.findViewById(R.id.row_1_success);
+        successTextViewArray.add(0, text);
+        text = (TextView) tmpView.findViewById(R.id.row_2_success);
+        successTextViewArray.add(1, text);
+        text = (TextView) tmpView.findViewById(R.id.row_3_success);
+        successTextViewArray.add(2, text);
+        text = (TextView) tmpView.findViewById(R.id.row_4_success);
+        successTextViewArray.add(3, text);
+        text = (TextView) tmpView.findViewById(R.id.row_5_success);
+        successTextViewArray.add(4, text);
+        text = (TextView) tmpView.findViewById(R.id.row_6_success);
+        successTextViewArray.add(5, text);
+        text = (TextView) tmpView.findViewById(R.id.row_7_success);
+        successTextViewArray.add(6, text);
+        text = (TextView) tmpView.findViewById(R.id.row_8_success);
+        successTextViewArray.add(7, text);
+        text = (TextView) tmpView.findViewById(R.id.row_9_success);
+        successTextViewArray.add(8, text);
+        text = (TextView) tmpView.findViewById(R.id.row_10_success);
+        successTextViewArray.add(9, text);
+        text = (TextView) tmpView.findViewById(R.id.row_11_success);
+        successTextViewArray.add(10, text);
+        text = (TextView) tmpView.findViewById(R.id.row_12_success);
+        successTextViewArray.add(11, text);
+
+        return successTextViewArray;
+    }
+
+    private ArrayList<TextView> addMissionStrTextView(View tmpView) {
+        ArrayList<TextView> missionStrTextViewArray = new ArrayList<>();
+
+        TextView text = (TextView) tmpView.findViewById(R.id.row_1_mission);
+        missionStrTextViewArray.add(0, text);
+        text = (TextView) tmpView.findViewById(R.id.row_2_mission);
+        missionStrTextViewArray.add(1, text);
+        text = (TextView) tmpView.findViewById(R.id.row_3_mission);
+        missionStrTextViewArray.add(2, text);
+        text = (TextView) tmpView.findViewById(R.id.row_4_mission);
+        missionStrTextViewArray.add(3, text);
+        text = (TextView) tmpView.findViewById(R.id.row_5_mission);
+        missionStrTextViewArray.add(4, text);
+        text = (TextView) tmpView.findViewById(R.id.row_6_mission);
+        missionStrTextViewArray.add(5, text);
+        text = (TextView) tmpView.findViewById(R.id.row_7_mission);
+        missionStrTextViewArray.add(6, text);
+        text = (TextView) tmpView.findViewById(R.id.row_8_mission);
+        missionStrTextViewArray.add(7, text);
+        text = (TextView) tmpView.findViewById(R.id.row_9_mission);
+        missionStrTextViewArray.add(8, text);
+        text = (TextView) tmpView.findViewById(R.id.row_10_mission);
+        missionStrTextViewArray.add(9, text);
+        text = (TextView) tmpView.findViewById(R.id.row_11_mission);
+        missionStrTextViewArray.add(10, text);
+        text = (TextView) tmpView.findViewById(R.id.row_12_mission);
+        missionStrTextViewArray.add(11, text);
+
+        return missionStrTextViewArray;
+    }
+
+    private ArrayList<TextView> addDataTextView(View tmpView) {
+        ArrayList<TextView> dateTextViewArray = new ArrayList<>();
+
+        TextView text = (TextView) tmpView.findViewById(R.id.row_1_date);
+        dateTextViewArray.add(0, text);
+        text = (TextView) tmpView.findViewById(R.id.row_2_date);
+        dateTextViewArray.add(1, text);
+        text = (TextView) tmpView.findViewById(R.id.row_3_date);
+        dateTextViewArray.add(2, text);
+        text = (TextView) tmpView.findViewById(R.id.row_4_date);
+        dateTextViewArray.add(3, text);
+        text = (TextView) tmpView.findViewById(R.id.row_5_date);
+        dateTextViewArray.add(4, text);
+        text = (TextView) tmpView.findViewById(R.id.row_6_date);
+        dateTextViewArray.add(5, text);
+        text = (TextView) tmpView.findViewById(R.id.row_7_date);
+        dateTextViewArray.add(6, text);
+        text = (TextView) tmpView.findViewById(R.id.row_8_date);
+        dateTextViewArray.add(7, text);
+        text = (TextView) tmpView.findViewById(R.id.row_9_date);
+        dateTextViewArray.add(8, text);
+        text = (TextView) tmpView.findViewById(R.id.row_10_date);
+        dateTextViewArray.add(9, text);
+        text = (TextView) tmpView.findViewById(R.id.row_11_date);
+        dateTextViewArray.add(10, text);
+        text = (TextView) tmpView.findViewById(R.id.row_12_date);
+        dateTextViewArray.add(11, text);
+
+        return dateTextViewArray;
+    }
+
+
 
     private void setPageBtn(int i) {
         final ImageButton tmpButton = new ImageButton(root.getContext());
@@ -133,59 +286,11 @@ public class MissionFragment extends Fragment {
         buttonLayout.addView(buttonArrayList.get(index));
     }
 
-    private void setMissionListContent(int i, View tmpView) {
-        TableLayout tmpTable = (TableLayout) tmpView.findViewById(R.id.tableLayout);
-        TableLayout.LayoutParams params = new TableLayout.LayoutParams
-                (ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
-        tmpTable.setLayoutParams(params);
-
-        setMissionListTextView(i, tmpView);
-        tableLayouts.add(tmpTable);
-    }
-
-    // need to change! here!
-    private void setMissionListTextView(int i, View tmpView) {
-        TextView text = (TextView) tmpView.findViewById(R.id.row_1_date);
-        int missionNum = i*12+0;
-        text.setText(String.valueOf(missionNum));
-        text = (TextView) tmpView.findViewById(R.id.row_2_date);
-        missionNum = i*12+1;
-        text.setText(String.valueOf(missionNum));
-        text = (TextView) tmpView.findViewById(R.id.row_3_date);
-        missionNum = i*12+2;
-        text.setText(String.valueOf(missionNum));
-        text = (TextView) tmpView.findViewById(R.id.row_4_date);
-        missionNum = i*12+3;
-        text.setText(String.valueOf(missionNum));
-        text = (TextView) tmpView.findViewById(R.id.row_5_date);
-        missionNum = i*12+4;
-        text.setText(String.valueOf(missionNum));
-        text = (TextView) tmpView.findViewById(R.id.row_6_date);
-        missionNum = i*12+5;
-        text.setText(String.valueOf(missionNum));
-        text = (TextView) tmpView.findViewById(R.id.row_7_date);
-        missionNum = i*12+6;
-        text.setText(String.valueOf(missionNum));
-        text = (TextView) tmpView.findViewById(R.id.row_8_date);
-        missionNum = i*12+7;
-        text.setText(String.valueOf(missionNum));
-        text = (TextView) tmpView.findViewById(R.id.row_9_date);
-        missionNum = i*12+8;
-        text.setText(String.valueOf(missionNum));
-        text = (TextView) tmpView.findViewById(R.id.row_10_date);
-        missionNum = i*12+9;
-        text.setText(String.valueOf(missionNum));
-        text = (TextView) tmpView.findViewById(R.id.row_11_date);
-        missionNum = i*12+10;
-        text.setText(String.valueOf(missionNum));
-        text = (TextView) tmpView.findViewById(R.id.row_12_date);
-        missionNum = i*12+11;
-        text.setText(String.valueOf(missionNum));
-    }
-
     @Override
     public void onDestroyView() {
         super.onDestroyView();
         missionDAO.close();
     }
+
+
 }

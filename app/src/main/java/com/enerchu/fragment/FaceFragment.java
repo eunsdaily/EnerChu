@@ -16,18 +16,21 @@ import android.widget.TextView;
 
 import com.enerchu.GradeManager;
 import com.enerchu.R;
+import com.enerchu.SQLite.DAO.ClientDAO;
 import com.enerchu.SQLite.DAO.MissionDAO;
 
 public class FaceFragment extends Fragment {
     private View root = null;
     private GradeManager gradeManager = new GradeManager();
     private MissionDAO missionDAO;
+    private ClientDAO clientDAO;
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         root = inflater.inflate(R.layout.fragment_face, container, false);
         missionDAO = new MissionDAO(root.getContext());
+        clientDAO = new ClientDAO(root.getContext());
 
         return root;
     }
@@ -49,7 +52,7 @@ public class FaceFragment extends Fragment {
 
         // set background color
         final Bitmap gradation = BitmapFactory.decodeResource(getResources(), R.drawable.gradation);
-        int nowGrade = gradeManager.getGrade();
+        int nowGrade = clientDAO.getGrade();
         int rgb = gradation.getPixel(Integer.parseInt(String.valueOf(Math.round(gradation.getWidth()*0.01*nowGrade))), 5);
         root.setBackgroundColor(rgb);
 

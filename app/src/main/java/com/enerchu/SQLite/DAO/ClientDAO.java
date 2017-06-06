@@ -74,4 +74,8 @@ public class ClientDAO {
         db.close();
         dbHelper.close();
     }
+
+    public int getGrade() {
+        return 50;
+    }
 }

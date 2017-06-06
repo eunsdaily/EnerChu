@@ -1,5 +1,7 @@
 package com.enerchu.SQLite.SQL;
 
+import android.util.Log;
+
 import java.util.ArrayList;
 
 /**
@@ -36,6 +38,7 @@ public class Insert{
             // params.get(0) : missionType
             // params.get(1) : param
 
+            Log.i("insertMission called", params.get(0) + " " + params.get(1));
             String sql = "insert or ignore into mission values((select date('now', 'localtime')), "+params.get(0)+", '"+params.get(1)+"', 0);";
             return sql;
         }

@@ -7,6 +7,7 @@ import android.util.Log;
 
 import com.enerchu.SQLite.DBHelper;
 import com.enerchu.SQLite.SQL.Update;
+import com.enerchu.SQLite.VO.PlugVO;
 
 import java.util.ArrayList;
 import java.util.Random;
@@ -73,5 +74,10 @@ public class PlugDAO {
     public void close(){
         db.close();
         dbHelper.close();
+    }
+
+    public static PlugVO getLastGreedy() {
+        // 어제 가장 많은 전력을 사용한 플러그?
+        return new PlugVO();
     }
 }

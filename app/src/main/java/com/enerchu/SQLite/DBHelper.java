@@ -1,6 +1,7 @@
 package com.enerchu.SQLite;
 
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
@@ -52,7 +53,7 @@ public class DBHelper extends SQLiteOpenHelper {
     public void initialization(SQLiteDatabase db){
         Log.i("initialization", "called");
         // insert testing data
-        ArrayList<String> parms = new ArrayList<String>();
+        ArrayList<String> parms = new ArrayList<>();
         parms.add(0, "id");
         parms.add(1, "pw");
         db.execSQL(new Insert.insertClient().getSQL(parms));
@@ -72,5 +73,16 @@ public class DBHelper extends SQLiteOpenHelper {
         parms.add(1, "mul1");
         parms.add(2, "1");
         db.execSQL(new Update.updateBill().getSQL(parms));
+
+        parms.clear();
+        parms.add(0, "3");
+        parms.add(1, "-");
+        db.execSQL(new Insert.insertMission().getSQL(parms));
+
+        Cursor c = db.query("mission", null, null, null, null, null, null);
+        while(c.moveToNext()){
+            Log.i("mission", String.valueOf(c.getString(c.getColumnIndex("date")))+" "+String.valueOf(c.getInt(c.getColumnIndex("missionType")))+" "+
+                                c.getString(c.getColumnIndex("param"))+" "+c.getInt(c.getColumnIndex("success")));
+        }
     }
 }
