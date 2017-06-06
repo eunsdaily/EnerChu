@@ -2,6 +2,9 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.enerchu">
 
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>
+
     <application
         android:allowBackup="true"
         android:icon="@drawable/icon_no_shadow"
@@ -23,6 +26,26 @@
         <!--<activity android:name=".fragment.PlugFragment" />-->
         <!--<activity android:name=".fragment.MissionFragment" />-->
         <!--<activity android:name=".fragment.SettingFragment"></activity>-->
+
+        <receiver android:name=".ConnectWeb.PollingReceiver">
+            <intent-filter>
+                <action android:name="PollingReceiver">
+                </action>
+            </intent-filter>
+        </receiver>
+
+        <receiver android:name=".ConnectWeb.BootReceiver"
+            android:enabled="true"
+            android:exported="false"
+            android:label="BOOTReceiver">
+
+            <action android:name="BootReceiver">
+            </action>
+            <intent-filter >
+                <action android:name="android.intent.action.BOOT_COMPLETED"/>
+                <action android:name="BootReceiver" />
+            </intent-filter>
+        </receiver>
     </application>
 
 
