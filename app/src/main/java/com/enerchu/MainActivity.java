@@ -4,7 +4,6 @@ import android.app.AlarmManager;
 import android.app.Fragment;
 import android.app.FragmentTransaction;
 import android.app.PendingIntent;
-import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -12,20 +11,18 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AppCompatActivity;
-import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.MenuItem;
-import android.view.WindowManager;
-import android.widget.ImageView;
-import android.widget.TextView;
 
 import com.enerchu.ConnectWeb.PollingReceiver;
+import com.enerchu.SQLite.DAO.BillDAO;
+import com.enerchu.SQLite.DAO.Singleton;
 import com.enerchu.SQLite.DBHelper;
-import com.enerchu.fragment.BillFragment;
-import com.enerchu.fragment.FaceFragment;
-import com.enerchu.fragment.MissionFragment;
-import com.enerchu.fragment.PlugFragment;
-import com.enerchu.fragment.SettingFragment;
+import com.enerchu.Fragment.BillFragment;
+import com.enerchu.Fragment.FaceFragment;
+import com.enerchu.Fragment.MissionFragment;
+import com.enerchu.Fragment.PlugFragment;
+import com.enerchu.Fragment.SettingFragment;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -38,14 +35,20 @@ public class MainActivity extends AppCompatActivity {
 
         alarmSetting(); // setting polling
 
+        // check db
         DBHelper dbHelper = new DBHelper(MainActivity.this, "EnerChu.db", null, 1);
         SQLiteDatabase db = dbHelper.getWritableDatabase();
         dbHelper.initialization(db);
         db = dbHelper.getReadableDatabase();
         Cursor c = db.query("bill", null, null, null, null, null, null);
+
         while(c.moveToNext()){
             Log.i(c.getString(c.getColumnIndex("multitapCode"))+"-"+String.valueOf(c.getInt(c.getColumnIndex("plugNumber")))+"-"+String.valueOf(c.getString(c.getColumnIndex("date"))), String.valueOf(c.getFloat(c.getColumnIndex("lastUpdatedUsed"))));
         }
+
+        // initialization singleton for dao
+        Singleton.initializatin(this.getApplicationContext());
+        BillDAO billDAO = Singleton.getBillDAO();
 
         bottomNavigationView = (BottomNavigationView) findViewById(R.id.navigation);
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {

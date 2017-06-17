@@ -1,4 +1,4 @@
-package com.enerchu.fragment;
+package com.enerchu.Fragment;
 
 import android.graphics.Color;
 import android.support.annotation.Nullable;
@@ -14,13 +14,10 @@ import android.widget.LinearLayout;
 import android.widget.Switch;
 import android.widget.TableLayout;
 import android.widget.TextView;
-import android.widget.ViewFlipper;
 
 import com.enerchu.R;
 import com.enerchu.SQLite.DAO.MissionDAO;
 import com.enerchu.SQLite.VO.MissionVO;
-
-import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 

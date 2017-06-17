@@ -4,6 +4,7 @@ import com.enerchu.SQLite.DAO.ClientDAO;
 import com.enerchu.SQLite.DAO.MissionDAO;
 import com.enerchu.SQLite.DAO.MultiTapDAO;
 import com.enerchu.SQLite.DAO.PlugDAO;
+import com.enerchu.SQLite.DAO.Singleton;
 import com.enerchu.SQLite.VO.PlugVO;
 
 /**
@@ -37,12 +38,17 @@ public class ParamMaker {
             //  75 > grade > 50 : param * 1.15
             //  50 > grade > 25 : param * 1.20
             //  50 > grade      : param * 1.25
-            float lastParam = 42;
-//            float lastParam = Float.parseFloat(MissionDAO.getLastParam(type));
+            MissionDAO missionDAO = Singleton.getMissionDAO();
+            ClientDAO clientDAO = Singleton.getClientDAO();
+
+            float lastParam = Float.parseFloat(missionDAO.getLastParam(type));
             boolean lastSuccess = MissionDAO.getLastSuccess(type);
-//            int grade = ClientDAO.getGrade();
-            int grade = 50;
+            int grade = clientDAO.getGrade();
             float newParam;
+
+            if(lastParam == 0){
+                lastParam = 10;
+            }
 
             if (lastSuccess) {
                 if (grade > 75) {

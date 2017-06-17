@@ -7,7 +7,7 @@
     android:orientation="vertical"
     android:weightSum="10"
     android:background="@color/colorBackground"
-    tools:context="com.enerchu.fragment.PlugFragment">
+    tools:context="com.enerchu.Fragment.PlugFragment">
 
     <TextView
         android:layout_width="match_parent"

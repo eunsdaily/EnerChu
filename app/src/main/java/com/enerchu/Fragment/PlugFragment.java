@@ -1,4 +1,4 @@
-package com.enerchu.fragment;
+package com.enerchu.Fragment;
 
 import android.support.annotation.Nullable;
 import android.app.Fragment;
@@ -9,7 +9,6 @@ import android.view.ViewGroup;
 import android.widget.ListView;
 
 import com.enerchu.SQLite.DAO.MultiTapDAO;
-import com.enerchu.SQLite.DAO.PlugDAO;
 import com.enerchu.Adapter.PlugCustomAdapter;
 import com.enerchu.R;
 
