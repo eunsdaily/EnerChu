@@ -18,6 +18,7 @@ import com.enerchu.SQLite.DAO.BillStateDAO;
 import com.enerchu.SQLite.DAO.ClientDAO;
 import com.enerchu.SQLite.DAO.MultiTapDAO;
 import com.enerchu.R;
+import com.enerchu.SQLite.DAO.Singleton;
 
 import java.util.ArrayList;
 
@@ -53,9 +54,9 @@ public class BillFragment extends Fragment {
         viewFlipper = (ViewFlipper) root.findViewById(R.id.viewFlipper);
         viewFlipper.setOnTouchListener(flipperTouchListener);
 
-        clientDAO = new ClientDAO(root.getContext());
-        billStateDAO = new BillStateDAO(root.getContext());
-        multiTapDAO = new MultiTapDAO(root.getContext());
+        clientDAO = Singleton.getClientDAO();
+        billStateDAO = Singleton.getBillStateDAO();
+        multiTapDAO = Singleton.getMultiTapDAO();
 
         //setChart();
         ChartMaker chartMaker = new ChartMaker();

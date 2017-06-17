@@ -17,6 +17,7 @@ import android.widget.TextView;
 
 import com.enerchu.R;
 import com.enerchu.SQLite.DAO.MissionDAO;
+import com.enerchu.SQLite.DAO.Singleton;
 import com.enerchu.SQLite.VO.MissionVO;
 
 import java.util.ArrayList;
@@ -49,7 +50,7 @@ public class MissionFragment extends Fragment {
         arrageSwitch = (Switch) root.findViewById(R.id.arrageSwitch);
         successSwitch = (Switch) root.findViewById(R.id.successSwitch);
         failSwitch = (Switch) root.findViewById(R.id.failSwitch);
-        missionDAO = new MissionDAO(root.getContext());
+        missionDAO = Singleton.getMissionDAO();
 
         return root;
     }

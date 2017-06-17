@@ -13,6 +13,7 @@ import android.widget.TextView;
 import com.enerchu.R;
 import com.enerchu.SQLite.DAO.MultiTapDAO;
 import com.enerchu.SQLite.DAO.PlugDAO;
+import com.enerchu.SQLite.DAO.Singleton;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -71,7 +72,7 @@ public class DelMultitapCustomAdapter extends BaseAdapter {
     public View  getView(int position, View convertView, ViewGroup parent){
         holder = new DelMultitapHolder();
         context = parent.getContext();
-        multiTapDAO = new MultiTapDAO(context);
+        multiTapDAO = Singleton.getMultiTapDAO();
 
         if( convertView == null ){
             LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);

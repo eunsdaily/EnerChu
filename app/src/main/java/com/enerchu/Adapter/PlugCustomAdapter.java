@@ -13,6 +13,7 @@ import com.enerchu.ConnectWeb.ConnectWeb;
 import com.enerchu.R;
 import com.enerchu.SQLite.DAO.MultiTapDAO;
 import com.enerchu.SQLite.DAO.PlugDAO;
+import com.enerchu.SQLite.DAO.Singleton;
 import com.enerchu.condition;
 
 import java.util.ArrayList;
@@ -86,8 +87,8 @@ public class PlugCustomAdapter extends BaseAdapter {
         holder = new PlugCustomHolder();
         context = parent.getContext();
 
-        multiTapDAO = new MultiTapDAO(context);
-        plugDAO = new PlugDAO(context);
+        multiTapDAO = Singleton.getMultiTapDAO();
+        plugDAO = Singleton.getPlugDAO();
 
         if ( convertView == null ) {
             LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);

@@ -1,4 +1,4 @@
-package com.enerchu;
+package com.enerchu.MissoinManager;
 
 import com.enerchu.SQLite.DAO.ClientDAO;
 import com.enerchu.SQLite.DAO.MissionDAO;

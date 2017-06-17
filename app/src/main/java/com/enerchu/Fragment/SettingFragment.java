@@ -29,6 +29,7 @@ import com.enerchu.Adapter.renameCustomAdapter;
 import com.enerchu.R;
 import com.enerchu.SQLite.DAO.ClientDAO;
 import com.enerchu.SQLite.DAO.MultiTapDAO;
+import com.enerchu.SQLite.DAO.Singleton;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -157,7 +158,7 @@ public class SettingFragment extends Fragment {
 
         delMultitapPopupWindow.showAtLocation(delMultitapPopupView, Gravity.CENTER, 0, 0);
 
-        MultiTapDAO multiTapDAO = new MultiTapDAO(root.getContext());
+        MultiTapDAO multiTapDAO = Singleton.getMultiTapDAO();
         ArrayList<String> mulitapCodes = multiTapDAO.getMultitapCodes();
         int totalOfMultiTap = mulitapCodes.size();
         for(int i = 0 ; i < totalOfMultiTap; i++){
@@ -195,7 +196,7 @@ public class SettingFragment extends Fragment {
 
         renamePopupWindow.showAtLocation(renamePopupView, Gravity.CENTER, 0, 0);
 
-        MultiTapDAO multiTapDAO = new MultiTapDAO(root.getContext());
+        MultiTapDAO multiTapDAO = Singleton.getMultiTapDAO();
         ArrayList<String> mulitapCodes = multiTapDAO.getMultitapCodes();
         int totalOfMultiTap = mulitapCodes.size();
         for(int i = 0 ; i < totalOfMultiTap; i++){
@@ -225,7 +226,7 @@ public class SettingFragment extends Fragment {
         goalPopupWindow.setFocusable(true);
         goalPopupWindow.setOutsideTouchable(false);
 
-        final ClientDAO clientDAO = new ClientDAO(root.getContext());
+        final ClientDAO clientDAO = Singleton.getClientDAO();
         final TextView goalBefore = (TextView) goalPopupView.findViewById(R.id.goalBefore);
         String goalText = clientDAO.getGoalBillKWh()+" kWh";
         goalBefore.setText(goalText);

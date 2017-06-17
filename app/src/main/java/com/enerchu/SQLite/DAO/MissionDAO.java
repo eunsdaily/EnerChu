@@ -5,13 +5,12 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 
-import com.enerchu.MissionMaker;
+import com.enerchu.MissoinManager.MissionMaker;
 import com.enerchu.SQLite.DBHelper;
 import com.enerchu.SQLite.SQL.Insert;
 import com.enerchu.SQLite.VO.MissionVO;
 
 import java.util.ArrayList;
-import java.util.Random;
 
 /**
  * Created by admin on 2017-05-15.
