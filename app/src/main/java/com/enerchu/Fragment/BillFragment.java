@@ -1,4 +1,4 @@
-package com.enerchu.fragment;
+package com.enerchu.Fragment;
 
 import android.app.Fragment;
 import android.os.Bundle;
@@ -14,11 +14,9 @@ import android.widget.ViewFlipper;
 
 import com.enerchu.Adapter.BillCustomAdapter;
 import com.enerchu.ChartMaker;
-import com.enerchu.SQLite.DAO.BillDAO;
 import com.enerchu.SQLite.DAO.BillStateDAO;
 import com.enerchu.SQLite.DAO.ClientDAO;
 import com.enerchu.SQLite.DAO.MultiTapDAO;
-import com.enerchu.SQLite.DAO.PlugDAO;
 import com.enerchu.R;
 
 import java.util.ArrayList;
