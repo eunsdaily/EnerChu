@@ -1,7 +1,16 @@
-package com.enerchu.SQLite.DAO;
+package com.enerchu.SQLite.Singleton;
 
 import android.content.Context;
+import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
+
+import com.enerchu.SQLite.DAO.BillDAO;
+import com.enerchu.SQLite.DAO.BillStateDAO;
+import com.enerchu.SQLite.DAO.ClientDAO;
+import com.enerchu.SQLite.DAO.MissionDAO;
+import com.enerchu.SQLite.DAO.MultiTapDAO;
+import com.enerchu.SQLite.DAO.PlugDAO;
+import com.enerchu.SQLite.DBHelper;
 
 /**
  * Created by admin on 2017-06-10.

@@ -38,14 +38,8 @@ public class MissionDAO {
         return returnVal;
     }
 
-    public void close(){
-        db.close();
-        dbHelper.close();
-    }
-
     public String getTodayMisson() {
         String mission = "";
-
         String sql = "select * from mission where date=(select date('now', 'localtime'));";
         Cursor c = db.rawQuery(sql, null);
 
@@ -125,5 +119,10 @@ public class MissionDAO {
         ArrayList<MissionVO> missionVOArray = new ArrayList<>();
 
         return missionVOArray;
+    }
+
+    public void close(){
+        db.close();
+        dbHelper.close();
     }
 }

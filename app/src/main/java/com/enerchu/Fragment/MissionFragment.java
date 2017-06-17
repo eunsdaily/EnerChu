@@ -17,7 +17,7 @@ import android.widget.TextView;
 
 import com.enerchu.R;
 import com.enerchu.SQLite.DAO.MissionDAO;
-import com.enerchu.SQLite.DAO.Singleton;
+import com.enerchu.SQLite.Singleton.Singleton;
 import com.enerchu.SQLite.VO.MissionVO;
 
 import java.util.ArrayList;
@@ -287,8 +287,6 @@ public class MissionFragment extends Fragment {
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        missionDAO.close();
     }
-
 
 }

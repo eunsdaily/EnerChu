@@ -18,7 +18,7 @@ import com.enerchu.GradeManager;
 import com.enerchu.R;
 import com.enerchu.SQLite.DAO.ClientDAO;
 import com.enerchu.SQLite.DAO.MissionDAO;
-import com.enerchu.SQLite.DAO.Singleton;
+import com.enerchu.SQLite.Singleton.Singleton;
 
 public class FaceFragment extends Fragment {
     private View root = null;
@@ -34,7 +34,7 @@ public class FaceFragment extends Fragment {
         clientDAO = Singleton.getClientDAO();
 
         return root;
-    }.
+    }
 
     @Override
     public void onResume() {

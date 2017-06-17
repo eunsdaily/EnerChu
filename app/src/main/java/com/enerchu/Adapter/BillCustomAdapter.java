@@ -1,13 +1,10 @@
 package com.enerchu.Adapter;
 
 import android.content.Context;
-import android.graphics.ColorFilter;
-import android.graphics.drawable.BitmapDrawable;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
@@ -21,7 +18,7 @@ import com.enerchu.R;
 import com.enerchu.SQLite.DAO.BillDAO;
 import com.enerchu.SQLite.DAO.MultiTapDAO;
 import com.enerchu.SQLite.DAO.PlugDAO;
-import com.enerchu.SQLite.DAO.Singleton;
+import com.enerchu.SQLite.Singleton.Singleton;
 
 import java.util.ArrayList;
 import java.util.List;

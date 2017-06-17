@@ -1,7 +1,6 @@
 package com.enerchu.Adapter;
 
 import android.content.Context;
-import android.text.Editable;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,9 +13,7 @@ import android.widget.Toast;
 import com.enerchu.R;
 import com.enerchu.SQLite.DAO.MultiTapDAO;
 import com.enerchu.SQLite.DAO.PlugDAO;
-import com.enerchu.SQLite.DAO.Singleton;
-
-import org.w3c.dom.Text;
+import com.enerchu.SQLite.Singleton.Singleton;
 
 import java.util.ArrayList;
 import java.util.List;

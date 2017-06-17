@@ -49,6 +49,7 @@ public class MultiTapDAO {
     }
 
     public ArrayList<String> getMultitapCodes(){
+        db = dbHelper.getReadableDatabase();
         String sql = "select multitapCode from multitap;";
         Cursor c = db.rawQuery(sql, null);
 

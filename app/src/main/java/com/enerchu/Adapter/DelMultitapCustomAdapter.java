@@ -12,8 +12,7 @@ import android.widget.TextView;
 
 import com.enerchu.R;
 import com.enerchu.SQLite.DAO.MultiTapDAO;
-import com.enerchu.SQLite.DAO.PlugDAO;
-import com.enerchu.SQLite.DAO.Singleton;
+import com.enerchu.SQLite.Singleton.Singleton;
 
 import java.util.ArrayList;
 import java.util.HashMap;

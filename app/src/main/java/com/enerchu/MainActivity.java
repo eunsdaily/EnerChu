@@ -1,10 +1,7 @@
 package com.enerchu;
 
-import android.app.AlarmManager;
 import android.app.Fragment;
 import android.app.FragmentTransaction;
-import android.app.PendingIntent;
-import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
@@ -14,9 +11,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.MenuItem;
 
-import com.enerchu.ConnectWeb.PollingReceiver;
 import com.enerchu.SQLite.DAO.BillDAO;
-import com.enerchu.SQLite.DAO.Singleton;
+import com.enerchu.SQLite.Singleton.Singleton;
 import com.enerchu.SQLite.DBHelper;
 import com.enerchu.Fragment.BillFragment;
 import com.enerchu.Fragment.FaceFragment;
@@ -33,7 +29,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        alarmSetting(); // setting polling
+//        alarmSetting(); // setting polling
 
         // check db
         DBHelper dbHelper = new DBHelper(MainActivity.this, "EnerChu.db", null, 1);
@@ -91,10 +87,10 @@ public class MainActivity extends AppCompatActivity {
         fragmentTransaction.commit();
     }
 
-    private void alarmSetting(){
-        AlarmManager processTimer = (AlarmManager)getSystemService(ALARM_SERVICE);
-        Intent intent = new Intent(this, PollingReceiver.class);
-        PendingIntent pendingIntent = PendingIntent.getBroadcast(this, 0,  intent, PendingIntent.FLAG_UPDATE_CURRENT);
-        processTimer.setRepeating(AlarmManager.RTC, System.currentTimeMillis(),5000, pendingIntent);
-    }
+//    private void alarmSetting(){
+//        AlarmManager processTimer = (AlarmManager)getSystemService(ALARM_SERVICE);
+//        Intent intent = new Intent(this, PollingReceiver.class);
+//        PendingIntent pendingIntent = PendingIntent.getBroadcast(this, 0,  intent, PendingIntent.FLAG_UPDATE_CURRENT);
+//        processTimer.setRepeating(AlarmManager.RTC, System.currentTimeMillis(),5000, pendingIntent);
+//    }
 }

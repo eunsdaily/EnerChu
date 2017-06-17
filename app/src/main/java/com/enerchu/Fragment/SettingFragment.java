@@ -29,7 +29,7 @@ import com.enerchu.Adapter.renameCustomAdapter;
 import com.enerchu.R;
 import com.enerchu.SQLite.DAO.ClientDAO;
 import com.enerchu.SQLite.DAO.MultiTapDAO;
-import com.enerchu.SQLite.DAO.Singleton;
+import com.enerchu.SQLite.Singleton.Singleton;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -290,6 +290,5 @@ public class SettingFragment extends Fragment {
     private void delMultitap(HashMap<String, Boolean> deletMap) {
         Log.i("del Multitap", "called");
     }
-
 
 }

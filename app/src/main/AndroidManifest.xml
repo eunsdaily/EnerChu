@@ -27,25 +27,25 @@
         <!--<activity android:name=".fragment.MissionFragment" />-->
         <!--<activity android:name=".fragment.SettingFragment"></activity>-->
 
-        <receiver android:name=".ConnectWeb.PollingReceiver">
-            <intent-filter>
-                <action android:name="PollingReceiver">
-                </action>
-            </intent-filter>
-        </receiver>
+        <!--<receiver android:name=".ConnectWeb.PollingReceiver">-->
+            <!--<intent-filter>-->
+                <!--<action android:name="PollingReceiver">-->
+                <!--</action>-->
+            <!--</intent-filter>-->
+        <!--</receiver>-->
 
-        <receiver android:name=".ConnectWeb.BootReceiver"
-            android:enabled="true"
-            android:exported="false"
-            android:label="BOOTReceiver">
+        <!--<receiver android:name=".ConnectWeb.BootReceiver"-->
+            <!--android:enabled="true"-->
+            <!--android:exported="false"-->
+            <!--android:label="BOOTReceiver">-->
 
-            <action android:name="BootReceiver">
-            </action>
-            <intent-filter >
-                <action android:name="android.intent.action.BOOT_COMPLETED"/>
-                <action android:name="BootReceiver" />
-            </intent-filter>
-        </receiver>
+            <!--<action android:name="BootReceiver">-->
+            <!--</action>-->
+            <!--<intent-filter >-->
+                <!--<action android:name="android.intent.action.BOOT_COMPLETED"/>-->
+                <!--<action android:name="BootReceiver" />-->
+            <!--</intent-filter>-->
+        <!--</receiver>-->
     </application>
 
 

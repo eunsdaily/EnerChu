@@ -11,7 +11,7 @@ import android.widget.ListView;
 import com.enerchu.SQLite.DAO.MultiTapDAO;
 import com.enerchu.Adapter.PlugCustomAdapter;
 import com.enerchu.R;
-import com.enerchu.SQLite.DAO.Singleton;
+import com.enerchu.SQLite.Singleton.Singleton;
 
 import java.util.ArrayList;
 
@@ -56,6 +56,6 @@ public class PlugFragment extends Fragment {
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        multiTapDAO.close();
+//        multiTapDAO.close();
     }
 }
