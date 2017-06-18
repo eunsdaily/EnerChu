@@ -21,18 +21,19 @@ public class Update{
             // params.get(2) : plugNumber
 
             String sql =
-                    "drop view if exists today; " +
-                            "create view today as select date('now', 'localtime') as today;" +
-                            "update bill set amountUsed = ("+params.get(0)+"+(select amountUsed " +
-                                                                            " from bill, today" +
-                                                                            " where bill.multitapCode='"+params.get(1)+"'" +
-                                                                                    " and bill.plugNumber="+params.get(2)+
-                                                                                    " and date = today.today)),"+
-                                            " lastUpdatedUsed = "+params.get(0)+
-                                        " where bill.multitapCode='"+params.get(1)+"' and bill.plugNumber="+params.get(2)+
-                                                " and bill.date = (select date('now', 'localtime'));" +
-                            " drop view if exists today;";
-            Log.i("", sql);
+//                    "drop view if exists today; " +
+//                            "create view today as select date('now', 'localtime') as today;" +
+//                            "update bill set amountUsed = ("+params.get(0)+"+(select amountUsed " +
+//                                                                            " from bill, today" +
+//                                                                            " where bill.multitapCode='"+params.get(1)+"'" +
+//                                                                                    " and bill.plugNumber="+params.get(2)+
+//                                                                                    " and date = today.today)),"+
+//                                            " lastUpdatedUsed = "+params.get(0)+
+//                                        " where bill.multitapCode='"+params.get(1)+"' and bill.plugNumber="+params.get(2)+
+//                                                " and bill.date = (select date('now', 'localtime'));" +
+//                            " drop view if exists today;";
+            "update bill set amountUsed = "+params.get(0)+" where bill.multitapCode='"+params.get(1)+"' and bill.plugNumber="+params.get(2)+" and bill.date = (select date('now', 'localtime'));";
+//            Log.i("update sql", sql);
             return sql;
         }
     }

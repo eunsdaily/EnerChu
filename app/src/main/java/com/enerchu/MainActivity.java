@@ -38,8 +38,10 @@ public class MainActivity extends AppCompatActivity {
         db = dbHelper.getReadableDatabase();
         Cursor c = db.query("bill", null, null, null, null, null, null);
 
+        Log.i("c.getCount()",c.getCount()+"");
+
         while(c.moveToNext()){
-            Log.i(c.getString(c.getColumnIndex("multitapCode"))+"-"+String.valueOf(c.getInt(c.getColumnIndex("plugNumber")))+"-"+String.valueOf(c.getString(c.getColumnIndex("date"))), String.valueOf(c.getFloat(c.getColumnIndex("lastUpdatedUsed"))));
+            Log.i("bill",c.getString(c.getColumnIndex("multitapCode"))+"  "+String.valueOf(c.getInt(c.getColumnIndex("plugNumber")))+"  "+String.valueOf(c.getFloat(c.getColumnIndex("amountUsed"))));
         }
 
         // initialization singleton for dao

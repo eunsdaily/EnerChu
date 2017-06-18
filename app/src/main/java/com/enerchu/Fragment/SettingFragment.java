@@ -33,6 +33,7 @@ import com.enerchu.SQLite.Singleton.Singleton;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Random;
 
 public class SettingFragment extends Fragment {
@@ -44,6 +45,8 @@ public class SettingFragment extends Fragment {
     private TableRow connectionManage_delExistMultitap;
     private TableRow nickNmaeManage;
     private TableRow goalBillManage;
+
+    private MultiTapDAO multiTapDAO;
 
     private View root;
     private View addMultitapPopupView;
@@ -64,6 +67,8 @@ public class SettingFragment extends Fragment {
         connectionManage_delExistMultitap.setOnClickListener(delExistMultitapOnClickListener);
         nickNmaeManage.setOnClickListener(nickNameManageOnClickListener);
         goalBillManage.setOnClickListener(goalBillManageOnClickListener);
+
+        multiTapDAO = Singleton.getMultiTapDAO();
 
         return root;
     }
@@ -158,7 +163,7 @@ public class SettingFragment extends Fragment {
 
         delMultitapPopupWindow.showAtLocation(delMultitapPopupView, Gravity.CENTER, 0, 0);
 
-        MultiTapDAO multiTapDAO = Singleton.getMultiTapDAO();
+
         ArrayList<String> mulitapCodes = multiTapDAO.getMultitapCodes();
         int totalOfMultiTap = mulitapCodes.size();
         for(int i = 0 ; i < totalOfMultiTap; i++){
@@ -196,7 +201,6 @@ public class SettingFragment extends Fragment {
 
         renamePopupWindow.showAtLocation(renamePopupView, Gravity.CENTER, 0, 0);
 
-        MultiTapDAO multiTapDAO = Singleton.getMultiTapDAO();
         ArrayList<String> mulitapCodes = multiTapDAO.getMultitapCodes();
         int totalOfMultiTap = mulitapCodes.size();
         for(int i = 0 ; i < totalOfMultiTap; i++){
@@ -288,7 +292,18 @@ public class SettingFragment extends Fragment {
 
     // 멀티탭 삭제
     private void delMultitap(HashMap<String, Boolean> deletMap) {
-        Log.i("del Multitap", "called");
+        Log.i("delMultitap","called");
+        Iterator<String> iterator = deletMap.keySet().iterator();
+
+        while (iterator.hasNext()) {
+            String key = iterator.next();
+            Log.i("map", key+", "+deletMap.get(key));
+
+            if(deletMap.get(key)){
+                multiTapDAO.deleteMultiTap(key);
+                Toast.makeText(root.getContext(), multiTapDAO.getNickName(key)+"("+key+")"+"를 삭제했습니다 ('~')~", Toast.LENGTH_SHORT).show();
+            }
+        }
     }
 
 }

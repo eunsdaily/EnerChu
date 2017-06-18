@@ -47,7 +47,6 @@ public  class CreateTable{
                     "    plugNumber integer," +
                     "    date Date," +
                     "    amountUsed float," +
-                    "    lastUpdatedUsed float," +
                     "    primary key(multitapCode, plugNumber, date)," +
                     "    foreign key(multitapCode, plugNumber) " +
                     "       references plug(multitapCode,plugNumber)" +

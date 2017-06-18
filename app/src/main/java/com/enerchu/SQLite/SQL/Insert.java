@@ -25,7 +25,7 @@ public class Insert{
                 sql += "'"+ params.get(1)+"');";
             }
             else{
-                sql += "'"+ params.get(0)+"');";
+                sql += "null);";
             }
             return sql;
         }

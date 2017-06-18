@@ -58,22 +58,48 @@ public class MissionDAO {
             ArrayList<String> parms = MissionMaker.createMission();
             db.execSQL(new Insert.insertMission().getSQL(parms));
 
-            mission = MissionMaker.makeMissionString(Integer.getInteger(parms.get(0)), parms.get(1));
+            mission = MissionMaker.makeMissionString(Integer.valueOf(parms.get(0)), parms.get(1));
         }
         return mission;
     }
 
     public String getLastParam(int type) {
-        String lastParams = "";
+        String sql = "select a.param " +
+                     "from mission a " +
+                     "where a.missionType = "+type+" and a.success = 'true' and a.date >= (select mission.date from mission where mission.missionType = "+type+" and success = 'true');";
+
+        Cursor c = db.rawQuery(sql, null);
+        String lastParams;
+        if(c.getCount() != 0 && c != null) {
+            c.moveToNext();
+            lastParams = c.getString(c.getColumnIndex("param"));
+        }
+        else{
+            lastParams = "0";
+        }
         return lastParams;
     }
 
-    public static boolean getLastSuccess(int type) {
-        return true;
+    public boolean getLastSuccess(int type) {
+        String sql = "select a.success " +
+                "from mission a " +
+                "where a.missionType = "+type+" and a.date > (select mission.date from mission where mission.missionType = "+type+");";
+        Cursor c = db.rawQuery(sql, null);
+
+        boolean lastSuccess;
+        if(c.getCount() != 0 && c != null) {
+            c.moveToNext();
+            lastSuccess = Boolean.getBoolean(c.getString(c.getColumnIndex("success")));
+        }
+        else{
+            lastSuccess = false;
+        }
+        return lastSuccess;
     }
 
     public ArrayList<MissionVO> getPastMissionTTT() {
         ArrayList<MissionVO> missionVOArray = new ArrayList<>();
+
 
         return missionVOArray;
     }

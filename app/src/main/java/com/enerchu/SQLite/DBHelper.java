@@ -22,7 +22,7 @@ public class DBHelper extends SQLiteOpenHelper {
 
     public DBHelper(Context context, String name, SQLiteDatabase.CursorFactory factory, int version) {
         super(context, name, factory, version);
-        Log.i("DBHelper construct", "called");
+        //Log.i("DBHelper construct", "called");
     }
 
     @Override
@@ -74,15 +74,15 @@ public class DBHelper extends SQLiteOpenHelper {
         parms.add(2, "1");
         db.execSQL(new Update.updateBill().getSQL(parms));
 
-        parms.clear();
-        parms.add(0, "3");
-        parms.add(1, "-");
-        db.execSQL(new Insert.insertMission().getSQL(parms));
+//        parms.clear();
+//        parms.add(0, "3");
+//        parms.add(1, "-");
+//        db.execSQL(new Insert.insertMission().getSQL(parms));
 
-        Cursor c = db.query("mission", null, null, null, null, null, null);
-        while(c.moveToNext()){
-            Log.i("mission", String.valueOf(c.getString(c.getColumnIndex("date")))+" "+String.valueOf(c.getInt(c.getColumnIndex("missionType")))+" "+
-                                c.getString(c.getColumnIndex("param"))+" "+c.getInt(c.getColumnIndex("success")));
-        }
+//        Cursor c = db.query("mission", null, null, null, null, null, null);
+//        while(c.moveToNext()){
+//            Log.i("mission", String.valueOf(c.getString(c.getColumnIndex("date")))+" "+String.valueOf(c.getInt(c.getColumnIndex("missionType")))+" "+
+//                                c.getString(c.getColumnIndex("param"))+" "+c.getInt(c.getColumnIndex("success")));
+//        }
     }
 }
