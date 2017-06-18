@@ -21,7 +21,7 @@ public class ConnectWeb extends AsyncTask<String, Void, String> {
     protected String doInBackground(String... strings) {
         try {
             String str;
-            URL url = new URL("http://172.21.162.144:8080/Enerchu/JSONServer.jsp");
+            URL url = new URL("https://enerchuserver.herokuapp.com/JSONServer.jsp");
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
             conn.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
             conn.setRequestMethod("POST");

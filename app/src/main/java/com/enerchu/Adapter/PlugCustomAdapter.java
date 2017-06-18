@@ -210,7 +210,6 @@ public class PlugCustomAdapter extends BaseAdapter {
 
                     setTabInfoToWeb(tmpTag);
                     //Connect to web : update mysql to current state
-                    
                     Log.i("on click", String.valueOf(n+tmpTag.postion*4));
                 }
 
