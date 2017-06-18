@@ -38,6 +38,13 @@ public class ConnectWeb extends AsyncTask<String, Void, String> {
                 }
                 receiveMsg = buffer.toString();
 
+                if (receiveMsg.length() == 0){
+                    Log.i("통신 결과", conn.getResponseCode()+"Null Exception");
+                }
+                else {
+                    
+                }
+
             } else {
                 Log.i("통신 결과", conn.getResponseCode()+"에러");
             }
