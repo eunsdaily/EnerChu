@@ -9,7 +9,7 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.enerchu.ConnectWeb.ConnectWeb;
+import com.enerchu.ConnectWeb.ConnectWebforUpdate;
 import com.enerchu.R;
 import com.enerchu.SQLite.DAO.MultiTapDAO;
 import com.enerchu.SQLite.DAO.PlugDAO;
@@ -214,10 +214,10 @@ public class PlugCustomAdapter extends BaseAdapter {
                 }
 
                 private void setTabInfoToWeb(ImageViewTag tmpTag){
-                    ConnectWeb task = new ConnectWeb();
+                    ConnectWebforUpdate task = new ConnectWebforUpdate();
                     String tabinfos = ""+booleanToInt(state[0+tmpTag.postion*4]) + " " + booleanToInt(state[1+tmpTag.postion*4])+" "
                             +booleanToInt(state[2+tmpTag.postion*4])+" "+booleanToInt(state[3+tmpTag.postion*4]);
-                    task.connectToWeb("tab", "userid", multiTapKeyList.get(tmpTag.postion), tabinfos);
+                    task.execute("tab", "userid", multiTapKeyList.get(tmpTag.postion), tabinfos);
                 }
                 private int booleanToInt(boolean bool){
                     return (bool? 1 : 0);

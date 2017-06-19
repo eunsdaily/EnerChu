@@ -15,10 +15,10 @@ public class PollingReceiver extends BroadcastReceiver {
 
     @Override
     public void onReceive(Context context, Intent intent){
-        ConnectWeb task = new ConnectWeb();
+        ConnectWebforSync task = new ConnectWebforSync();
 
         PlugDAO plugdao = new PlugDAO(context);
 
-        task.connectToWeb("tab", "eun", "tab1", "1 1 1 1");
+        task.execute("tab", "eun", "tab1", "1 1 1 1");
     }
 }

@@ -92,6 +92,6 @@ public class MainActivity extends AppCompatActivity {
         AlarmManager processTimer = (AlarmManager)getSystemService(ALARM_SERVICE);
         Intent intent = new Intent(this, PollingReceiver.class);
         PendingIntent pendingIntent = PendingIntent.getBroadcast(this, 0,  intent, PendingIntent.FLAG_UPDATE_CURRENT);
-        processTimer.setRepeating(AlarmManager.RTC, System.currentTimeMillis(),5000, pendingIntent);
+        processTimer.setRepeating(AlarmManager.RTC, System.currentTimeMillis(), 60000, pendingIntent);
     }
 }
