@@ -1,4 +1,4 @@
-package com.enerchu.fragment;
+package com.enerchu.Fragment;
 
 import android.content.Context;
 import android.graphics.Bitmap;
@@ -14,14 +14,13 @@ import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.enerchu.GradeManager;
 import com.enerchu.R;
 import com.enerchu.SQLite.DAO.ClientDAO;
 import com.enerchu.SQLite.DAO.MissionDAO;
+import com.enerchu.SQLite.Singleton.Singleton;
 
 public class FaceFragment extends Fragment {
     private View root = null;
-    private GradeManager gradeManager = new GradeManager();
     private MissionDAO missionDAO;
     private ClientDAO clientDAO;
 
@@ -29,8 +28,8 @@ public class FaceFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         root = inflater.inflate(R.layout.fragment_face, container, false);
-        missionDAO = new MissionDAO(root.getContext());
-        clientDAO = new ClientDAO(root.getContext());
+        missionDAO = Singleton.getMissionDAO();
+        clientDAO = Singleton.getClientDAO();
 
         return root;
     }
@@ -43,7 +42,7 @@ public class FaceFragment extends Fragment {
         DisplayMetrics metrics = new DisplayMetrics();
         WindowManager windowManager = (WindowManager) root.getContext().getSystemService(Context.WINDOW_SERVICE);
         windowManager.getDefaultDisplay().getMetrics(metrics);
-        double textSize = (root.getContext().getResources().getDisplayMetrics().heightPixels*0.02);
+        double textSize = (root.getContext().getResources().getDisplayMetrics().heightPixels*0.012);
 
         TextView missionText = (TextView) root.findViewById(R.id.missionText);
         missionText.setText(missionDAO.getTodayMisson());

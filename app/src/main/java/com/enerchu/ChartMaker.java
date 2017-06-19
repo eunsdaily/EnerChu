@@ -6,6 +6,7 @@ import android.view.View;
 import com.enerchu.SQLite.DAO.BillDAO;
 import com.enerchu.SQLite.DAO.BillStateDAO;
 import com.enerchu.SQLite.DAO.PlugDAO;
+import com.enerchu.SQLite.Singleton.Singleton;
 import com.github.mikephil.charting.charts.HorizontalBarChart;
 import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.components.XAxis;
@@ -88,8 +89,8 @@ public class ChartMaker {
 
     public void setPlugChart(View root, String mulittapCode){
         HorizontalBarChart barChart = (HorizontalBarChart) root.findViewById(R.id.barChart);
-        BillDAO billDAO = new BillDAO(root.getContext());
-        PlugDAO plugDAO = new PlugDAO(root.getContext());
+        BillDAO billDAO = Singleton.getBillDAO();
+        PlugDAO plugDAO = Singleton.getPlugDAO();
 
         barChart.setDescription("");
         barChart.setDrawGridBackground(false);

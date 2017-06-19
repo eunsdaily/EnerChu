@@ -14,10 +14,10 @@ public class CreateTrigger {
         public String getSQL() {
             String sql = "create trigger makePlug after insert on multitap " +
                     "begin " +
-                    "   insert into plug values (new.multitapCode, 1, 'plug1', 0);" +
-                    "   insert into plug values (new.multitapCode, 2, 'plug2', 0);" +
-                    "   insert into plug values (new.multitapCode, 3, 'plug3', 0);" +
-                    "   insert into plug values (new.multitapCode, 4, 'plug4', 0);" +
+                    "   insert into plug values (new.multitapCode, 1, null, 0);" +
+                    "   insert into plug values (new.multitapCode, 2, null, 0);" +
+                    "   insert into plug values (new.multitapCode, 3, null, 0);" +
+                    "   insert into plug values (new.multitapCode, 4, null, 0);" +
                     "end;";
             return sql;
         }
@@ -28,7 +28,7 @@ public class CreateTrigger {
         public String getSQL() {
             String sql = "create trigger makeBill after insert on plug " +
                     "begin" +
-                    "   insert into bill values(new.multitapCode, new.plugNumber,(select date('now', 'localtime')), 0.0, 0.0);" +
+                    "   insert into bill values(new.multitapCode, new.plugNumber,(select date('now', 'localtime')), 0.0);" +
                     "end;";
             return sql;
         }
@@ -49,10 +49,9 @@ public class CreateTrigger {
         @Override
         public String getSQL() {
             String sql = "create trigger check_and_rollBack_updateBill after update on bill " +
-                    "when old.lastUpdatedUsed > new.lastUpdatedUsed " +
+                    "when old.amountUsed > new.amountUsed "+
                     "begin " +
-                    "   insert or replace into bill values(new.multitapCode, new.plugNumber, new.date, old.amountUsed, old.lastUpdatedUsed);" +
-                    "   insert into client(id) values('trigger called');" +
+                    "   insert or replace into bill values(new.multitapCode, new.plugNumber, new.date, old.amountUsed);" +
                     "end;";
             return sql;
         }

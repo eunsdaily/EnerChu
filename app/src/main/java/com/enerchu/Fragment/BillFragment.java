@@ -1,4 +1,4 @@
-package com.enerchu.fragment;
+package com.enerchu.Fragment;
 
 import android.app.Fragment;
 import android.os.Bundle;
@@ -14,12 +14,11 @@ import android.widget.ViewFlipper;
 
 import com.enerchu.Adapter.BillCustomAdapter;
 import com.enerchu.ChartMaker;
-import com.enerchu.SQLite.DAO.BillDAO;
 import com.enerchu.SQLite.DAO.BillStateDAO;
 import com.enerchu.SQLite.DAO.ClientDAO;
 import com.enerchu.SQLite.DAO.MultiTapDAO;
-import com.enerchu.SQLite.DAO.PlugDAO;
 import com.enerchu.R;
+import com.enerchu.SQLite.Singleton.Singleton;
 
 import java.util.ArrayList;
 
@@ -55,9 +54,9 @@ public class BillFragment extends Fragment {
         viewFlipper = (ViewFlipper) root.findViewById(R.id.viewFlipper);
         viewFlipper.setOnTouchListener(flipperTouchListener);
 
-        clientDAO = new ClientDAO(root.getContext());
-        billStateDAO = new BillStateDAO(root.getContext());
-        multiTapDAO = new MultiTapDAO(root.getContext());
+        clientDAO = Singleton.getClientDAO();
+        billStateDAO = Singleton.getBillStateDAO();
+        multiTapDAO = Singleton.getMultiTapDAO();
 
         //setChart();
         ChartMaker chartMaker = new ChartMaker();
@@ -156,8 +155,8 @@ public class BillFragment extends Fragment {
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        clientDAO.close();
-        billStateDAO.close();
-        multiTapDAO.close();
+//        clientDAO.close();
+//        billStateDAO.close();
+//        multiTapDAO.close();
     }
 }

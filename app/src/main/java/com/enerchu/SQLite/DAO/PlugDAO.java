@@ -71,13 +71,25 @@ public class PlugDAO {
         db.execSQL(new Update.updatePlugState().getSQL(params));
     }
 
+    public PlugVO getLastGreedy() {
+        String sql = "select * " +
+                     "from bill " +
+                     "where date = date('now', '-1 day') " +
+                     "and amountUsed = (select max(amountUsed) from bill where date = date('now', '-1 day') " +
+                                                                "and multitapCode in (select multitapCode from multitap));";
+        Cursor c = db.rawQuery(sql, null);
+        PlugVO returnVal = new PlugVO();
+
+        if (c != null && c.getCount() != 0) {
+            c.moveToNext();
+            returnVal.setMultitapCode(c.getString(c.getColumnIndex("multitapCode")));
+            returnVal.setPlugNumber(c.getInt(c.getColumnIndex("plugNum")));
+        }
+        return new PlugVO();
+    }
+
     public void close(){
         db.close();
         dbHelper.close();
-    }
-
-    public static PlugVO getLastGreedy() {
-        // 어제 가장 많은 전력을 사용한 플러그?
-        return new PlugVO();
     }
 }

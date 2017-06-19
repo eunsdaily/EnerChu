@@ -1,13 +1,10 @@
 package com.enerchu.Adapter;
 
 import android.content.Context;
-import android.graphics.ColorFilter;
-import android.graphics.drawable.BitmapDrawable;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
@@ -21,6 +18,7 @@ import com.enerchu.R;
 import com.enerchu.SQLite.DAO.BillDAO;
 import com.enerchu.SQLite.DAO.MultiTapDAO;
 import com.enerchu.SQLite.DAO.PlugDAO;
+import com.enerchu.SQLite.Singleton.Singleton;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -82,9 +80,9 @@ public class BillCustomAdapter extends BaseAdapter {
     public View getView(final int position, View convertView, ViewGroup parent) {
         holder = new BillCustomHolder();
         context = parent.getContext();
-        multiTapDAO = new MultiTapDAO(context);
-        billDAO = new BillDAO(context);
-        plugDAO = new PlugDAO(context);
+        multiTapDAO = Singleton.getMultiTapDAO();
+        billDAO = Singleton.getBillDAO();
+        plugDAO = Singleton.getPlugDAO();
 
         if ( convertView == null ){
             final LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);

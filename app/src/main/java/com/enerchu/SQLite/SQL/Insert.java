@@ -25,7 +25,7 @@ public class Insert{
                 sql += "'"+ params.get(1)+"');";
             }
             else{
-                sql += "'"+ params.get(0)+"');";
+                sql += "null);";
             }
             return sql;
         }
@@ -39,7 +39,7 @@ public class Insert{
             // params.get(1) : param
 
             Log.i("insertMission called", params.get(0) + " " + params.get(1));
-            String sql = "insert or ignore into mission values((select date('now', 'localtime')), "+params.get(0)+", '"+params.get(1)+"', 0);";
+            String sql = "insert or ignore into mission values((select date('now', 'localtime')), "+params.get(0)+", '"+params.get(1)+"', 'false');";
             return sql;
         }
     }

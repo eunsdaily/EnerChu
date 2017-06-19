@@ -1,4 +1,4 @@
-package com.enerchu.fragment;
+package com.enerchu.Fragment;
 
 import android.support.annotation.Nullable;
 import android.app.Fragment;
@@ -9,9 +9,9 @@ import android.view.ViewGroup;
 import android.widget.ListView;
 
 import com.enerchu.SQLite.DAO.MultiTapDAO;
-import com.enerchu.SQLite.DAO.PlugDAO;
 import com.enerchu.Adapter.PlugCustomAdapter;
 import com.enerchu.R;
+import com.enerchu.SQLite.Singleton.Singleton;
 
 import java.util.ArrayList;
 
@@ -27,7 +27,7 @@ public class PlugFragment extends Fragment {
         root = inflater.inflate(R.layout.fragment_plug, container, false);
         listView = (ListView)root.findViewById(R.id.listView);
 
-        multiTapDAO = new MultiTapDAO(root.getContext());
+        multiTapDAO = Singleton.getMultiTapDAO();
 
         adapter = new PlugCustomAdapter();
         listView.setAdapter(adapter);
@@ -56,6 +56,6 @@ public class PlugFragment extends Fragment {
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        multiTapDAO.close();
+//        multiTapDAO.close();
     }
 }

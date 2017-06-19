@@ -1,4 +1,4 @@
-package com.enerchu.fragment;
+package com.enerchu.Fragment;
 
 import android.graphics.Color;
 import android.support.annotation.Nullable;
@@ -14,13 +14,12 @@ import android.widget.LinearLayout;
 import android.widget.Switch;
 import android.widget.TableLayout;
 import android.widget.TextView;
-import android.widget.ViewFlipper;
 
+import com.enerchu.MissoinManager.MissionMaker;
 import com.enerchu.R;
 import com.enerchu.SQLite.DAO.MissionDAO;
+import com.enerchu.SQLite.Singleton.Singleton;
 import com.enerchu.SQLite.VO.MissionVO;
-
-import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 
@@ -52,7 +51,7 @@ public class MissionFragment extends Fragment {
         arrageSwitch = (Switch) root.findViewById(R.id.arrageSwitch);
         successSwitch = (Switch) root.findViewById(R.id.successSwitch);
         failSwitch = (Switch) root.findViewById(R.id.failSwitch);
-        missionDAO = new MissionDAO(root.getContext());
+        missionDAO = Singleton.getMissionDAO();
 
         return root;
     }
@@ -88,9 +87,17 @@ public class MissionFragment extends Fragment {
         buttonArrayList = new ArrayList<>();
         nowPage = 0;
 
-        numberOfMission = missionDAO.getTotalMission();
-        numberOfPage = 0;
+//        numberOfMission = missionDAO.getTotalMission();
+//        numberOfPage = 0;
+//
+//        if (numberOfMission % 12 == 0){
+//            numberOfPage = numberOfMission/12;
+//        }else{
+//            numberOfPage = numberOfMission/12 + 1;
+//        }
 
+        ArrayList<MissionVO> missionVOArray = missionVOgetMission(arrage, success, fail);
+        numberOfMission = missionVOArray.size();
         if (numberOfMission % 12 == 0){
             numberOfPage = numberOfMission/12;
         }else{
@@ -99,8 +106,6 @@ public class MissionFragment extends Fragment {
 
         Log.i("numberOfMission", numberOfMission + "");
         Log.i("numberOfPage", numberOfPage + "");
-
-        ArrayList<MissionVO> missionVOArray = missionVOgetMission(arrage, success, fail);
 
         if(numberOfPage != 0) {
             for (int pageNumber = 0; pageNumber < numberOfPage; pageNumber++) {
@@ -131,31 +136,56 @@ public class MissionFragment extends Fragment {
         ArrayList<TextView> successTextViewArray = addSuccessTextView(tmpView);
 
         int remandeMission = numberOfMission - pageNumber*12;
-        int thisPageMission = 12 - remandeMission % 12;
-        for(int i = 0; i < thisPageMission; i++){
+        int thisPageMissionStart = missionVOArray.size()-(pageNumber*12);
 
+        Log.i("remandeMission", remandeMission+"");
+        Log.i("thisPageMission", thisPageMissionStart+"");
+        for(int i = 0; i < remandeMission; i++){
+            int missionNum = pageNumber*12+i;
+            dateTextViewArray.get(missionNum).setText(String.valueOf(missionVOArray.get(missionNum).getDate()));
+            missionStrTextViewArray.get(missionNum).setText(MissionMaker.makeMissionString(missionVOArray.get(pageNumber).getMissionType(), String.valueOf(missionVOArray.get(missionNum).getParam())));
+            successTextViewArray.get(missionNum).setText(String.valueOf(missionVOArray.get(pageNumber).isSuccess()));
         }
     }
 
     private ArrayList<MissionVO> missionVOgetMission(boolean arrage, boolean success, boolean fail) {
         ArrayList<MissionVO> missionVOArray;
-
-        if(arrage && success && fail){
-            missionVOArray = missionDAO.getPastMissionTTT();
-        }else if(arrage && success && !fail){
-            missionVOArray = missionDAO.getPastMissionTTF();
-        }else if(arrage && !success && fail){
-            missionVOArray = missionDAO.getPastMissionTFT();
-        }else if(arrage && !success && !fail){
-            missionVOArray = missionDAO.getPastMissionATFF();
-        }else if(!arrage && success && fail){
-            missionVOArray = missionDAO.getPastMissionFTT();
-        }else if(!arrage && success && !fail){
-            missionVOArray = missionDAO.getPastMissionFTF();
-        }else if(!arrage && !success && fail){
-            missionVOArray = missionDAO.getPastMissionFFT();
-        }else {
-            missionVOArray = missionDAO.getPastMissionFFF();
+        if(arrage){
+            if(success){
+                if(fail){
+                    Log.i("missionVOgetMission", "TTT");
+                    missionVOArray = missionDAO.getPastMissionTTT();
+                }else{
+                    Log.i("missionVOgetMission", "TTF");
+                    missionVOArray = missionDAO.getPastMissionTTF();
+                }
+            }else{
+                if(fail){
+                    Log.i("missionVOgetMission", "TFT");
+                    missionVOArray = missionDAO.getPastMissionTFT();
+                }else{
+                    Log.i("missionVOgetMission", "TFF");
+                    missionVOArray = missionDAO.getPastMissionATFF();
+                }
+            }
+        }else{
+            if(success){
+                if(fail){
+                    Log.i("missionVOgetMission", "FTT");
+                    missionVOArray = missionDAO.getPastMissionFTT();
+                }else{
+                    Log.i("missionVOgetMission", "FTF");
+                    missionVOArray = missionDAO.getPastMissionFTF();
+                }
+            }else{
+                if(fail){
+                    Log.i("missionVOgetMission", "FFT");
+                    missionVOArray = missionDAO.getPastMissionFFT();
+                }else{
+                    Log.i("missionVOgetMission", "FFF");
+                    missionVOArray = missionDAO.getPastMissionFFF();
+                }
+            }
         }
 
         return missionVOArray;
@@ -289,8 +319,6 @@ public class MissionFragment extends Fragment {
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        missionDAO.close();
     }
-
 
 }

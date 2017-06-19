@@ -44,4 +44,9 @@ public class MissionVO {
     public void setSuccess(boolean success) {
         this.success = success;
     }
+
+    @Override
+    public String toString() {
+        return getDate()+" "+getMissionType()+ " "+getParam()+" "+isSuccess();
+    }
 }

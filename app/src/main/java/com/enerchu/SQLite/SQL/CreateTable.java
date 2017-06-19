@@ -47,7 +47,6 @@ public  class CreateTable{
                     "    plugNumber integer," +
                     "    date Date," +
                     "    amountUsed float," +
-                    "    lastUpdatedUsed float," +
                     "    primary key(multitapCode, plugNumber, date)," +
                     "    foreign key(multitapCode, plugNumber) " +
                     "       references plug(multitapCode,plugNumber)" +
@@ -77,7 +76,7 @@ public  class CreateTable{
                     "   date Date," +
                     "    missionType integer," +
                     "    param text," +
-                    "    success boolean," +
+                    "    success boolean default 'false'," +
                     "    primary key(date)" +
                     ");";
             return sql;

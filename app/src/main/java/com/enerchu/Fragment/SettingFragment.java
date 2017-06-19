@@ -1,6 +1,7 @@
-package com.enerchu.fragment;
+package com.enerchu.Fragment;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.annotation.Nullable;
 import android.app.Fragment;
 import android.os.Bundle;
@@ -26,12 +27,16 @@ import android.widget.Toast;
 
 import com.enerchu.Adapter.DelMultitapCustomAdapter;
 import com.enerchu.Adapter.renameCustomAdapter;
+import com.enerchu.OpenDoorDialog;
 import com.enerchu.R;
 import com.enerchu.SQLite.DAO.ClientDAO;
 import com.enerchu.SQLite.DAO.MultiTapDAO;
+import com.enerchu.SQLite.Singleton.Singleton;
+import com.enerchu.TTSMaker;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Random;
 
 public class SettingFragment extends Fragment {
@@ -44,9 +49,13 @@ public class SettingFragment extends Fragment {
     private TableRow nickNmaeManage;
     private TableRow goalBillManage;
 
+    private MultiTapDAO multiTapDAO;
+
     private View root;
     private View addMultitapPopupView;
     private PopupWindow addMultitapPopupWindow;
+
+    private TTSMaker ttsMaker;
 
     @Nullable
     @Override
@@ -63,6 +72,10 @@ public class SettingFragment extends Fragment {
         connectionManage_delExistMultitap.setOnClickListener(delExistMultitapOnClickListener);
         nickNmaeManage.setOnClickListener(nickNameManageOnClickListener);
         goalBillManage.setOnClickListener(goalBillManageOnClickListener);
+
+        multiTapDAO = Singleton.getMultiTapDAO();
+
+        ttsMaker = new TTSMaker(root.getContext());
 
         return root;
     }
@@ -95,7 +108,11 @@ public class SettingFragment extends Fragment {
     View.OnClickListener goalBillManageOnClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            settingGoalPopup();
+//            settingGoalPopup();
+
+            Intent i = new Intent(getActivity(), OpenDoorDialog.class);
+            i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            getActivity().startActivity(i);
         }
     };
 
@@ -157,7 +174,7 @@ public class SettingFragment extends Fragment {
 
         delMultitapPopupWindow.showAtLocation(delMultitapPopupView, Gravity.CENTER, 0, 0);
 
-        MultiTapDAO multiTapDAO = new MultiTapDAO(root.getContext());
+
         ArrayList<String> mulitapCodes = multiTapDAO.getMultitapCodes();
         int totalOfMultiTap = mulitapCodes.size();
         for(int i = 0 ; i < totalOfMultiTap; i++){
@@ -195,7 +212,6 @@ public class SettingFragment extends Fragment {
 
         renamePopupWindow.showAtLocation(renamePopupView, Gravity.CENTER, 0, 0);
 
-        MultiTapDAO multiTapDAO = new MultiTapDAO(root.getContext());
         ArrayList<String> mulitapCodes = multiTapDAO.getMultitapCodes();
         int totalOfMultiTap = mulitapCodes.size();
         for(int i = 0 ; i < totalOfMultiTap; i++){
@@ -225,7 +241,7 @@ public class SettingFragment extends Fragment {
         goalPopupWindow.setFocusable(true);
         goalPopupWindow.setOutsideTouchable(false);
 
-        final ClientDAO clientDAO = new ClientDAO(root.getContext());
+        final ClientDAO clientDAO = Singleton.getClientDAO();
         final TextView goalBefore = (TextView) goalPopupView.findViewById(R.id.goalBefore);
         String goalText = clientDAO.getGoalBillKWh()+" kWh";
         goalBefore.setText(goalText);
@@ -287,8 +303,18 @@ public class SettingFragment extends Fragment {
 
     // 멀티탭 삭제
     private void delMultitap(HashMap<String, Boolean> deletMap) {
-        Log.i("del Multitap", "called");
-    }
+        Log.i("delMultitap","called");
+        Iterator<String> iterator = deletMap.keySet().iterator();
 
+        while (iterator.hasNext()) {
+            String key = iterator.next();
+            Log.i("map", key+", "+deletMap.get(key));
+
+            if(deletMap.get(key)){
+                multiTapDAO.deleteMultiTap(key);
+                Toast.makeText(root.getContext(), multiTapDAO.getNickName(key)+"("+key+")"+"를 삭제했습니다 ('~')~", Toast.LENGTH_SHORT).show();
+            }
+        }
+    }
 
 }

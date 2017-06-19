@@ -10,9 +10,12 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.enerchu.ConnectWeb.ConnectWebforUpdate;
+import com.enerchu.ConnectWeb.ConnectWeb;
+import com.enerchu.MissoinManager.MissionChecker;
 import com.enerchu.R;
 import com.enerchu.SQLite.DAO.MultiTapDAO;
 import com.enerchu.SQLite.DAO.PlugDAO;
+import com.enerchu.SQLite.Singleton.Singleton;
 import com.enerchu.condition;
 
 import java.util.ArrayList;
@@ -86,8 +89,8 @@ public class PlugCustomAdapter extends BaseAdapter {
         holder = new PlugCustomHolder();
         context = parent.getContext();
 
-        multiTapDAO = new MultiTapDAO(context);
-        plugDAO = new PlugDAO(context);
+        multiTapDAO = Singleton.getMultiTapDAO();
+        plugDAO = Singleton.getPlugDAO();
 
         if ( convertView == null ) {
             LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -193,13 +196,18 @@ public class PlugCustomAdapter extends BaseAdapter {
                 @Override
                 public void onClick(View v) {
                     ImageViewTag tmpTag = (ImageViewTag) v.getTag();
-                    if(state[n+tmpTag.postion*4]){
+                    if(state[n+tmpTag.postion*4]){ // on->off
                         tmpTag.view.setImageResource(R.drawable.off);
                         state[n+tmpTag.postion*4] = false;
                         plugDAO.updateState(multiTapKeyList.get(tmpTag.postion), n+1, false);
                         //  ♫꒰･‿･๑꒱ 통신
+
+
+                        // mission check
+                        MissionChecker.addTodayMulOnOffNumber();
+                        MissionChecker.checkGreedyPlug(multiTapKeyList.get(tmpTag.postion), n+1);
                     }
-                    else {
+                    else { // off->on
 
                         tmpTag.view.setImageResource(R.drawable.on);
                         state[n + tmpTag.postion * 4] = true;
@@ -208,7 +216,7 @@ public class PlugCustomAdapter extends BaseAdapter {
                     }
                     tmpTag.view.invalidate();
 
-                    setTabInfoToWeb(tmpTag);
+//                    setTabInfoToWeb(tmpTag);
                     //Connect to web : update mysql to current state
                     Log.i("on click", String.valueOf(n+tmpTag.postion*4));
                 }
@@ -219,6 +227,7 @@ public class PlugCustomAdapter extends BaseAdapter {
                             +booleanToInt(state[2+tmpTag.postion*4])+" "+booleanToInt(state[3+tmpTag.postion*4]);
                     task.execute("tab", "userid", multiTapKeyList.get(tmpTag.postion), tabinfos);
                 }
+
                 private int booleanToInt(boolean bool){
                     return (bool? 1 : 0);
                 }

@@ -6,6 +6,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 
 import com.enerchu.SQLite.DBHelper;
+import com.enerchu.SQLite.SQL.Delete;
 import com.enerchu.SQLite.SQL.Update;
 
 import java.util.ArrayList;
@@ -49,6 +50,7 @@ public class MultiTapDAO {
     }
 
     public ArrayList<String> getMultitapCodes(){
+        db = dbHelper.getReadableDatabase();
         String sql = "select multitapCode from multitap;";
         Cursor c = db.rawQuery(sql, null);
 
@@ -68,6 +70,13 @@ public class MultiTapDAO {
         params.add(1, newNickname);
         Log.i("updateNickName", new Update.updateMultitapNickname().getSQL(params));
         db.execSQL(new Update.updateMultitapNickname().getSQL(params));
+    }
+    public void deleteMultiTap(String multitapCode) {
+        ArrayList<String> params = new ArrayList<>();
+        params.add(multitapCode);
+
+        Log.i("deleteMultiTap", new Delete.deleteMultitap().getSQL(params));
+        db.execSQL(new Delete.deleteMultitap().getSQL(params));
     }
 
     public void close(){
