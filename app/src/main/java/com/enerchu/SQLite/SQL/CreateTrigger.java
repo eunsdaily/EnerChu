@@ -14,10 +14,10 @@ public class CreateTrigger {
         public String getSQL() {
             String sql = "create trigger makePlug after insert on multitap " +
                     "begin " +
-                    "   insert into plug values (new.multitapCode, 1, null, 0);" +
-                    "   insert into plug values (new.multitapCode, 2, null, 0);" +
-                    "   insert into plug values (new.multitapCode, 3, null, 0);" +
-                    "   insert into plug values (new.multitapCode, 4, null, 0);" +
+                    "   insert or ignore into plug values (new.multitapCode, 1, null, 0);" +
+                    "   insert or ignore into plug values (new.multitapCode, 2, null, 0);" +
+                    "   insert or ignore into plug values (new.multitapCode, 3, null, 0);" +
+                    "   insert or ignore into plug values (new.multitapCode, 4, null, 0);" +
                     "end;";
             return sql;
         }

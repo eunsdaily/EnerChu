@@ -11,7 +11,9 @@ import android.view.Window;
 
 import com.enerchu.Fragment.PlugFragment;
 import com.enerchu.MissoinManager.MissionChecker;
+import com.enerchu.SQLite.DAO.ClientDAO;
 import com.enerchu.SQLite.DAO.PlugDAO;
+import com.enerchu.SQLite.Singleton.Singleton;
 
 /**
  * Created by admin on 2017-06-19.
@@ -42,12 +44,21 @@ public class OpenDoorDialog extends Activity {
 
                 // MissionChecker
                 MissionChecker.addTodayAcceptOpenDoorEvent();
+
+                // Grade up
+                ClientDAO clientDAO = Singleton.getClientDAO();
+                clientDAO.upGrade(1);
+
             }
         });
 
         alter.setNegativeButton("NO", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
+                // dowm up
+                ClientDAO clientDAO = Singleton.getClientDAO();
+                clientDAO.upGrade(-1);
+
                 dialog.dismiss();
             }
         });
