@@ -76,7 +76,7 @@ public  class CreateTable{
                     "   date Date," +
                     "    missionType integer," +
                     "    param text," +
-                    "    success boolean," +
+                    "    success boolean default 'false'," +
                     "    primary key(date)" +
                     ");";
             return sql;

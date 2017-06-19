@@ -101,5 +101,14 @@ public class Update{
             return sql;
         }
     }
+
+    public static class updateMissionSuccess extends UpdateSQL{
+        @Override
+        public String getSQL(ArrayList<String> params) {
+            String sql = "update mission set success = 'true' where date = date('now')";
+            Log.i("update sql", sql);
+            return sql;
+        }
+    }
 }
 

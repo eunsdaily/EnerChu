@@ -10,6 +10,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 //import com.enerchu.ConnectWeb.ConnectWeb;
+import com.enerchu.MissoinManager.MissionChecker;
 import com.enerchu.R;
 import com.enerchu.SQLite.DAO.MultiTapDAO;
 import com.enerchu.SQLite.DAO.PlugDAO;
@@ -194,13 +195,18 @@ public class PlugCustomAdapter extends BaseAdapter {
                 @Override
                 public void onClick(View v) {
                     ImageViewTag tmpTag = (ImageViewTag) v.getTag();
-                    if(state[n+tmpTag.postion*4]){
+                    if(state[n+tmpTag.postion*4]){ // on->off
                         tmpTag.view.setImageResource(R.drawable.off);
                         state[n+tmpTag.postion*4] = false;
                         plugDAO.updateState(multiTapKeyList.get(tmpTag.postion), n+1, false);
                         //  ♫꒰･‿･๑꒱ 통신
+
+
+                        // mission check
+                        MissionChecker.addTodayMulOnOffNumber();
+                        MissionChecker.checkGreedyPlug(multiTapKeyList.get(tmpTag.postion), n+1);
                     }
-                    else {
+                    else { // off->on
 
                         tmpTag.view.setImageResource(R.drawable.on);
                         state[n + tmpTag.postion * 4] = true;

@@ -1,14 +1,11 @@
 package com.enerchu.MissoinManager;
 
-import android.util.Log;
 
-import com.enerchu.SQLite.DAO.ClientDAO;
 import com.enerchu.SQLite.DAO.MissionDAO;
 import com.enerchu.SQLite.DAO.MultiTapDAO;
 import com.enerchu.SQLite.DAO.PlugDAO;
 import com.enerchu.SQLite.Singleton.Singleton;
 
-import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -81,8 +78,7 @@ public class MissionMaker {
             newType = random.nextInt(totalMissionNUm);
         }
 
-        GetParamMaker getParamMaker = new GetParamMaker();
-        ParamMaker paramMaker = getParamMaker.getParamMaker(newType);
+        ParamMaker paramMaker = getParamMaker(newType);
         String newParm = paramMaker.makeParam(newType);
 
         ArrayList<String> newMission = new ArrayList<>();
@@ -90,6 +86,20 @@ public class MissionMaker {
         newMission.add(1, newParm);
 
         return newMission;
+    }
+
+    static ParamMaker getParamMaker(int type){
+        ParamMaker paramMaker = null;
+        if (type == 0) {
+            paramMaker = new Type0ParamMaker();
+        } else if (type == 1) {
+            paramMaker = new Type1ParamMaker();
+        } else if (type == 2) {
+            paramMaker = new Type2ParamMaker();
+        } else if (type == 3) {
+            paramMaker = new Type3ParamMaker();
+        }
+        return paramMaker;
     }
 
 }
