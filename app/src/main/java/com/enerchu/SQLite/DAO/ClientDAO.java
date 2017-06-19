@@ -76,6 +76,20 @@ public class ClientDAO {
     }
 
     public int getGrade() {
-        return 50;
+        String sql = "select grade from client where id = 'id';";
+        Cursor c = db.rawQuery(sql, null);
+
+        int returnVal = 50;
+        if(c.getCount() != 0) {
+            c.moveToNext();
+            returnVal = c.getInt(c.getColumnIndex("grade"));
+        }
+        return returnVal;
+    }
+
+    public void upGrade(int i){
+        int nowGrade = getGrade();
+        String sql = "update client set grade = " +(getGrade() + i)+ ";";
+        db.execSQL(sql);
     }
 }

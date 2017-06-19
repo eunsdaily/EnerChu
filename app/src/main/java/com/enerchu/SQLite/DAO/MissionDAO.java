@@ -68,6 +68,7 @@ public class MissionDAO {
             MissionChecker.setTodayMulOnOffNumber(0);
             MissionChecker.setTodaySuccess(false);
             MissionChecker.setTodayType(Integer.valueOf(getTodayMissionType()));
+
         }
         return mission;
     }
