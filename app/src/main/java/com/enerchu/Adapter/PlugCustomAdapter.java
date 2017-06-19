@@ -10,7 +10,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.enerchu.ConnectWeb.ConnectWebforUpdate;
-import com.enerchu.ConnectWeb.ConnectWeb;
 import com.enerchu.MissoinManager.MissionChecker;
 import com.enerchu.R;
 import com.enerchu.SQLite.DAO.MultiTapDAO;
@@ -216,7 +215,7 @@ public class PlugCustomAdapter extends BaseAdapter {
                     }
                     tmpTag.view.invalidate();
 
-//                    setTabInfoToWeb(tmpTag);
+                    setTabInfoToWeb(tmpTag);
                     //Connect to web : update mysql to current state
                     Log.i("on click", String.valueOf(n+tmpTag.postion*4));
                 }

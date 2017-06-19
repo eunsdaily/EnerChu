@@ -97,7 +97,7 @@ public class Update{
             // params.get(2) : newState
 
             String sql = "update plug set onoff = "+params.get(2)+" where multitapCode = '"+params.get(0)+"' and plugNumber = "+params.get(1)+";";
-            Log.i("update sql", sql);
+            //Log.i("update sql", sql);
             return sql;
         }
     }

@@ -32,6 +32,7 @@ public class ConnectWebforUpdate extends AsyncTask<String, Void, String> {
             OutputStreamWriter osw = new OutputStreamWriter(conn.getOutputStream());
             sendMsg = setSendInfo(strings);
             osw.write(sendMsg);
+            Log.i("connect", "ok");
             osw.flush();
             if(conn.getResponseCode() == conn.HTTP_OK) {
                 InputStreamReader tmp = new InputStreamReader(conn.getInputStream(), "EUC-KR");
