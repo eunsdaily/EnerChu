@@ -98,10 +98,12 @@ public class MainActivity extends AppCompatActivity {
         fragmentTransaction.commit();
     }
 
-//    private void alarmSetting(){
-//        AlarmManager processTimer = (AlarmManager)getSystemService(ALARM_SERVICE);
-//        Intent intent = new Intent(this, PollingReceiver.class);
-//        PendingIntent pendingIntent = PendingIntent.getBroadcast(this, 0,  intent, PendingIntent.FLAG_UPDATE_CURRENT);
-//        processTimer.setRepeating(AlarmManager.RTC, System.currentTimeMillis(),5000, pendingIntent);
-//    }
+
+    private void alarmSetting(){
+        AlarmManager processTimer = (AlarmManager)getSystemService(ALARM_SERVICE);
+        Intent intent = new Intent(this, PollingReceiver.class);
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(this, 0,  intent, PendingIntent.FLAG_UPDATE_CURRENT);
+        processTimer.setRepeating(AlarmManager.RTC, System.currentTimeMillis(), 60000, pendingIntent);
+    }
+
 }

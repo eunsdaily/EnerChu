@@ -20,6 +20,6 @@ public class BootReceiver extends BroadcastReceiver {
         AlarmManager processTimer = (AlarmManager)context.getSystemService(ALARM_SERVICE);
         Intent intents = new Intent(context, PollingReceiver.class);
         PendingIntent pendingIntent = PendingIntent.getBroadcast(context, 0,  intents, PendingIntent.FLAG_UPDATE_CURRENT);
-        processTimer.setRepeating(AlarmManager.RTC, System.currentTimeMillis(),5000, pendingIntent);
+        processTimer.setRepeating(AlarmManager.RTC, System.currentTimeMillis(), 60000, pendingIntent);
     }
 }
