@@ -30,6 +30,7 @@ import com.enerchu.R;
 import com.enerchu.SQLite.DAO.ClientDAO;
 import com.enerchu.SQLite.DAO.MultiTapDAO;
 import com.enerchu.SQLite.Singleton.Singleton;
+import com.enerchu.TTSMaker;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -52,6 +53,8 @@ public class SettingFragment extends Fragment {
     private View addMultitapPopupView;
     private PopupWindow addMultitapPopupWindow;
 
+    private TTSMaker ttsMaker;
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -70,6 +73,8 @@ public class SettingFragment extends Fragment {
 
         multiTapDAO = Singleton.getMultiTapDAO();
 
+        ttsMaker = new TTSMaker(root.getContext());
+
         return root;
     }
 
@@ -78,6 +83,8 @@ public class SettingFragment extends Fragment {
         public void onClick(View v) {
             // call popview
             settingAddNewMultitapPopup();
+            // tts test
+            ttsMaker.speck("안녕하세요. 여기서는 새로운 페이지를 추가해요.");
         }
     };
 

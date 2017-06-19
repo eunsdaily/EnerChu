@@ -48,6 +48,7 @@ public class MainActivity extends AppCompatActivity {
         Singleton.initializatin(this.getApplicationContext());
         BillDAO billDAO = Singleton.getBillDAO();
 
+
         bottomNavigationView = (BottomNavigationView) findViewById(R.id.navigation);
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
