@@ -1,6 +1,7 @@
 package com.enerchu.MissoinManager;
 
 import com.enerchu.SQLite.DAO.BillStateDAO;
+import com.enerchu.SQLite.DAO.ClientDAO;
 import com.enerchu.SQLite.DAO.MissionDAO;
 import com.enerchu.SQLite.Singleton.Singleton;
 
@@ -71,6 +72,8 @@ public class MissionChecker {
                 if (today >= todayMissionGoal) {
                     todaySuccess = true;
                     missionDAO.setTodaySuccessToTrue();
+                    ClientDAO clientDAO = Singleton.getClientDAO();
+                    clientDAO.upGrade(2);
                 }
             } else if (todayType == 1) {
                 // missionType 1 : 에너츄를 이용하여 ~개 플러그 전원 끄기
@@ -78,6 +81,8 @@ public class MissionChecker {
                 if(todayMulOnOffNumber >= Integer.getInteger(missionDAO.getTodayMissionParm())){
                     todaySuccess = true;
                     missionDAO.setTodaySuccessToTrue();
+                    ClientDAO clientDAO = Singleton.getClientDAO();
+                    clientDAO.upGrade(2);
                 }
             } else if (todayType == 2) {
                 // missionType 2 : 어제 가장 많은 전기를 먹은 ~ 끄기

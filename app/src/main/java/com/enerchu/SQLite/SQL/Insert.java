@@ -50,7 +50,20 @@ public class Insert{
             // params.get(0) : id
             // params.get(1) : pw
 
-            String sql = "insert or ignore  into client(id, pw) values('"+params.get(0)+"', '"+params.get(1)+"');";
+            String sql = "insert or ignore into client(id, pw) values('"+params.get(0)+"', '"+params.get(1)+"');";
+            return sql;
+        }
+    }
+
+    public static class insertBill extends InsertSQL{
+
+        @Override
+        public String getSQL(ArrayList<String> params) {
+            // params.get(0) : updatedAmountUsed
+            // params.get(1) : multitapCode
+            // params.get(2) : plugNumber
+
+            String sql = "insert or replace into bill values('"+params.get(0)+"', "+params.get(1)+", date('now', 'localtime'), 0.0);";
             return sql;
         }
     }

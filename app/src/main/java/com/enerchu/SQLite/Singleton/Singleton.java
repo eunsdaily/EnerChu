@@ -23,6 +23,7 @@ public class Singleton {
     private static MissionDAO missionDAO;
     private static MultiTapDAO multiTapDAO;
     private static PlugDAO plugDAO;
+    private static DBHelper dbHelper;
 
     private Singleton(){}
 
@@ -33,6 +34,7 @@ public class Singleton {
         if(missionDAO == null){ missionDAO = new MissionDAO(context); }
         if(multiTapDAO == null){ multiTapDAO = new MultiTapDAO(context); }
         if(plugDAO == null){ plugDAO = new PlugDAO(context); }
+        if(dbHelper == null){ dbHelper = new DBHelper(context, "EnerChu.db", null, 1); }
     }
 
     public static BillDAO getBillDAO(){
@@ -75,5 +77,12 @@ public class Singleton {
             Log.i("singleton", "PlugDAO is empty");
         }
         return plugDAO;
+    }
+
+    public static DBHelper dbHelper(){
+        if(dbHelper == null){
+            Log.i("singleton", "DBHelper is empty");
+        }
+        return dbHelper;
     }
 }

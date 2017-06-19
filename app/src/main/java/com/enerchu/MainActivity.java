@@ -1,7 +1,9 @@
 package com.enerchu;
 
+import android.app.AlarmManager;
 import android.app.Fragment;
 import android.app.FragmentTransaction;
+import android.app.PendingIntent;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -12,6 +14,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.MenuItem;
 
+import com.enerchu.ConnectWeb.PollingReceiver;
 import com.enerchu.SQLite.DAO.BillDAO;
 import com.enerchu.SQLite.Singleton.Singleton;
 import com.enerchu.SQLite.DBHelper;

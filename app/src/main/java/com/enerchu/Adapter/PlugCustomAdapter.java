@@ -10,7 +10,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.enerchu.ConnectWeb.ConnectWebforUpdate;
-import com.enerchu.ConnectWeb.ConnectWeb;
 import com.enerchu.MissoinManager.MissionChecker;
 import com.enerchu.R;
 import com.enerchu.SQLite.DAO.MultiTapDAO;
