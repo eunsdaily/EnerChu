@@ -25,7 +25,7 @@ public class ConnectWebforUpdate extends AsyncTask<String, Void, String> {
     protected String doInBackground(String... strings) {
         try {
             String str;
-            URL url = new URL("http://172.21.33.253:8080/test2Enerchu/UpdateServerFromAnd.jsp");
+            URL url = new URL("https://enerchuserver.herokuapp.com/UpdateServerFromAnd.jsp");
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
             conn.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
             conn.setRequestMethod("POST");
