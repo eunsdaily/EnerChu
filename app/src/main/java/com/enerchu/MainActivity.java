@@ -2,6 +2,7 @@ package com.enerchu;
 
 import android.app.Fragment;
 import android.app.FragmentTransaction;
+import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
@@ -80,8 +81,15 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-            //replace SongsFragment
-        replaceFragment(new FaceFragment());
+        //replace SongsFragment
+
+
+        Intent intent = getIntent();
+        if(intent.getIntExtra("open door event", -1) == 1){
+            replaceFragment(new PlugFragment());
+        }else{
+            replaceFragment(new FaceFragment());
+        }
     }
 
     private void replaceFragment(Fragment fragment) {

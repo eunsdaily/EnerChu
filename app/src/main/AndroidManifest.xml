@@ -22,6 +22,16 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".OpenDoorDialog"
+            android:label="label"
+            android:launchMode="singleInstance"
+            android:theme="@android:style/Theme.Translucent" >
+        </activity>
+        
+
+
+
         <!--<activity android:name=".fragment.FaceFragment" />-->
         <!--<activity android:name=".fragment.PlugFragment" />-->
         <!--<activity android:name=".fragment.MissionFragment" />-->

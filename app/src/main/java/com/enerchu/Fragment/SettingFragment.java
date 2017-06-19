@@ -1,6 +1,7 @@
 package com.enerchu.Fragment;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.annotation.Nullable;
 import android.app.Fragment;
 import android.os.Bundle;
@@ -26,6 +27,7 @@ import android.widget.Toast;
 
 import com.enerchu.Adapter.DelMultitapCustomAdapter;
 import com.enerchu.Adapter.renameCustomAdapter;
+import com.enerchu.OpenDoorDialog;
 import com.enerchu.R;
 import com.enerchu.SQLite.DAO.ClientDAO;
 import com.enerchu.SQLite.DAO.MultiTapDAO;
@@ -83,8 +85,6 @@ public class SettingFragment extends Fragment {
         public void onClick(View v) {
             // call popview
             settingAddNewMultitapPopup();
-            // tts test
-            ttsMaker.speck("안녕하세요. 여기서는 새로운 페이지를 추가해요.");
         }
     };
 
@@ -108,7 +108,11 @@ public class SettingFragment extends Fragment {
     View.OnClickListener goalBillManageOnClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            settingGoalPopup();
+//            settingGoalPopup();
+
+            Intent i = new Intent(getActivity(), OpenDoorDialog.class);
+            i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            getActivity().startActivity(i);
         }
     };
 
