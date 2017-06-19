@@ -17,8 +17,6 @@ public class PollingReceiver extends BroadcastReceiver {
     public void onReceive(Context context, Intent intent){
         ConnectWebforSync task = new ConnectWebforSync();
 
-        PlugDAO plugdao = new PlugDAO(context);
-
-        task.execute("tab", "eun", "tab1", "1 1 1 1");
+        task.getTabInfoFromWeb("tab", "eun", "tab1");
     }
 }

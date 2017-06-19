@@ -33,7 +33,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-//        alarmSetting(); // setting polling
+        alarmSetting(); // setting polling
 
         // check db
         DBHelper dbHelper = new DBHelper(MainActivity.this, "EnerChu.db", null, 1);

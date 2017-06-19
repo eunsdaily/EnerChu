@@ -79,7 +79,8 @@ public class Singleton {
         return plugDAO;
     }
 
-    public static DBHelper dbHelper(){
+    public static DBHelper getDBHelper(){
+
         if(dbHelper == null){
             Log.i("singleton", "DBHelper is empty");
         }
