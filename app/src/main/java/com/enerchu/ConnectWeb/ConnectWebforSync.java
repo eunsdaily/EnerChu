@@ -93,8 +93,6 @@ public class ConnectWebforSync extends AsyncTask<String, Void, String> {
                         data[1] = jsonObject.getString("userid");
                         data[2] = jsonObject.getString("doorid");
                         data[3] = jsonObject.getString("isopen");
-                        data[4] = jsonObject.getString("ischecked");
-                        doorAction(data);
                     } else {
                         Log.i("Data", "type error");
                     }
@@ -127,9 +125,6 @@ public class ConnectWebforSync extends AsyncTask<String, Void, String> {
             return "type=error";
     }
 
-    public void doorAction(String[] data){
-
-    }
 
     public void updateMultiTabInfoToAppDB(String[] data){
 //        data[0] = type;   data[1] = userid;   data[2] = tabid;    data[3] = oninfos;

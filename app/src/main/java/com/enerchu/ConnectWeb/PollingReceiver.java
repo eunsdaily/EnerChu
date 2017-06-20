@@ -17,6 +17,12 @@ public class PollingReceiver extends BroadcastReceiver {
     public void onReceive(Context context, Intent intent){
         ConnectWebforSync task = new ConnectWebforSync();
 
-        task.getTabInfoFromWeb("tab", "eun", "tab1");
+        task.getTabInfoFromWeb("tab", "userid", "mul2");
+
+        String[] str = task.getTabInfoFromWeb("door", "userid");
+        if (str[3].equals("open")){
+            //insert open action
+        }
     }
 }
+
