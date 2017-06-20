@@ -22,13 +22,17 @@ public class PollingReceiver extends BroadcastReceiver {
 
         task.getTabInfoFromWeb("tab", "userid", "mul2");
 
-        task.getTabInfoFromWeb("door", "userid");
-        Intent i = new Intent(context.getApplicationContext(), OpenDoorDialog.class);
-        i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        context.getApplicationContext().startActivity(i);
-
-        MissionChecker.checkTodayMissionSuccess();
+        String[] str = task.getTabInfoFromWeb("door", "userid");
+        if (str[3].equals("open")){
+          Intent i = new Intent(context.getApplicationContext(), OpenDoorDialog.class);
+          i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+          context.getApplicationContext().startActivity(i);
+        }
+      
+       MissionChecker.checkTodayMissionSuccess();
         BillDAO billDAO = Singleton.getBillDAO();
         billDAO.checkAndMakeBill();
+
     }
 }
+
