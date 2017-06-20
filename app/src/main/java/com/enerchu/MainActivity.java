@@ -43,9 +43,15 @@ public class MainActivity extends AppCompatActivity {
         Cursor c = db.query("bill", null, null, null, null, null, null);
 
         Log.i("c.getCount()",c.getCount()+"");
+//
+//        while(c.moveToNext()){
+//            Log.i("bill",c.getString(c.getColumnIndex("multitapCode"))+"  "+String.valueOf(c.getInt(c.getColumnIndex("plugNumber")))+"  "+String.valueOf(c.getFloat(c.getColumnIndex("amountUsed"))));
+//        }
 
+        c = db.query("mission", null, null, null, null, null, null);
         while(c.moveToNext()){
-            Log.i("bill",c.getString(c.getColumnIndex("multitapCode"))+"  "+String.valueOf(c.getInt(c.getColumnIndex("plugNumber")))+"  "+String.valueOf(c.getFloat(c.getColumnIndex("amountUsed"))));
+            Log.i("mission", String.valueOf(c.getString(c.getColumnIndex("date")))+" "+String.valueOf(c.getInt(c.getColumnIndex("missionType")))+" "+
+                                c.getString(c.getColumnIndex("param"))+" "+c.getInt(c.getColumnIndex("success")));
         }
 
         // initialization singleton for dao
