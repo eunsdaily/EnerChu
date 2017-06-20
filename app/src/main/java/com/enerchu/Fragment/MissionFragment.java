@@ -1,5 +1,6 @@
 package com.enerchu.Fragment;
 
+import android.database.Cursor;
 import android.graphics.Color;
 import android.support.annotation.Nullable;
 import android.app.Fragment;
@@ -143,12 +144,13 @@ public class MissionFragment extends Fragment {
         for(int i = 0; i < remandeMission; i++){
             int missionNum = pageNumber*12+i;
             dateTextViewArray.get(missionNum).setText(String.valueOf(missionVOArray.get(missionNum).getDate()));
-            missionStrTextViewArray.get(missionNum).setText(MissionMaker.makeMissionString(missionVOArray.get(pageNumber).getMissionType(), String.valueOf(missionVOArray.get(missionNum).getParam())));
-            successTextViewArray.get(missionNum).setText(String.valueOf(missionVOArray.get(pageNumber).isSuccess()));
+            missionStrTextViewArray.get(missionNum).setText(MissionMaker.makeMissionString(missionVOArray.get(missionNum).getMissionType(), String.valueOf(missionVOArray.get(missionNum).getParam())));
+            successTextViewArray.get(missionNum).setText(missionVOArray.get(missionNum).isSuccess());
         }
     }
 
     private ArrayList<MissionVO> missionVOgetMission(boolean arrage, boolean success, boolean fail) {
+
         ArrayList<MissionVO> missionVOArray;
         if(arrage){
             if(success){
@@ -186,6 +188,12 @@ public class MissionFragment extends Fragment {
                     missionVOArray = missionDAO.getPastMissionFFF();
                 }
             }
+        }
+
+        missionDAO.printAllMission();
+
+        for(int i = 0 ; i < missionVOArray.size(); i++){
+            Log.i("missionVO", missionVOArray.get(i).getDate()+ " "+missionVOArray.get(i).getMissionType()+ " " + missionVOArray.get(i).isSuccess());
         }
 
         return missionVOArray;

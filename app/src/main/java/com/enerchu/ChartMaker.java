@@ -101,7 +101,7 @@ public class ChartMaker {
         entries.add(new BarEntry(new float[]{billDAO.getAmountUsed_yesterday_kWh(mulittapCode, 1),
                 billDAO.getAmountUsed_yesterday_kWh(mulittapCode, 2),
                 billDAO.getAmountUsed_yesterday_kWh(mulittapCode, 3),
-                billDAO.getAmountUsed_yesterday_kWh(mulittapCode, 14)}, 0, "어제"));
+                billDAO.getAmountUsed_yesterday_kWh(mulittapCode, 4)}, 0, "어제"));
         entries.add(new BarEntry(new float[]{billDAO.getAmountUsed_today_kWh(mulittapCode, 1),
                 billDAO.getAmountUsed_today_kWh(mulittapCode, 2),
                 billDAO.getAmountUsed_today_kWh(mulittapCode, 3),
@@ -146,4 +146,6 @@ public class ChartMaker {
         barChart.setFitsSystemWindows(true);
         barChart.invalidate();
     }
+
+
 }

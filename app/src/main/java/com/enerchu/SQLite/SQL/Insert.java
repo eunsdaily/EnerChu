@@ -59,9 +59,8 @@ public class Insert{
 
         @Override
         public String getSQL(ArrayList<String> params) {
-            // params.get(0) : updatedAmountUsed
-            // params.get(1) : multitapCode
-            // params.get(2) : plugNumber
+            // params.get(0) : multitapCode
+            // params.get(1) : plugNumber
 
             String sql = "insert or replace into bill values('"+params.get(0)+"', "+params.get(1)+", date('now', 'localtime'), 0.0);";
             return sql;

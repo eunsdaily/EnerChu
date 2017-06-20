@@ -12,6 +12,9 @@ import com.enerchu.SQLite.DAO.MultiTapDAO;
 import com.enerchu.SQLite.DAO.PlugDAO;
 import com.enerchu.SQLite.DBHelper;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 /**
  * Created by admin on 2017-06-10.
  */
@@ -35,6 +38,11 @@ public class Singleton {
         if(multiTapDAO == null){ multiTapDAO = new MultiTapDAO(context); }
         if(plugDAO == null){ plugDAO = new PlugDAO(context); }
         if(dbHelper == null){ dbHelper = new DBHelper(context, "EnerChu.db", null, 1); }
+
+        long time = System.currentTimeMillis();
+        SimpleDateFormat dayTime = new SimpleDateFormat("yyyy-MM-dd");
+        String str = dayTime.format(new Date(time));
+        billDAO.today = str;
     }
 
     public static BillDAO getBillDAO(){

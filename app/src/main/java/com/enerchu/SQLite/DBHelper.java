@@ -51,28 +51,33 @@ public class DBHelper extends SQLiteOpenHelper {
     }
 
     public void initialization(SQLiteDatabase db){
-        Log.i("initialization", "called");
-        // insert testing data
-        ArrayList<String> parms = new ArrayList<>();
-        parms.add(0, "id");
-        parms.add(1, "pw");
-        db.execSQL(new Insert.insertClient().getSQL(parms));
 
-        parms.clear();
-        parms.add(0, "mul1");
-        parms.add(1, null);
-        db.execSQL(new Insert.insertMultitap().getSQL(parms));
+        Cursor c = db.query("mission", null, null, null, null, null, null);
 
-        parms.clear();
-        parms.add(0, "mul2");
-        parms.add(1, null);
-        db.execSQL(new Insert.insertMultitap().getSQL(parms));
+        if(c == null) {
+            Log.i("initialization", "called");
+            // insert testing data
+            ArrayList<String> parms = new ArrayList<>();
+            parms.add(0, "id");
+            parms.add(1, "pw");
+            db.execSQL(new Insert.insertClient().getSQL(parms));
 
-        parms.clear();
-        parms.add(0, "5.0");
-        parms.add(1, "mul1");
-        parms.add(2, "1");
-        db.execSQL(new Update.updateBill().getSQL(parms));
+            parms.clear();
+            parms.add(0, "mul1");
+            parms.add(1, null);
+            db.execSQL(new Insert.insertMultitap().getSQL(parms));
+
+            parms.clear();
+            parms.add(0, "mul2");
+            parms.add(1, null);
+            db.execSQL(new Insert.insertMultitap().getSQL(parms));
+
+            parms.clear();
+            parms.add(0, "5.0");
+            parms.add(1, "mul1");
+            parms.add(2, "1");
+            db.execSQL(new Update.updateBill().getSQL(parms));
+        }
 
 //        parms.clear();
 //        parms.add(0, "3");

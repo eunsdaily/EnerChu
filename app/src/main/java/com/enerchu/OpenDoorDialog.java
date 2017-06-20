@@ -26,10 +26,10 @@ public class OpenDoorDialog extends Activity {
         requestWindowFeature(Window.FEATURE_NO_TITLE);
 
         AlertDialog.Builder alter = new AlertDialog.Builder(this);
-        TTSMaker ttsMaker = new TTSMaker(getApplicationContext(), "불 좀 끄고 살자");
+        TTSMaker ttsMaker = new TTSMaker(getApplicationContext(), "하.하.하.하.하.하");
 
         alter.setTitle("EnerChu");
-        alter.setMessage("멀티탭 좀 끄고 가실?");
+        alter.setMessage("하 하 하 하 하 하");
         alter.setIcon(R.mipmap.ic_launcher_round);
 
 
@@ -60,6 +60,7 @@ public class OpenDoorDialog extends Activity {
                 clientDAO.upGrade(-1);
 
                 dialog.dismiss();
+
             }
         });
 

@@ -150,6 +150,7 @@ public class BillCustomAdapter extends BaseAdapter {
 
     public void setTextView(View popupView, String multiTapKey){
         Log.i("BillCustomAdapter", multiTapKey);
+        billDAO.printAllData();
 
         TextView plugNameTextView = (TextView) popupView.findViewById(R.id.plugNameTextView);
         plugNameTextView.setText(multiTapDAO.getNickName(multiTapKey));

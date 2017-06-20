@@ -1,9 +1,11 @@
 package com.enerchu.ConnectWeb;
 
+import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.AsyncTask;
 import android.util.Log;
 
+import com.enerchu.OpenDoorDialog;
 import com.enerchu.SQLite.DAO.PlugDAO;
 import com.enerchu.SQLite.DBHelper;
 import com.enerchu.SQLite.SQL.Insert;
@@ -30,6 +32,7 @@ import java.util.StringTokenizer;
 
 public class ConnectWebforSync extends AsyncTask<String, Void, String> {
     String sendMsg, receiveMsg;
+
     @Override
     protected String doInBackground(String... strings) {
         try {

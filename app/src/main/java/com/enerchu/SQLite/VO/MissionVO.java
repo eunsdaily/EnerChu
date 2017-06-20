@@ -37,12 +37,13 @@ public class MissionVO {
         this.param = param;
     }
 
-    public boolean isSuccess() {
-        return success;
+    public String isSuccess() {
+        return String.valueOf(success);
     }
 
-    public void setSuccess(boolean success) {
-        this.success = success;
+    public void setSuccess(String success) {
+        if(success.equals("true")) this.success = true;
+        else this.success = false;
     }
 
     @Override

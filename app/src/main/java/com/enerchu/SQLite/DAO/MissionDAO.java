@@ -48,7 +48,7 @@ public class MissionDAO {
 
         if(c != null && c.getCount() != 0){
             c.moveToNext();
-            boolean success = (c.getInt(c.getColumnIndex("success")) == 0);
+            boolean success = c.getString(c.getColumnIndex("success")).equals("false");
             if(success){  // 오늘의 미션이 존재하고 아직 미완
                 mission = MissionMaker.makeMissionString(c.getInt(c.getColumnIndex("missionType")), c.getString(c.getColumnIndex("param")));
             }
@@ -156,7 +156,7 @@ public class MissionDAO {
                 tmp.setDate(Date.valueOf(c.getString(c.getColumnIndex("date"))));
                 tmp.setMissionType(c.getInt(c.getColumnIndex("missionType")));
                 tmp.setParam(c.getString(c.getColumnIndex("param")));
-                tmp.setSuccess(Boolean.getBoolean(c.getString(c.getColumnIndex("success"))));
+                tmp.setSuccess(c.getString(c.getColumnIndex("success")));
                 missionVOArray.add(tmp);
             }
         }
@@ -168,18 +168,16 @@ public class MissionDAO {
     public ArrayList<MissionVO> getPastMissionTTF() {
         ArrayList<MissionVO> missionVOArray = new ArrayList<>();
         String sql = "select * from mission where success = 'true' order by date desc;";
-        Cursor c = getTotalMissionDesc();
+        Cursor c = db.rawQuery(sql,null);
 
         if(c.getCount() != 0) {
             while(c.moveToNext()){
-                if(Boolean.getBoolean(c.getString(c.getColumnIndex("success")))) {
                     MissionVO tmp = new MissionVO();
                     tmp.setDate(Date.valueOf(c.getString(c.getColumnIndex("date"))));
                     tmp.setMissionType(c.getInt(c.getColumnIndex("missionType")));
                     tmp.setParam(c.getString(c.getColumnIndex("param")));
-                    tmp.setSuccess(Boolean.getBoolean(c.getString(c.getColumnIndex("success"))));
+                    tmp.setSuccess(c.getString(c.getColumnIndex("success")));
                     missionVOArray.add(tmp);
-                }
             }
         }
 
@@ -189,20 +187,17 @@ public class MissionDAO {
     // 날짜역순 + 실패
     public ArrayList<MissionVO> getPastMissionTFT() {
         ArrayList<MissionVO> missionVOArray = new ArrayList<>();
-        String sql = "select * from mission order by date desc;";
+        String sql = "select * from mission where success = 'false' order by date desc;";
         Cursor c = db.rawQuery(sql, null);
 
         if(c.getCount() != 0 && c != null){
             while(c.moveToNext()){
-                if(!Boolean.getBoolean(c.getString(c.getColumnIndex("success")))) {
                     MissionVO tmp = new MissionVO();
                     tmp.setDate(Date.valueOf(c.getString(c.getColumnIndex("date"))));
                     tmp.setMissionType(c.getInt(c.getColumnIndex("missionType")));
                     tmp.setParam(c.getString(c.getColumnIndex("param")));
-                    tmp.setSuccess(Boolean.getBoolean(c.getString(c.getColumnIndex("success"))));
-                    Log.i("makeMissionVOList", tmp.toString());
+                    tmp.setSuccess(c.getString(c.getColumnIndex("success")));
                     missionVOArray.add(tmp);
-                }
             }
         }
 
@@ -227,7 +222,7 @@ public class MissionDAO {
                 tmp.setDate(Date.valueOf(c.getString(c.getColumnIndex("date"))));
                 tmp.setMissionType(c.getInt(c.getColumnIndex("missionType")));
                 tmp.setParam(c.getString(c.getColumnIndex("param")));
-                tmp.setSuccess(Boolean.getBoolean(c.getString(c.getColumnIndex("success"))));
+                tmp.setSuccess(c.getString(c.getColumnIndex("success")));
                 missionVOArray.add(tmp);
             }
         }
@@ -238,18 +233,17 @@ public class MissionDAO {
     // 날짜순서 + 성공
     public ArrayList<MissionVO> getPastMissionFTF() {
         ArrayList<MissionVO> missionVOArray = new ArrayList<>();
-        Cursor c = getTotalMissionAcs();
+        String sql = "select * from mission where success <> 'false';";
+        Cursor c = db.rawQuery(sql,null);
 
         if(c.getCount() != 0) {
             while(c.moveToNext()){
-                if(Boolean.getBoolean(c.getString(c.getColumnIndex("success")))) {
                     MissionVO tmp = new MissionVO();
                     tmp.setDate(Date.valueOf(c.getString(c.getColumnIndex("date"))));
                     tmp.setMissionType(c.getInt(c.getColumnIndex("missionType")));
                     tmp.setParam(c.getString(c.getColumnIndex("param")));
-                    tmp.setSuccess(Boolean.getBoolean(c.getString(c.getColumnIndex("success"))));
+                    tmp.setSuccess(c.getString(c.getColumnIndex("success")));
                     missionVOArray.add(tmp);
-                }
             }
         }
 
@@ -259,19 +253,18 @@ public class MissionDAO {
     // 날짜순서 + 실패
     public ArrayList<MissionVO> getPastMissionFFT() {
         ArrayList<MissionVO> missionVOArray = new ArrayList<>();
-        Cursor c = getTotalMissionAcs();
+        String sql = "select * from mission where success = 'false';";
+        Cursor c = db.rawQuery(sql, null);
 
         if(c.getCount() != 0 && c != null){
             while(c.moveToNext()){
-                if(!Boolean.getBoolean(c.getString(c.getColumnIndex("success")))) {
                     MissionVO tmp = new MissionVO();
                     tmp.setDate(Date.valueOf(c.getString(c.getColumnIndex("date"))));
                     tmp.setMissionType(c.getInt(c.getColumnIndex("missionType")));
                     tmp.setParam(c.getString(c.getColumnIndex("param")));
-                    tmp.setSuccess(Boolean.getBoolean(c.getString(c.getColumnIndex("success"))));
+                    tmp.setSuccess(c.getString(c.getColumnIndex("success")));
                     Log.i("makeMissionVOList", tmp.toString());
                     missionVOArray.add(tmp);
-                }
             }
         }
 
@@ -292,6 +285,24 @@ public class MissionDAO {
 
     public void setTodaySuccessToTrue() {
         db.execSQL(new Update.updateMissionSuccess().getSQL(new ArrayList<String>()));
+    }
 
+    public boolean isExistTodayMission() {
+        String sql = "select date from mission where date = date('now', 'localtime');";
+        Cursor c = db.rawQuery(sql, null);
+        boolean returnVal = true;
+
+        if(c.getCount() == 0){
+            return false;
+        }
+        return returnVal;
+    }
+
+    public void printAllMission(){
+        Cursor c = db.query("mission", null, null, null, null, null, null);
+        while(c.moveToNext()){
+            Log.i("all mission", String.valueOf(c.getString(c.getColumnIndex("date")))+" "+String.valueOf(c.getInt(c.getColumnIndex("missionType")))+" "+
+                                c.getString(c.getColumnIndex("param"))+" "+c.getString(c.getColumnIndex("success")));
+        }
     }
 }
